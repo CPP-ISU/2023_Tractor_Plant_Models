@@ -1,0 +1,1155 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<SimscapeMultibodyImportXML version="2.0" xmlns="urn:mathworks:SimscapeMultibody:import" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<Created by="" on="01/24/23||08:31:12" using="Simscape Multibody Link Version 7.4" from="SolidWorks 30.5.0"/>
+<ModelUnits mass="kilogram" length="inch"/>
+<DataUnits mass="kilogram" length="meter"/>
+<RootAssembly name="Simulation_Top_Level" uid="Simulation_Top_Level" version="503">
+<AssemblyFile name="Simulation_Top_Level.SLDASM" type="SolidWorks Assembly"/>
+<InstanceTree>
+<Instance name="Cylinder-2" uid="Cylinder-2" entityUid="Cylinder">
+<Transform>
+<Rotation>0.99186081117166225 0.12732686779267116 -3.0315783520681872e-15 -0.12720568082785674 0.99091677945778933 -0.043619387365302568 -0.0055539199682561845 0.043264360934960326 0.99904822158185946</Rotation>
+<Translation>0.36734722873501552 0.87663943522772536 0.84878471066444083</Translation>
+</Transform>
+<Instance name="Rod-1" uid="Rod-1" entityUid="Rod*:*Default">
+<Transform>
+<Rotation>-1 0 0 0 -0.99999999999999989 0 0 0 0.99999999999999989</Rotation>
+<Translation>4.5519144009631418e-15 0.13239859718183611 -2.7866597918091429e-14</Translation>
+</Transform>
+</Instance>
+<Instance name="Cylinder-1" uid="Cylinder-1" grounded="true" entityUid="Cylinder*:*Default">
+<Transform>
+<Rotation>1 0 0 0 1 0 0 0 1</Rotation>
+<Translation>0 0 0</Translation>
+</Transform>
+</Instance>
+</Instance>
+<Instance name="18in Trailer Tire-2" uid="18in Trailer Tire-2" entityUid="18in Trailer Tire*:*Default">
+<Transform>
+<Rotation>0.99966993682523819 -0.024189400062227768 -0.0086539200628226089 -0.0073380213202319036 0.053968901156873791 -0.99851565393388964 0.024620537177893791 0.99824958333702751 0.053773585676639306</Rotation>
+<Translation>0.18498213455041518 0.85000338764749395 0.84564233919526222</Translation>
+</Transform>
+</Instance>
+<Instance name="Swivel Joint Assembly Final-2" uid="Swivel Joint Assembly Final-2" entityUid="Swivel Joint Assembly Final">
+<Transform>
+<Rotation>-0.0012903785182846409 -0.99979649909005675 -0.02013194800672562 0.13490082960381425 -0.020121978283961856 0.99065476941371589 -0.99085826488730588 -0.0014374968541604528 0.1348993421307608</Rotation>
+<Translation>1.025932505811892 0.73933796607102198 0.83410553696747392</Translation>
+</Transform>
+<Instance name="2995K14_Swivel Joint outside-1" uid="2995K14_Swivel Joint outside-1" entityUid="2995K14_Swivel Joint outside*:*2995K14">
+<Transform>
+<Rotation>0.99579237395517617 0.0060319282261312897 0.091439399684104528 -0.00076158249033112988 0.99834157240907939 -0.057563224300564653 -0.091634971298216919 0.057251381133047757 0.99414551821830055</Rotation>
+<Translation>0.0024640351549809481 -0.0063776045663330727 0.0030326126459522262</Translation>
+</Transform>
+</Instance>
+<Instance name="2995K14_Swivel Joint Inside-1" uid="2995K14_Swivel Joint Inside-1" grounded="true" entityUid="2995K14_Swivel Joint Inside*:*2995K14">
+<Transform>
+<Rotation>1 0 0 0 1 0 0 0 1</Rotation>
+<Translation>0.0024640351569473751 -0.0063776045663530567 0.0030326126476438731</Translation>
+</Transform>
+</Instance>
+</Instance>
+<Instance name="right wheel-1" uid="right wheel-1" entityUid="right wheel" rigid="true">
+<Transform>
+<Rotation>1 0 0 0 0.91992021200293672 -0.3921056025466505 0 0.3921056025466505 0.91992021200293672</Rotation>
+<Translation>1.0877838230892367 0.88626721713437273 2.354285818413365</Translation>
+</Transform>
+<Instance name="2158203564-1" uid="2158203564-1" entityUid="2158203564*:*Default">
+<Transform>
+<Rotation>-1 0 0 0 -0.3818493186865925 0.92422459273630286 0 0.92422459273630297 0.38184931868659278</Rotation>
+<Translation>0.15437147359697234 -0.0009539300010601437 -0.00041052200180047294</Translation>
+</Transform>
+</Instance>
+<Instance name="2158203563-1" uid="2158203563-1" grounded="true" entityUid="2158203563*:*Default">
+<Transform>
+<Rotation>1 0 0 0 1 0 0 0 1</Rotation>
+<Translation>0.0019714735969722508 -0.0009539300010601437 -0.00041052200180047294</Translation>
+</Transform>
+</Instance>
+</Instance>
+<Instance name="Suspension_Spindle-1" uid="Suspension_Spindle-1" entityUid="Suspension_Spindle*:*Default">
+<Transform>
+<Rotation>0.021152872221564232 -0.020131948006725499 -0.99957353939879412 -0.13447444587009566 0.99065476941371566 -0.022798053552631731 0.99069126341394043 0.13489934213076224 0.018247961200601522</Rotation>
+<Translation>1.1600234770399893 0.7665744552927144 0.86652062050522272</Translation>
+</Transform>
+</Instance>
+<Instance name="Sheet_Upper_Assem-1" uid="Sheet_Upper_Assem-1" entityUid="Sheet_Upper_Assem*:*Default">
+<Transform>
+<Rotation>0.00025670120543788043 -0.99749202614234811 0.070778470504274424 0.04723336357140398 0.070711570144310273 0.99637788173637132 -0.99888384883840353 0.0030873338270429162 0.047133055275652369</Rotation>
+<Translation>0.92421321796252831 0.85700710642470557 0.8343082959599496</Translation>
+</Transform>
+</Instance>
+<Instance name="Lower_A-Arm_Assembly-2" uid="Lower_A-Arm_Assembly-2" entityUid="Lower_A-Arm_Assembly*:*Default">
+<Transform>
+<Rotation>-6.5450032546432446e-15 0.28656843771844259 -0.95805977397217279 -0.043619387365301784 0.95714791335601745 0.28629568806410216 0.99904822158185913 0.041789980400007552 0.01249993969150384</Rotation>
+<Translation>0.64855203362457603 0.52388386690881439 0.99740728282949331</Translation>
+</Transform>
+</Instance>
+<Instance name="Sheet_Upper_Assem-2" uid="Sheet_Upper_Assem-2" entityUid="Sheet_Upper_Assem*:*Default">
+<Transform>
+<Rotation>0.0011488070315146428 0.94850745687084037 0.31675271822482493 -0.040182325657571218 -0.31645332109575686 0.94775665456498637 0.99919170380220501 -0.013816650385559858 0.037749691720197841</Rotation>
+<Translation>0.34258181917196079 0.88988258735949655 0.86639361309702412</Translation>
+</Transform>
+</Instance>
+<Instance name="Swivel Joint Assembly Final-4" uid="Swivel Joint Assembly Final-4" entityUid="Swivel Joint Assembly Final">
+<Transform>
+<Rotation>0.99523256903253254 0.097333707229390928 0.006187323645068874 -0.010676721557946431 0.045670782815908154 0.99889948804359496 0.096944010406418063 -0.99420336402265597 0.046492255401893924</Rotation>
+<Translation>0.25141939762815457 0.80124567051829099 0.83850947772520612</Translation>
+</Transform>
+<Instance name="2995K14_Swivel Joint Inside-1" uid="2995K14_Swivel Joint Inside-1" grounded="true" entityUid="2995K14_Swivel Joint Inside*:*2995K14">
+<Transform>
+<Rotation>1 0 0 0 1 0 0 0 1</Rotation>
+<Translation>0.0024640351569474306 -0.0063776045663531677 0.0030326126476439841</Translation>
+</Transform>
+</Instance>
+<Instance name="2995K14_Swivel Joint outside-1" uid="2995K14_Swivel Joint outside-1" entityUid="2995K14_Swivel Joint outside*:*2995K14">
+<Transform>
+<Rotation>0.95973461848520625 -0.032392982510978489 0.27903432900827668 0.024986918865845892 0.9992357714820741 0.030058723795525308 -0.27979477473077907 -0.021876189674335109 0.95981056274594367</Rotation>
+<Translation>0.0024640351570164865 -0.0063776045663014314 0.0030326126475793691</Translation>
+</Transform>
+</Instance>
+</Instance>
+<Instance name="Swivel Joint Assembly Final-1" uid="Swivel Joint Assembly Final-1" entityUid="Swivel Joint Assembly Final">
+<Transform>
+<Rotation>-0.0013056411132248559 -0.99979647927502613 -0.020131948006725534 0.13490052241197939 -0.020124037637437565 0.99065476941371589 -0.9908582867162482 -0.0014223707073192453 0.13489934213076221</Rotation>
+<Translation>0.9977039233236229 0.88057050676503479 0.85389770946686028</Translation>
+</Transform>
+<Instance name="2995K14_Swivel Joint outside-1" uid="2995K14_Swivel Joint outside-1" entityUid="2995K14_Swivel Joint outside*:*2995K14">
+<Transform>
+<Rotation>0.99611417793789925 0.0089303980850240824 0.087617307086821 -0.00093420897764682792 0.99586120693220437 -0.090882252288988621 -0.088066291875435396 0.090447247153112906 0.99199981034158191</Rotation>
+<Translation>0.0024640351546388883 -0.0063776045663457293 0.0030326126459274683</Translation>
+</Transform>
+</Instance>
+<Instance name="2995K14_Swivel Joint Inside-1" uid="2995K14_Swivel Joint Inside-1" grounded="true" entityUid="2995K14_Swivel Joint Inside*:*2995K14">
+<Transform>
+<Rotation>1 0 0 0 1 0 0 0 1</Rotation>
+<Translation>0.0024640351569475971 -0.0063776045663528347 0.0030326126476438731</Translation>
+</Transform>
+</Instance>
+</Instance>
+<Instance name="Swivel Joint Assembly Final-3" uid="Swivel Joint Assembly Final-3" entityUid="Swivel Joint Assembly Final">
+<Transform>
+<Rotation>0.99872322368036304 -0.050136209545743549 0.0061873236450689494 -0.0038418249043614206 0.046744552277764632 0.99889948804359474 -0.050370257721275992 -0.99764788744563437 0.046492255401901147</Rotation>
+<Translation>0.27670602529940669 0.94404385770583832 0.84611170764225252</Translation>
+</Transform>
+<Instance name="2995K14_Swivel Joint Inside-1" uid="2995K14_Swivel Joint Inside-1" grounded="true" entityUid="2995K14_Swivel Joint Inside*:*2995K14">
+<Transform>
+<Rotation>1 0 0 0 1 0 0 0 1</Rotation>
+<Translation>0.0024640351569474028 -0.0063776045663530567 0.0030326126476438731</Translation>
+</Transform>
+</Instance>
+<Instance name="2995K14_Swivel Joint outside-1" uid="2995K14_Swivel Joint outside-1" entityUid="2995K14_Swivel Joint outside*:*2995K14">
+<Transform>
+<Rotation>0.93094549248353131 -0.19167758095168663 0.31080571903538867 0.20461500109212674 0.9787989263046345 -0.0092392203655708716 -0.3024453526716262 0.072196723093255533 0.9504285569267853</Rotation>
+<Translation>0.0024640351569813479 -0.0063776045662723435 0.0030326126475742621</Translation>
+</Transform>
+</Instance>
+</Instance>
+<Instance name="Cylinder-1" uid="Cylinder-1" entityUid="Cylinder">
+<Transform>
+<Rotation>0.9875746794332213 -0.15715041375182578 -1.0574874309554616e-14 0.15700084137961443 0.98663472716703471 -0.043619387365301375 0.0068548047720687058 0.04307740249435936 0.99904822158185924</Rotation>
+<Translation>0.91445553845155358 0.87760988618373392 0.84746053049696113</Translation>
+</Transform>
+<Instance name="Cylinder-1" uid="Cylinder-1" grounded="true" entityUid="Cylinder*:*Default">
+<Transform>
+<Rotation>1 0 0 0 1 0 0 0 1</Rotation>
+<Translation>0 0 0</Translation>
+</Transform>
+</Instance>
+<Instance name="Rod-1" uid="Rod-1" entityUid="Rod*:*Default">
+<Transform>
+<Rotation>-0.99999999999999967 0 9.4308241771479118e-15 0 -1 0 9.429089453671935e-15 0 1</Rotation>
+<Translation>-8.8817841970012523e-15 0.10293730462112494 1.283417816466681e-13</Translation>
+</Transform>
+</Instance>
+</Instance>
+<Instance name="Top_Level_Simulation_Static_Tractor-1" uid="Top_Level_Simulation_Static_Tractor-1" grounded="true" entityUid="Top_Level_Simulation_Static_Tractor*:*Default">
+<Transform>
+<Rotation>1 0 0 0 -3.4914813388431334e-15 -1 0 1 -3.4914813388431334e-15</Rotation>
+<Translation>0.79012927668620858 0.78268064562244077 2.2184375718569838</Translation>
+</Transform>
+</Instance>
+<Instance name="Suspension_Spindle-2" uid="Suspension_Spindle-2" entityUid="Suspension_Spindle*:*Default">
+<Transform>
+<Rotation>0.024934603143735776 0.0061873236450989549 0.99966993682523786 0.046324574789294151 0.99889948804356421 -0.0073380213202359733 -0.99861519082009542 0.046492255402550045 0.024620537177904165</Rotation>
+<Translation>0.12667084001593382 0.83204600254404038 0.80970129778527367</Translation>
+</Transform>
+</Instance>
+<Instance name="Lower_A-Arm_Assembly-1" uid="Lower_A-Arm_Assembly-1" entityUid="Lower_A-Arm_Assembly*:*Default">
+<Transform>
+<Rotation>4.7182310142224182e-15 0.037419432811072954 0.99929964777743119 0.043619387365299724 0.99834853593942086 -0.037383817802504313 -0.99904822158185946 0.043588838430411517 -0.0016322127347712953</Rotation>
+<Translation>0.57002447136523182 0.61885958562968546 0.66226523176705432</Translation>
+</Transform>
+</Instance>
+<Instance name="18in Trailer Tire-1" uid="18in Trailer Tire-1" entityUid="18in Trailer Tire*:*Default">
+<Transform>
+<Rotation>0.99957353939878257 -0.024050664486935967 0.016562151778300074 0.022798053552772566 0.99713942398632149 0.072063984669403044 -0.01824796120106368 -0.07165566739598403 0.99726249164502345</Rotation>
+<Translation>1.0998906190615054 0.78953018754406845 0.83699932385790099</Translation>
+</Transform>
+</Instance>
+<Instance name="left wheel-1" uid="left wheel-1" entityUid="left wheel" rigid="true">
+<Transform>
+<Rotation>1 -2.7802384120716788e-15 -1.1963174456621217e-15 2.7009481602347833e-15 0.99808658198804301 -0.061831827204326839 1.365935611395621e-15 0.061831827204326839 0.99808658198804301</Rotation>
+<Translation>0.18373178308923555 0.88647736703117308 2.3540028493651786</Translation>
+</Transform>
+<Instance name="2158203563-1" uid="2158203563-1" grounded="true" entityUid="2158203563*:*Default">
+<Transform>
+<Rotation>1 0 0 0 1 0 0 0 1</Rotation>
+<Translation>0.0019714735969721953 -0.0009539300010601437 -0.00041052200180047294</Translation>
+</Transform>
+</Instance>
+<Instance name="2158203564-1" uid="2158203564-1" entityUid="2158203564*:*Default">
+<Transform>
+<Rotation>1 0 0 0 1 0 0 0 1</Rotation>
+<Translation>-0.15042852640302776 -0.0009539300010601437 -0.00041052200180047294</Translation>
+</Transform>
+</Instance>
+</Instance>
+<Instance name="Hitch-1" uid="Hitch-1" entityUid="Hitch*:*Default">
+<Transform>
+<Rotation>1 0 0 0 1 0 0 0 1</Rotation>
+<Translation>0.6377292766862751 0.83229639277827538 2.5613375718569635</Translation>
+</Transform>
+</Instance>
+</InstanceTree>
+<Constraints>
+<Concentric name="Concentric1">
+<ConstraintGeometry geomType="cylinder">
+<InstancePath>
+<Uid>Top_Level_Simulation_Static_Tractor-1</Uid>
+</InstancePath>
+<Position>-0.3555999999971115 -1.4844860846141577 0.035133524188618592</Position>
+<Axis>-6.5440947781776178e-15 0.99904822158185946 0.043619387365298308</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="cylinder">
+<InstancePath>
+<Uid>Lower_A-Arm_Assembly-2</Uid>
+</InstancePath>
+<Position>-0.24044909818849836 0.1417368377380257 0.26578723792721215</Position>
+<Axis>-1 0 0</Axis>
+</ConstraintGeometry>
+</Concentric>
+<Concentric name="Concentric2">
+<ConstraintGeometry geomType="cylinder">
+<InstancePath>
+<Uid>Top_Level_Simulation_Static_Tractor-1</Uid>
+</InstancePath>
+<Position>0.050799999999987411 -1.484486084613903 0.035133524182827558</Position>
+<Axis>5.7077357664966292e-15 0.99904822158185957 0.043619387365296511</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="cylinder">
+<InstancePath>
+<Uid>Lower_A-Arm_Assembly-1</Uid>
+</InstancePath>
+<Position>-0.088049098187664043 0.14173683773802515 0.2657872379272137</Position>
+<Axis>1.0000000000000002 0 -1.0474043507513464e-14</Axis>
+</ConstraintGeometry>
+</Concentric>
+<Concentric name="Concentric3">
+<ConstraintGeometry geomType="cylinder">
+<InstancePath>
+<Uid>Top_Level_Simulation_Static_Tractor-1</Uid>
+</InstancePath>
+<Position>-0.35559999999854708 -1.3231728376548872 -0.11036857656439936</Position>
+<Axis>3.3365754334247227e-16 0.99904822158185946 0.043619387365296781</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="cylinder">
+<InstancePath>
+<Uid>Sheet_Upper_Assem-2</Uid>
+</InstancePath>
+<Position>0.064703435859894909 0.085811854799597145 0.033085561655220141</Position>
+<Axis>0.99999342313103712 0 -0.0036268022651840259</Axis>
+</ConstraintGeometry>
+</Concentric>
+<Concentric name="Concentric4">
+<ConstraintGeometry geomType="cylinder">
+<InstancePath>
+<Uid>Top_Level_Simulation_Static_Tractor-1</Uid>
+</InstancePath>
+<Position>0.050799999999999845 -1.3231728376516791 -0.11036857657006682</Position>
+<Axis>3.5437914544606874e-15 0.99904822158185946 0.043619387365296677</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="cylinder">
+<InstancePath>
+<Uid>Sheet_Upper_Assem-1</Uid>
+</InstancePath>
+<Position>-0.11315028559849061 0.085811854799597187 0.033085561655220141</Position>
+<Axis>0.99999342313103701 0 -0.0036268022651843035</Axis>
+</ConstraintGeometry>
+</Concentric>
+<Concentric name="Concentric5">
+<ConstraintGeometry geomType="cylinder">
+<InstancePath>
+<Uid>Sheet_Upper_Assem-1</Uid>
+</InstancePath>
+<Position>-0.016249337802388242 -0.077637145200402768 0.023531773912240372</Position>
+<Axis>0 0 1.0000000000000002</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="cylinder">
+<InstancePath>
+<Uid>Swivel Joint Assembly Final-1</Uid>
+<Uid>2995K14_Swivel Joint outside-1</Uid>
+</InstancePath>
+<Position>0 2.2204460492503131e-16 0.0059999999999997833</Position>
+<Axis>0 0 -1.0000000000000002</Axis>
+</ConstraintGeometry>
+</Concentric>
+<Coincident name="Coincident1">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>Sheet_Upper_Assem-1</Uid>
+</InstancePath>
+<Position>-0.030536837802388361 -0.085574645200402921 0.039406773912240234</Position>
+<Axis>0 0 1.0000000000000002</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>Swivel Joint Assembly Final-1</Uid>
+<Uid>2995K14_Swivel Joint outside-1</Uid>
+</InstancePath>
+<Position>0 2.2204460492503131e-16 0.0059999999999997833</Position>
+<Axis>0 0 1.0000000000000002</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Concentric name="Concentric8">
+<ConstraintGeometry geomType="cylinder">
+<InstancePath>
+<Uid>Lower_A-Arm_Assembly-1</Uid>
+</InstancePath>
+<Position>-0.16424909818838818 0.15443683773802297 0.45698573792734265</Position>
+<Axis>0 -1 -1.1970947236955576e-16</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="cylinder">
+<InstancePath>
+<Uid>Swivel Joint Assembly Final-2</Uid>
+<Uid>2995K14_Swivel Joint outside-1</Uid>
+</InstancePath>
+<Position>-1.1102230246251565e-16 0 0.0060000000000001164</Position>
+<Axis>0 0 -1.0000000000000002</Axis>
+</ConstraintGeometry>
+</Concentric>
+<Coincident name="Coincident2">
+<ConstraintGeometry geomType="circle">
+<InstancePath>
+<Uid>Lower_A-Arm_Assembly-1</Uid>
+</InstancePath>
+<Position>-0.16424909818838818 0.15443683773802297 0.45698573792734265</Position>
+<Axis>0 1 1.1970947236955576e-16</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>Swivel Joint Assembly Final-2</Uid>
+<Uid>2995K14_Swivel Joint outside-1</Uid>
+</InstancePath>
+<Position>-1.1102230246251565e-16 0 0.0060000000000001164</Position>
+<Axis>0 0 1.0000000000000002</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Concentric name="Concentric9">
+<ConstraintGeometry geomType="cylinder">
+<InstancePath>
+<Uid>Lower_A-Arm_Assembly-2</Uid>
+</InstancePath>
+<Position>-0.16424909818838807 0.15443683773802286 0.45698573792734243</Position>
+<Axis>0 -1.0000000000000002 -1.4278942611634093e-16</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="cylinder">
+<InstancePath>
+<Uid>Swivel Joint Assembly Final-4</Uid>
+<Uid>2995K14_Swivel Joint outside-1</Uid>
+</InstancePath>
+<Position>0 0 0.0059999999999998943</Position>
+<Axis>0 0 -1</Axis>
+</ConstraintGeometry>
+</Concentric>
+<Coincident name="Coincident3">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>Lower_A-Arm_Assembly-2</Uid>
+</InstancePath>
+<Position>-0.16424909818838807 0.15443683773802286 0.45698573792734243</Position>
+<Axis>0 1.0000000000000002 1.4278942611634093e-16</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>Swivel Joint Assembly Final-4</Uid>
+<Uid>2995K14_Swivel Joint outside-1</Uid>
+</InstancePath>
+<Position>0 0 0.0059999999999998943</Position>
+<Axis>0 0 1</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Concentric name="Concentric10">
+<ConstraintGeometry geomType="cylinder">
+<InstancePath>
+<Uid>Sheet_Upper_Assem-2</Uid>
+</InstancePath>
+<Position>-0.016249337802388353 -0.077637145200402879 0.023531773912240261</Position>
+<Axis>0 0 1.0000000000000002</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="cylinder">
+<InstancePath>
+<Uid>Swivel Joint Assembly Final-3</Uid>
+<Uid>2995K14_Swivel Joint outside-1</Uid>
+</InstancePath>
+<Position>0 1.1102230246251565e-16 0.0060000000000000053</Position>
+<Axis>0 0 -1</Axis>
+</ConstraintGeometry>
+</Concentric>
+<Coincident name="Coincident5">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>Sheet_Upper_Assem-2</Uid>
+</InstancePath>
+<Position>-0.030536837802388361 -0.085574645200402921 0.039406773912240345</Position>
+<Axis>0 0 1.0000000000000002</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>Swivel Joint Assembly Final-3</Uid>
+<Uid>2995K14_Swivel Joint outside-1</Uid>
+</InstancePath>
+<Position>0 1.1102230246251565e-16 0.0060000000000000053</Position>
+<Axis>0 0 1</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Concentric name="Concentric11">
+<ConstraintGeometry geomType="cylinder">
+<InstancePath>
+<Uid>Swivel Joint Assembly Final-1</Uid>
+<Uid>2995K14_Swivel Joint Inside-1</Uid>
+</InstancePath>
+<Position>-1.1102230246251565e-16 -2.2204460492503131e-16 -0.011114999999999986</Position>
+<Axis>0 0 1.0000000000000002</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="cylinder">
+<InstancePath>
+<Uid>Suspension_Spindle-1</Uid>
+</InstancePath>
+<Position>-0.033605432708762817 0.11752933115407227 0.15299583769124481</Position>
+<Axis>-6.9666494795228573e-15 1.0000000000000002 0</Axis>
+</ConstraintGeometry>
+</Concentric>
+<Concentric name="Concentric12">
+<ConstraintGeometry geomType="cylinder">
+<InstancePath>
+<Uid>Swivel Joint Assembly Final-2</Uid>
+<Uid>2995K14_Swivel Joint Inside-1</Uid>
+</InstancePath>
+<Position>0 2.2204460492503131e-16 -0.011114999999999986</Position>
+<Axis>0 0 1</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="cylinder">
+<InstancePath>
+<Uid>Suspension_Spindle-1</Uid>
+</InstancePath>
+<Position>-0.033623983754446973 -0.025623606285331446 0.12763791813715986</Position>
+<Axis>0 -1 0</Axis>
+</ConstraintGeometry>
+</Concentric>
+<Coincident name="Coincident6">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>Swivel Joint Assembly Final-2</Uid>
+<Uid>2995K14_Swivel Joint Inside-1</Uid>
+</InstancePath>
+<Position>-0.015000000000000013 0.015000000000000124 0.0080000000000000071</Position>
+<Axis>0 0 1</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>Suspension_Spindle-1</Uid>
+</InstancePath>
+<Position>-0.033623983754447084 -0.017622606285331521 0.12763791813715963</Position>
+<Axis>0 -1 0</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Coincident name="Coincident7">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>Swivel Joint Assembly Final-1</Uid>
+<Uid>2995K14_Swivel Joint Inside-1</Uid>
+</InstancePath>
+<Position>-0.015000000000000124 -0.015000000000000124 -0.0079999999999998961</Position>
+<Axis>0 0 -1.0000000000000002</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>Suspension_Spindle-1</Uid>
+</InstancePath>
+<Position>-0.033605432708762595 0.10952833115407212 0.15299583769124503</Position>
+<Axis>-6.9666494795228573e-15 1.0000000000000002 0</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Concentric name="Concentric13">
+<ConstraintGeometry geomType="cylinder">
+<InstancePath>
+<Uid>Lower_A-Arm_Assembly-1</Uid>
+</InstancePath>
+<Position>-0.14951709818818426 0.1715818377380256 0.35551273792733518</Position>
+<Axis>-1.0000000000000002 0 3.4913478358378214e-15</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="cylinder">
+<InstancePath>
+<Uid>Cylinder-1</Uid>
+<Uid>Rod-1</Uid>
+</InstancePath>
+<Position>-2.2204460492503131e-16 0.21272499999999994 -0.013081000000000009</Position>
+<Axis>0 0 1</Axis>
+</ConstraintGeometry>
+</Concentric>
+<Concentric name="Concentric14">
+<ConstraintGeometry geomType="cylinder">
+<InstancePath>
+<Uid>Top_Level_Simulation_Static_Tractor-1</Uid>
+</InstancePath>
+<Position>0.090896439999998191 -1.377481732551739 -0.305495207030959</Position>
+<Axis>-6.3124541128050256e-15 0.99904822158185824 0.043619387365324551</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="cylinder">
+<InstancePath>
+<Uid>Cylinder-1</Uid>
+<Uid>Cylinder-1</Uid>
+</InstancePath>
+<Position>2.2204460492503131e-16 0.21272500000000005 -0.017462499999999825</Position>
+<Axis>0 0 1</Axis>
+</ConstraintGeometry>
+</Concentric>
+<Coincident name="Coincident10">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>Swivel Joint Assembly Final-3</Uid>
+<Uid>2995K14_Swivel Joint Inside-1</Uid>
+</InstancePath>
+<Position>-0.014999999999999958 -0.015000000000000013 -0.0080000000000000071</Position>
+<Axis>0 0 -1</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>Suspension_Spindle-2</Uid>
+</InstancePath>
+<Position>-0.033605432708762706 0.10952833115407201 0.152995837691245</Position>
+<Axis>-6.9805272673306717e-15 1 0</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Concentric name="Concentric15">
+<ConstraintGeometry geomType="cylinder">
+<InstancePath>
+<Uid>Swivel Joint Assembly Final-3</Uid>
+<Uid>2995K14_Swivel Joint Inside-1</Uid>
+</InstancePath>
+<Position>0 0 -0.011114999999999875</Position>
+<Axis>0 0 1</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="cylinder">
+<InstancePath>
+<Uid>Suspension_Spindle-2</Uid>
+</InstancePath>
+<Position>-0.033605432708762817 0.11752933115407216 0.152995837691245</Position>
+<Axis>-6.9805272673306717e-15 1 0</Axis>
+</ConstraintGeometry>
+</Concentric>
+<Coincident name="Coincident11">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>Swivel Joint Assembly Final-4</Uid>
+<Uid>2995K14_Swivel Joint Inside-1</Uid>
+</InstancePath>
+<Position>-0.015000000000000069 0.015000000000000124 0.0079999999999998961</Position>
+<Axis>0 0 1</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>Suspension_Spindle-2</Uid>
+</InstancePath>
+<Position>-0.033623983754446973 -0.017622606285331632 0.12763791813715983</Position>
+<Axis>0 -1 0</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Concentric name="Concentric16">
+<ConstraintGeometry geomType="cylinder">
+<InstancePath>
+<Uid>Swivel Joint Assembly Final-4</Uid>
+<Uid>2995K14_Swivel Joint Inside-1</Uid>
+</InstancePath>
+<Position>0 1.1102230246251565e-16 -0.011115000000000097</Position>
+<Axis>0 0 1</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="cylinder">
+<InstancePath>
+<Uid>Suspension_Spindle-2</Uid>
+</InstancePath>
+<Position>-0.033623983754447084 -0.025623606285331557 0.12763791813715983</Position>
+<Axis>0 -1 0</Axis>
+</ConstraintGeometry>
+</Concentric>
+<Concentric name="Concentric20">
+<ConstraintGeometry geomType="cylinder">
+<InstancePath>
+<Uid>Top_Level_Simulation_Static_Tractor-1</Uid>
+</InstancePath>
+<Position>-0.39569644000000165 -1.3774817325517421 -0.30549520703095923</Position>
+<Axis>-6.3124541128050256e-15 0.99904822158185824 0.043619387365324551</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="cylinder">
+<InstancePath>
+<Uid>Cylinder-2</Uid>
+<Uid>Cylinder-1</Uid>
+</InstancePath>
+<Position>0 0.21272499999999994 -0.017462500000000047</Position>
+<Axis>0 0 1.0000000000000002</Axis>
+</ConstraintGeometry>
+</Concentric>
+<Concentric name="Concentric21">
+<ConstraintGeometry geomType="cylinder">
+<InstancePath>
+<Uid>Lower_A-Arm_Assembly-2</Uid>
+</InstancePath>
+<Position>-0.17694909818818416 0.1715818377380256 0.35551273792736238</Position>
+<Axis>-1 0 3.4937330806172895e-15</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="cylinder">
+<InstancePath>
+<Uid>Cylinder-2</Uid>
+<Uid>Rod-1</Uid>
+</InstancePath>
+<Position>0 0.21272499999999994 -0.013081000000000009</Position>
+<Axis>0 0 1</Axis>
+</ConstraintGeometry>
+</Concentric>
+<Concentric name="Concentric22">
+<ConstraintGeometry geomType="cylinder">
+<InstancePath>
+<Uid>Suspension_Spindle-1</Uid>
+</InstancePath>
+<Position>-0.033605432708648797 0.019969393714557304 0.061426414194985179</Position>
+<Axis>1.0484668688803822e-14 3.4872278675823765e-15 1</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="cylinder">
+<InstancePath>
+<Uid>18in Trailer Tire-1</Uid>
+</InstancePath>
+<Position>-0.08898999999999968 1.1102230246251565e-16 1.1102230246251565e-16</Position>
+<Axis>-1 0 0</Axis>
+</ConstraintGeometry>
+</Concentric>
+<Coincident name="Coincident12">
+<ConstraintGeometry geomType="circle">
+<InstancePath>
+<Uid>Suspension_Spindle-1</Uid>
+</InstancePath>
+<Position>-0.033605432708648797 0.019969393714557304 0.061426414194985179</Position>
+<Axis>-1.0484668688803822e-14 -3.4872278675823765e-15 -1</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>18in Trailer Tire-1</Uid>
+</InstancePath>
+<Position>-0.0023812499999997794 0.095250000000000057 0</Position>
+<Axis>-1 0 0</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Concentric name="Concentric25">
+<ConstraintGeometry geomType="cylinder">
+<InstancePath>
+<Uid>Suspension_Spindle-2</Uid>
+</InstancePath>
+<Position>-0.033605432708648797 0.019969393714557193 0.061426414194985207</Position>
+<Axis>1.0470790900996008e-14 3.4900467932308388e-15 0.99999999999999989</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="cylinder">
+<InstancePath>
+<Uid>18in Trailer Tire-2</Uid>
+</InstancePath>
+<Position>-0.08899 0 1.1102230246251565e-16</Position>
+<Axis>-1 0 0</Axis>
+</ConstraintGeometry>
+</Concentric>
+<Coincident name="Coincident13">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>Suspension_Spindle-2</Uid>
+</InstancePath>
+<Position>-0.033605432708648797 0.019969393714557193 0.061426414194985207</Position>
+<Axis>-1.0470790900996008e-14 -3.4900467932308388e-15 -0.99999999999999989</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>18in Trailer Tire-2</Uid>
+</InstancePath>
+<Position>0.0023812500000000292 0.022224999999999939 0</Position>
+<Axis>1 0 0</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Concentric name="Concentric26">
+<ConstraintGeometry geomType="cylinder">
+<InstancePath>
+<Uid>Top_Level_Simulation_Static_Tractor-1</Uid>
+</InstancePath>
+<Position>0.23422101999999978 0.13509655777159901 -0.10286999999999646</Position>
+<Axis>1 0 0</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="cylinder">
+<InstancePath>
+<Uid>right wheel-1</Uid>
+<Uid>2158203564-1</Uid>
+</InstancePath>
+<Position>0 0 0</Position>
+<Axis>1 0 0</Axis>
+</ConstraintGeometry>
+</Concentric>
+<Concentric name="Concentric27">
+<ConstraintGeometry geomType="cylinder">
+<InstancePath>
+<Uid>Top_Level_Simulation_Static_Tractor-1</Uid>
+</InstancePath>
+<Position>-0.53902102000000063 0.13509655777159635 -0.10286999999999769</Position>
+<Axis>-1 -1.4340192926804434e-15 2.5991532184678991e-15</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="cylinder">
+<InstancePath>
+<Uid>left wheel-1</Uid>
+<Uid>2158203564-1</Uid>
+</InstancePath>
+<Position>0 0 0</Position>
+<Axis>1 0 0</Axis>
+</ConstraintGeometry>
+</Concentric>
+<Coincident name="Coincident17">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>Top_Level_Simulation_Static_Tractor-1</Uid>
+</InstancePath>
+<Position>-0.53902102000000063 0.14038636816161354 -0.13337093965929614</Position>
+<Axis>-1 -1.4340192926804434e-15 2.5991532184678991e-15</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>left wheel-1</Uid>
+<Uid>2158203564-1</Uid>
+</InstancePath>
+<Position>0.21780500000000005 0.12382500000000007 -4.4408920985006262e-16</Position>
+<Axis>1 0 0</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Coincident name="Coincident18">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>Top_Level_Simulation_Static_Tractor-1</Uid>
+</InstancePath>
+<Position>0.23422101999999978 0.12958486709850403 -0.13333162635163143</Position>
+<Axis>1 0 0</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>right wheel-1</Uid>
+<Uid>2158203564-1</Uid>
+</InstancePath>
+<Position>0.21780500000000003 0.12382499999999985 0</Position>
+<Axis>1 0 0</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Concentric name="Concentric28">
+<ConstraintGeometry geomType="cylinder">
+<InstancePath>
+<Uid>Top_Level_Simulation_Static_Tractor-1</Uid>
+</InstancePath>
+<Position>-0.20320000000000071 0.27304999999999779 -0.014457956155827012</Position>
+<Axis>-6.9388939039072264e-16 0 -1</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="cylinder">
+<InstancePath>
+<Uid>Hitch-1</Uid>
+</InstancePath>
+<Position>-0.050799999999999956 0.012700000000000045 -0.06985000000000019</Position>
+<Axis>0 -1 0</Axis>
+</ConstraintGeometry>
+</Concentric>
+<Concentric name="Concentric29">
+<ConstraintGeometry geomType="cylinder">
+<InstancePath>
+<Uid>Top_Level_Simulation_Static_Tractor-1</Uid>
+</InstancePath>
+<Position>-0.10159999999999969 0.27305000000000046 -0.014457956155827234</Position>
+<Axis>-6.9388939039072264e-16 0 -1</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="cylinder">
+<InstancePath>
+<Uid>Hitch-1</Uid>
+</InstancePath>
+<Position>0.050799999999999956 0.012700000000000045 -0.06985000000000019</Position>
+<Axis>0 -1 0</Axis>
+</ConstraintGeometry>
+</Concentric>
+<Distance name="Distance1">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>Top_Level_Simulation_Static_Tractor-1</Uid>
+</InstancePath>
+<Position>-0.15239999999999976 0.019050000000000011 -0.024215747155827083</Position>
+<Axis>-7.3121014893833815e-16 0 -1</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>Hitch-1</Uid>
+</InstancePath>
+<Position>0 0 0</Position>
+<Axis>0 -1 0</Axis>
+</ConstraintGeometry>
+</Distance>
+<Coincident name="Coincident19">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>Lower_A-Arm_Assembly-2</Uid>
+</InstancePath>
+<Position>-0.17694909818818416 0.15253183773802559 0.3618627379273624</Position>
+<Axis>1 0 -3.4937330806172895e-15</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>Cylinder-2</Uid>
+<Uid>Rod-1</Uid>
+</InstancePath>
+<Position>-0.012700000000000017 0.22542499999999988 -0.01308100000000012</Position>
+<Axis>0 -1.2490009027033011e-16 -1</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Tangent name="Tangent1">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>Top_Level_Simulation_Static_Tractor-1</Uid>
+</InstancePath>
+<Position>0.018912839999999931 -1.2686397543606667 -0.031715016124427953</Position>
+<Axis>3.4444553162709713e-15 -0.99904822158185946 -0.043619387365296677</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="sphere">
+<InstancePath>
+<Uid>Sheet_Upper_Assem-1</Uid>
+</InstancePath>
+<Position>-0.1052128378023881 0.085811854799597076 0.033056773912240156</Position>
+</ConstraintGeometry>
+</Tangent>
+<Coincident name="Coincident21">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>Top_Level_Simulation_Static_Tractor-1</Uid>
+</InstancePath>
+<Position>-0.3700678399986525 -1.4163110616732895 -0.12587596843714621</Position>
+<Axis>-2.6557386206015077e-16 -0.99904822158185946 -0.043619387365296677</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>Lower_A-Arm_Assembly-2</Uid>
+</InstancePath>
+<Position>-0.21187409818778813 0.14173683773798462 0.265787237927813</Position>
+<Axis>1 0 -1.0477729794899915e-14</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Coincident name="Coincident23">
+<ConstraintGeometry geomType="circle">
+<InstancePath>
+<Uid>Top_Level_Simulation_Static_Tractor-1</Uid>
+</InstancePath>
+<Position>-0.35559999999854641 -1.2730555836192325 -0.10818040999721923</Position>
+<Axis>-3.543791454460689e-15 -0.99904822158185957 -0.043619387365296677</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>Sheet_Upper_Assem-2</Uid>
+</InstancePath>
+<Position>0.079051296153137329 0.10248060479959717 0.049702384089671758</Position>
+<Axis>0.99999342313103712 -1.2836953722228372e-16 -0.003626802265184019</Axis>
+</ConstraintGeometry>
+</Coincident>
+</Constraints>
+</RootAssembly>
+<Assemblies>
+<Assembly name="Cylinder" uid="Cylinder" version="120">
+<ModelUnits mass="kilogram" length="inch"/>
+<AssemblyFile name="Cylinder.SLDASM" type="SolidWorks Assembly"/>
+<Constraints>
+<Concentric name="Concentric1">
+<ConstraintGeometry geomType="cylinder">
+<InstancePath>
+<Uid>Cylinder-1</Uid>
+</InstancePath>
+<Position>0 0.180975 0</Position>
+<Axis>0 -1 0</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="cylinder">
+<InstancePath>
+<Uid>Rod-1</Uid>
+</InstancePath>
+<Position>0 0.180975 0</Position>
+<Axis>0 -1 0</Axis>
+</ConstraintGeometry>
+</Concentric>
+<Coincident name="Coincident1">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>Cylinder-1</Uid>
+</InstancePath>
+<Position>-0.012699999999999999 0.22542499999999999 0.013081000000000001</Position>
+<Axis>0 -1.6556654507056154e-16 1</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>Rod-1</Uid>
+</InstancePath>
+<Position>-0.012699999999999993 0.22542499999999999 0.013080999999999992</Position>
+<Axis>0 -1.6556654507056161e-16 0.99999999999999978</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Distance name="LimitDistance1">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>Rod-1</Uid>
+</InstancePath>
+<Position>-0.012699999999999993 0.180975 0.010540999999999971</Position>
+<Axis>0 -1 0</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>Cylinder-1</Uid>
+</InstancePath>
+<Position>0 0 0</Position>
+<Axis>0 -1 0</Axis>
+</ConstraintGeometry>
+</Distance>
+</Constraints>
+</Assembly>
+<Assembly name="Swivel Joint Assembly Final" uid="Swivel Joint Assembly Final" version="111">
+<ModelUnits mass="kilogram" length="inch"/>
+<AssemblyFile name="Swivel Joint Assembly Final.SLDASM" type="SolidWorks Assembly"/>
+<Constraints>
+<Concentric name="Concentric1">
+<ConstraintGeometry geomType="sphere">
+<InstancePath>
+<Uid>2995K14_Swivel Joint Inside-1</Uid>
+</InstancePath>
+<Position>0 0 0</Position>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="sphere">
+<InstancePath>
+<Uid>2995K14_Swivel Joint outside-1</Uid>
+</InstancePath>
+<Position>0 0 0</Position>
+</ConstraintGeometry>
+</Concentric>
+</Constraints>
+</Assembly>
+<Assembly name="right wheel" uid="right wheel" version="168">
+<ModelUnits mass="kilogram" length="inch"/>
+<AssemblyFile name="right wheel.SLDASM" type="SolidWorks Assembly"/>
+</Assembly>
+<Assembly name="left wheel" uid="left wheel" version="171">
+<ModelUnits mass="kilogram" length="inch"/>
+<AssemblyFile name="left wheel.SLDASM" type="SolidWorks Assembly"/>
+</Assembly>
+</Assemblies>
+<Parts>
+<Part name="18in Trailer Tire" uid="18in Trailer Tire*:*Default" version="324">
+<ModelUnits mass="kilogram" length="inch"/>
+<PartFile name="18in Trailer Tire.SLDPRT" type="SolidWorks Part"/>
+<MassProperties>
+<Mass>3.4699826092636292</Mass>
+<CenterOfMass>-0.00014886621287614173 0 0</CenterOfMass>
+<Inertia>0.085666054388610108 0.0466676371382444 0.046667637138244435 0 0 0</Inertia>
+</MassProperties>
+<GeometryFile name="18in Trailer Tire_Default_sldprt.STEP" type="STEP"/>
+<VisualProperties>
+<Ambient r="0" g="0" b="0" a="1"/>
+<Diffuse r="0" g="0" b="0" a="1"/>
+<Specular r="0" g="0" b="0" a="1"/>
+<Emissive r="0" g="0" b="0" a="1"/>
+<Shininess>0.3125</Shininess>
+</VisualProperties>
+</Part>
+<Part name="2158203563" uid="2158203563*:*Default" version="241">
+<ModelUnits mass="kilogram" length="inch"/>
+<PartFile name="2158203563.SLDPRT" type="SolidWorks Part"/>
+<MassProperties>
+<Mass>20.411662407433109</Mass>
+<CenterOfMass>-0.00034984974615116224 7.4124966822931134e-06 1.071690268884445e-06</CenterOfMass>
+<Inertia>1.4504208163316641 0.94192903897196179 0.94188802447719411 -9.0819587607806416e-07 6.8968948901158977e-05 -8.8607319347468642e-06</Inertia>
+</MassProperties>
+<GeometryFile name="2158203563_Default_sldprt.STEP" type="STEP"/>
+<VisualProperties>
+<Ambient r="0" g="0" b="0" a="1"/>
+<Diffuse r="0" g="0" b="0" a="1"/>
+<Specular r="0" g="0" b="0" a="1"/>
+<Emissive r="0" g="0" b="0" a="1"/>
+<Shininess>0.31</Shininess>
+</VisualProperties>
+</Part>
+<Part name="2158203564" uid="2158203564*:*Default" version="170">
+<ModelUnits mass="kilogram" length="inch"/>
+<PartFile name="2158203564.SLDPRT" type="SolidWorks Part"/>
+<MassProperties>
+<Mass>3.5811986111899108</Mass>
+<CenterOfMass>0.16916363635934478 0 0</CenterOfMass>
+<Inertia>0.059951962262318512 0.056368914118812209 0.056368914118812272 0 0 0</Inertia>
+</MassProperties>
+<GeometryFile name="2158203564_Default_sldprt.STEP" type="STEP"/>
+<VisualProperties>
+<Ambient r="0.89803921568627454" g="0.89803921568627454" b="0.89803921568627454" a="1"/>
+<Diffuse r="0.89803921568627454" g="0.89803921568627454" b="0.89803921568627454" a="1"/>
+<Specular r="0.62862745098039219" g="0.62862745098039219" b="0.62862745098039219" a="1"/>
+<Emissive r="0" g="0" b="0" a="1"/>
+<Shininess>0.3125</Shininess>
+</VisualProperties>
+</Part>
+<Part name="2995K14_Swivel Joint Inside" uid="2995K14_Swivel Joint Inside*:*2995K14" version="209">
+<ModelUnits mass="kilogram" length="millimeter"/>
+<PartFile name="2995K14_Swivel Joint Inside.SLDPRT" type="SolidWorks Part"/>
+<MassProperties>
+<Mass>0.0033277715795582141</Mass>
+<CenterOfMass>-2.5356108788962724e-08 0 -1.9975730077180608e-07</CenterOfMass>
+<Inertia>1.7223764998544605e-07 1.7225744583235567e-07 2.3912947643925514e-07 0 -3.9048933706739283e-13 0</Inertia>
+</MassProperties>
+<GeometryFile name="2995K14_Swivel Joint Inside_2995K14_sldprt.STEP" type="STEP"/>
+<VisualProperties>
+<Ambient r="0.75294117647058822" g="0.75294117647058822" b="0.75294117647058822" a="1"/>
+<Diffuse r="0.75294117647058822" g="0.75294117647058822" b="0.75294117647058822" a="1"/>
+<Specular r="0.22588235294117645" g="0.22588235294117645" b="0.22588235294117645" a="1"/>
+<Emissive r="0" g="0" b="0" a="1"/>
+<Shininess>0.3125</Shininess>
+</VisualProperties>
+</Part>
+<Part name="2995K14_Swivel Joint outside" uid="2995K14_Swivel Joint outside*:*2995K14" version="209">
+<ModelUnits mass="kilogram" length="millimeter"/>
+<PartFile name="2995K14_Swivel Joint outside.SLDPRT" type="SolidWorks Part"/>
+<MassProperties>
+<Mass>0.0039229817915290462</Mass>
+<CenterOfMass>-2.9549262337437496e-13 -8.1968630400551027e-05 0</CenterOfMass>
+<Inertia>3.7648737461171799e-07 3.8059803167183965e-07 6.5208706677598749e-07 0 9.9326809203922265e-15 0</Inertia>
+</MassProperties>
+<GeometryFile name="2995K14_Swivel Joint outside_2995K14_sldprt.STEP" type="STEP"/>
+<VisualProperties>
+<Ambient r="0.75294117647058822" g="0.75294117647058822" b="0.75294117647058822" a="1"/>
+<Diffuse r="0.75294117647058822" g="0.75294117647058822" b="0.75294117647058822" a="1"/>
+<Specular r="0.22588235294117645" g="0.22588235294117645" b="0.22588235294117645" a="1"/>
+<Emissive r="0" g="0" b="0" a="1"/>
+<Shininess>0.3125</Shininess>
+</VisualProperties>
+</Part>
+<Part name="Cylinder" uid="Cylinder*:*Default" version="132">
+<ModelUnits mass="kilogram" length="inch"/>
+<PartFile name="Cylinder.SLDPRT" type="SolidWorks Part"/>
+<MassProperties>
+<Mass>0.1895711821582246</Mass>
+<CenterOfMass>0.00024094864277398093 0.098520719975429757 -7.9241398203656783e-09</CenterOfMass>
+<Inertia>0.0006510541525214257 2.9466472638094649e-05 0.00065158275070829387 -5.7711956879672633e-11 1.1087363497076389e-11 7.6901984915618546e-08</Inertia>
+</MassProperties>
+<GeometryFile name="Cylinder_Default_sldprt.STEP" type="STEP"/>
+<VisualProperties>
+<Ambient r="0.58823529411764708" g="0.58823529411764708" b="0.63137254901960782" a="1"/>
+<Diffuse r="0.4705882352941177" g="0.4705882352941177" b="0.5050980392156863" a="1"/>
+<Specular r="0.20588235294117646" g="0.20588235294117646" b="0.22098039215686271" a="1"/>
+<Emissive r="0" g="0" b="0" a="1"/>
+<Shininess>0.3125</Shininess>
+</VisualProperties>
+</Part>
+<Part name="Hitch" uid="Hitch*:*Default" version="209">
+<ModelUnits mass="kilogram" length="inch"/>
+<PartFile name="Hitch.SLDPRT" type="SolidWorks Part"/>
+<MassProperties>
+<Mass>0.84418607031295467</Mass>
+<CenterOfMass>0 0.0063500000000000015 -0.046409088405564139</CenterOfMass>
+<Inertia>0.0010680303606721106 0.0021568996268372465 0.0011115623947119322 0 0 0</Inertia>
+</MassProperties>
+<GeometryFile name="Hitch_Default_sldprt.STEP" type="STEP"/>
+<VisualProperties>
+<Ambient r="0.65098039215686276" g="0.61960784313725492" b="0.58823529411764708" a="1"/>
+<Diffuse r="0.65098039215686276" g="0.61960784313725492" b="0.58823529411764708" a="1"/>
+<Specular r="0.52078431372549028" g="0.49568627450980396" b="0.4705882352941177" a="1"/>
+<Emissive r="0" g="0" b="0" a="1"/>
+<Shininess>0.3125</Shininess>
+</VisualProperties>
+</Part>
+<Part name="Lower_A-Arm_Assembly" uid="Lower_A-Arm_Assembly*:*Default" version="123">
+<ModelUnits mass="kilogram" length="inch"/>
+<PartFile name="Lower_A-Arm_Assembly.SLDPRT" type="SolidWorks Part"/>
+<MassProperties>
+<Mass>1.0812236202279184</Mass>
+<CenterOfMass>-0.16424476113667685 0.14215585291242883 0.34165857151984214</CenterOfMass>
+<Inertia>0.0036831789276446135 0.007208088404771479 0.0037526865994787291 -1.0876156609132189e-05 -1.7972896270967001e-07 -8.8654147950830798e-08</Inertia>
+</MassProperties>
+<GeometryFile name="Lower_A-Arm_Assembly_Default_sldprt.STEP" type="STEP"/>
+<VisualProperties>
+<Ambient r="0.792156862745098" g="0.81960784313725488" b="0.93333333333333335" a="1"/>
+<Diffuse r="0.792156862745098" g="0.81960784313725488" b="0.93333333333333335" a="1"/>
+<Specular r="0.396078431372549" g="0.40980392156862744" b="0.46666666666666667" a="1"/>
+<Emissive r="0" g="0" b="0" a="1"/>
+<Shininess>0.3125</Shininess>
+</VisualProperties>
+</Part>
+<Part name="Rod" uid="Rod*:*Default" version="143">
+<ModelUnits mass="kilogram" length="inch"/>
+<PartFile name="Rod.SLDPRT" type="SolidWorks Part"/>
+<MassProperties>
+<Mass>0.037023535349914302</Mass>
+<CenterOfMass>0 0.13139559119777156 0</CenterOfMass>
+<Inertia>0.00016705464870267478 2.5065909843207063e-06 0.00016663853040317585 0 0 0</Inertia>
+</MassProperties>
+<GeometryFile name="Rod_Default_sldprt.STEP" type="STEP"/>
+<VisualProperties>
+<Ambient r="0.792156862745098" g="0.81960784313725488" b="0.93333333333333335" a="1"/>
+<Diffuse r="0.792156862745098" g="0.81960784313725488" b="0.93333333333333335" a="1"/>
+<Specular r="0.396078431372549" g="0.40980392156862744" b="0.46666666666666667" a="1"/>
+<Emissive r="0" g="0" b="0" a="1"/>
+<Shininess>0.3125</Shininess>
+</VisualProperties>
+</Part>
+<Part name="Sheet_Upper_Assem" uid="Sheet_Upper_Assem*:*Default" version="125">
+<ModelUnits mass="kilogram" length="inch"/>
+<PartFile name="Sheet_Upper_Assem.SLDPRT" type="SolidWorks Part"/>
+<MassProperties>
+<Mass>1.026706025368235</Mass>
+<CenterOfMass>-0.016292078425542835 0.002586547788361314 0.032820963052344096</CenterOfMass>
+<Inertia>0.0036395838235327186 0.0053974712603918435 0.0089032825277102698 -1.9420835699051475e-05 -2.1565463710429092e-08 6.3020148964869523e-08</Inertia>
+</MassProperties>
+<GeometryFile name="Sheet_Upper_Assem_Default_sldprt.STEP" type="STEP"/>
+<VisualProperties>
+<Ambient r="0.792156862745098" g="0.81960784313725488" b="0.93333333333333335" a="1"/>
+<Diffuse r="0.792156862745098" g="0.81960784313725488" b="0.93333333333333335" a="1"/>
+<Specular r="0.396078431372549" g="0.40980392156862744" b="0.46666666666666667" a="1"/>
+<Emissive r="0" g="0" b="0" a="1"/>
+<Shininess>0.3125</Shininess>
+</VisualProperties>
+</Part>
+<Part name="Suspension_Spindle" uid="Suspension_Spindle*:*Default" version="116">
+<ModelUnits mass="kilogram" length="inch"/>
+<PartFile name="Suspension_Spindle.SLDPRT" type="SolidWorks Part"/>
+<MassProperties>
+<Mass>0.81145937578502136</Mass>
+<CenterOfMass>-0.033605880759753147 0.030411060055572089 0.092525596757774248</CenterOfMass>
+<Inertia>0.0015355186679224047 0.0009641232511309794 0.0012120485062476127 -0.00038857626914952636 1.2202611661454042e-08 -1.6204440605396542e-08</Inertia>
+</MassProperties>
+<GeometryFile name="Suspension_Spindle_Default_sldprt.STEP" type="STEP"/>
+<VisualProperties>
+<Ambient r="0.792156862745098" g="0.81960784313725488" b="0.93333333333333335" a="1"/>
+<Diffuse r="0.792156862745098" g="0.81960784313725488" b="0.93333333333333335" a="1"/>
+<Specular r="0.396078431372549" g="0.40980392156862744" b="0.46666666666666667" a="1"/>
+<Emissive r="0" g="0" b="0" a="1"/>
+<Shininess>0.3125</Shininess>
+</VisualProperties>
+</Part>
+<Part name="Top_Level_Simulation_Static_Tractor" uid="Top_Level_Simulation_Static_Tractor*:*Default" version="4008">
+<ModelUnits mass="kilogram" length="inch"/>
+<PartFile name="Top_Level_Simulation_Static_Tractor.SLDPRT" type="SolidWorks Part"/>
+<MassProperties>
+<Mass>0</Mass>
+<CenterOfMass>0 0 0</CenterOfMass>
+<Inertia>0 0 0 0 0 0</Inertia>
+</MassProperties>
+<GeometryFile name="Top_Level_Simulation_Static_Tractor_Default_sldprt.STEP" type="STEP"/>
+<VisualProperties>
+<Ambient r="0.792156862745098" g="0.81960784313725488" b="0.93333333333333335" a="1"/>
+<Diffuse r="0.792156862745098" g="0.81960784313725488" b="0.93333333333333335" a="1"/>
+<Specular r="0.396078431372549" g="0.40980392156862744" b="0.46666666666666667" a="1"/>
+<Emissive r="0" g="0" b="0" a="1"/>
+<Shininess>0.3125</Shininess>
+</VisualProperties>
+</Part>
+</Parts>
+</SimscapeMultibodyImportXML>

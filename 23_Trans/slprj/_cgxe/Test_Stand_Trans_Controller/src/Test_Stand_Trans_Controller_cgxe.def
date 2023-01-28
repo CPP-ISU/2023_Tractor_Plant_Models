@@ -1,0 +1,4 @@
+LIBRARY Test_Stand_Trans_Controller_cgxe.mexw64
+EXPORTS
+mexFunction
+mexfilerequiredapiversion

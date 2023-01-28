@@ -1,0 +1,52 @@
+CC     = "C:\Program Files\MATLAB\R2022b\sys\lcc64\lcc64\bin\lcc64.exe"
+LD     = "C:\Program Files\MATLAB\R2022b\sys\lcc64\lcc64\bin\lcclnk64.exe"
+LIBCMD = "C:\Program Files\MATLAB\R2022b\sys\lcc64\lcc64\bin\lcclib64.exe"
+CFLAGS = -w -dll -noregistrylookup  -c -Zp8 -DLCC_WIN64 -DMATLAB_MEX_FILE -nodeclspec  
+LDFLAGS = -s -dll -L"C:\Program Files\MATLAB\R2022b\sys\lcc64\lcc64\lib64" -entry LibMain -map sfun.map 
+LIBFLAGS = 
+
+OBJECTS = \
+	"c_mexapi_version.obj"\
+	"lccstub.obj"\
+	"Test_Stand_Trans_Controller_cgxe.obj"\
+	"m_45waa4IAejLI27VsMyOdUF.obj"\
+	"m_vgpHAlo0eWgN3UpjRmEzkC.obj"\
+	"m_GacRQAA80wK47Fj0f9XGeC.obj"\
+	"Test_Stand_Trans_Controller_cgxe_registry.obj"\
+	"Test_Stand_Trans_Controller_cgxe.def"\
+	"C:\Program Files\MATLAB\R2022b\extern\lib\win64\microsoft\libmx.lib"\
+	"C:\Program Files\MATLAB\R2022b\extern\lib\win64\microsoft\libmex.lib"\
+	"C:\Program Files\MATLAB\R2022b\extern\lib\win64\microsoft\libmat.lib"\
+	"C:\Program Files\MATLAB\R2022b\extern\lib\win64\microsoft\libfixedpoint.lib"\
+	"C:\Program Files\MATLAB\R2022b\extern\lib\win64\microsoft\libut.lib"\
+	"C:\Program Files\MATLAB\R2022b\extern\lib\win64\microsoft\libmwmathutil.lib"\
+	"C:\Program Files\MATLAB\R2022b\extern\lib\win64\microsoft\libemlrt.lib"\
+	"C:\Program Files\MATLAB\R2022b\extern\lib\win64\microsoft\libmwcgxert.lib"\
+	"C:\Program Files\MATLAB\R2022b\extern\lib\win64\microsoft\libmwcgxeooprt.lib"\
+	"C:\Program Files\MATLAB\R2022b\extern\lib\win64\microsoft\libmwslexec_simbridge.lib"\
+	"C:\Program Files\MATLAB\R2022b\extern\lib\win64\microsoft\libmwslccrt.lib"\
+	"C:\Program Files\MATLAB\R2022b\extern\lib\win64\microsoft\libmwstringutil.lib"\
+	"C:\Program Files\MATLAB\R2022b\lib\win64\libmwipp.lib"\
+	"C:\Program Files\MATLAB\R2022b\extern\lib\win64\microsoft\libcovrt.lib"\
+	"C:\Program Files\MATLAB\R2022b\extern\lib\win64\microsoft\libmwsl_sfcn_cov_bridge.lib"\
+	"C:\Program Files\MATLAB\R2022b\extern\lib\win64\microsoft\libmwdsp_halidesim.lib"\
+
+INCLUDE_PATH= -I"C:\Program Files\MATLAB\R2022b\extern\include"  -I"C:\Program Files\MATLAB\R2022b\simulink\include"  -I"C:\Program Files\MATLAB\R2022b\rtw\c\src"  -I"C:\Git\2023_tractor_plant_models\23_Trans\slprj\_cgxe\test_stand_trans_controller\src"  -I"C:\Git\2023_tractor_plant_models\23_Trans"  -I"C:\Git\2023_Tractor_Plant_Models\23_Trans\slprj\_cprj"  -I"C:\Program Files\MATLAB\R2022b\sys\lcc64\lcc64\include64"  -I"C:\Git\2023_Tractor_Plant_Models\23_Trans\slprj\_cgxe\Test_Stand_Trans_Controller\src"  -I"C:\Git\2023_Tractor_Plant_Models\23_Trans" 
+ 
+
+Test_Stand_Trans_Controller_cgxe.mexw64 : $(MAKEFILE) $(OBJECTS)
+	$(LD) $(LDFLAGS) -o Test_Stand_Trans_Controller_cgxe.mexw64 @Test_Stand_Trans_Controller_cgxe.lmko
+c_mexapi_version.obj :	"C:\Program Files\MATLAB\R2022b\extern\version\c_mexapi_version.c"
+	$(CC) $(CFLAGS) $(INCLUDE_PATH) "C:\Program Files\MATLAB\R2022b\extern\version\c_mexapi_version.c"
+lccstub.obj :	"C:\Program Files\MATLAB\R2022b\sys\lcc64\lcc64\mex\lccstub.c"
+	$(CC) $(CFLAGS) $(INCLUDE_PATH) "C:\Program Files\MATLAB\R2022b\sys\lcc64\lcc64\mex\lccstub.c"
+Test_Stand_Trans_Controller_cgxe.obj :	"Test_Stand_Trans_Controller_cgxe.c"
+	$(CC) $(CFLAGS) $(INCLUDE_PATH) "Test_Stand_Trans_Controller_cgxe.c"
+m_45waa4IAejLI27VsMyOdUF.obj :	"m_45waa4IAejLI27VsMyOdUF.c"
+	$(CC) $(CFLAGS) $(INCLUDE_PATH) "m_45waa4IAejLI27VsMyOdUF.c"
+m_vgpHAlo0eWgN3UpjRmEzkC.obj :	"m_vgpHAlo0eWgN3UpjRmEzkC.c"
+	$(CC) $(CFLAGS) $(INCLUDE_PATH) "m_vgpHAlo0eWgN3UpjRmEzkC.c"
+m_GacRQAA80wK47Fj0f9XGeC.obj :	"m_GacRQAA80wK47Fj0f9XGeC.c"
+	$(CC) $(CFLAGS) $(INCLUDE_PATH) "m_GacRQAA80wK47Fj0f9XGeC.c"
+Test_Stand_Trans_Controller_cgxe_registry.obj :	"Test_Stand_Trans_Controller_cgxe_registry.c"
+	$(CC) $(CFLAGS) $(INCLUDE_PATH) "Test_Stand_Trans_Controller_cgxe_registry.c"

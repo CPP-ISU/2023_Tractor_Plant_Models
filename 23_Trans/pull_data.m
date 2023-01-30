@@ -1,7 +1,7 @@
 
 
 cd 'C:\Users\david\Downloads\IQS_2022_PullData'
-direct= dir (['*.csv']);
+direct= dir (['*Laval*']);
 figure()
 hold on
 for i = 1 : length(direct)

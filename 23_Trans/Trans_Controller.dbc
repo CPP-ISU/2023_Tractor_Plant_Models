@@ -33,7 +33,7 @@ NS_ :
 
 BS_:
 
-BU_: Headless Tractor_Controller
+BU_: Headless Tractor_Controller Steering_Module
 
 
 BO_ 3221225472 VECTOR__INDEPENDENT_SIG_MSG: 0 Vector__XXX
@@ -67,6 +67,12 @@ BO_ 2349006593 Trans_Values_2: 8 Headless
  SG_ Output_Speed : 0|16@1+ (1,0) [0|2000] "rpm" Vector__XXX
  SG_ Input_Speed : 16|16@1+ (1,0) [0|5000] "rpm" Vector__XXX
  SG_ Ring_Speed : 32|8@1+ (1,0) [0|0] "" Vector__XXX
+
+BO_ 2348941060 Steering_Module: 8 Steering_Module
+ SG_ Steering_Position_Command : 0|16@1+ (1,10000) [-10000|10000] "" Vector__XXX
+
+BO_ 2349007875 Steering_Feedback: 8 Tractor_Controller
+ SG_ Resistance : 0|16@1+ (1,10000) [-10000|10000] "" Vector__XXX
 
 
 

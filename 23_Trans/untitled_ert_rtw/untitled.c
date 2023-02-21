@@ -9,7 +9,7 @@
  *
  * Model version                  : 1.0
  * Simulink Coder version         : 9.8 (R2022b) 13-May-2022
- * C/C++ source code generated on : Fri Jan 27 14:21:57 2023
+ * C/C++ source code generated on : Wed Feb  8 16:11:00 2023
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM Cortex
@@ -21,10 +21,13 @@
 #include "untitled_types.h"
 #include "rtwtypes.h"
 #include <stdio.h>
+#include "untitled_private.h"
+#include <math.h>
 #include <string.h>
 #include <stddef.h>
+#include "rt_nonfinite.h"
+#include <float.h>
 #include <stdlib.h>
-#include "untitled_private.h"
 
 /* Block signals (default storage) */
 B_untitled_T untitled_B;
@@ -37,6 +40,7 @@ static RT_MODEL_untitled_T untitled_M_;
 RT_MODEL_untitled_T *const untitled_M = &untitled_M_;
 
 /* Forward declaration for local functions */
+static void untitled_SystemCore_setup_b(codertarget_raspi_internal__b_T *obj);
 static int8_T untitled_filedata(void);
 static int8_T untitled_cfopen(const char_T *cfilename, const char_T *cpermission);
 static void untitled_emxInit_char_T(emxArray_char_T_untitled_T **pEmxArray,
@@ -48,33 +52,158 @@ static void untitled_emxFree_char_T(emxArray_char_T_untitled_T **pEmxArray);
 static void untitled_fgetl(real_T fileID, emxArray_char_T_untitled_T *out);
 static int32_T untitled_cfclose(real_T fid);
 static void untitled_SystemCore_setup(codertarget_raspi_internal_CA_T *obj);
-
-/*
- * Writes out MAT-file header.  Returns success or failure.
- * Returns:
- * 0 - success
- * 1 - failure
- */
-int_T rt_WriteMat4FileHeader(FILE *fp, int32_T m, int32_T n, const char *name)
+uint32_T plook_u32d_evencka(real_T u, real_T bp0, real_T bpSpace, uint32_T
+  maxIndex)
 {
-  typedef enum { ELITTLE_ENDIAN, EBIG_ENDIAN } ByteOrder;
+  real_T fbpIndex;
+  uint32_T bpIndex;
 
-  int16_T one = 1;
-  ByteOrder byteOrder = (*((int8_T *)&one)==1) ? ELITTLE_ENDIAN : EBIG_ENDIAN;
-  int32_T type = (byteOrder == ELITTLE_ENDIAN) ? 0: 1000;
-  int32_T imagf = 0;
-  int32_T name_len = (int32_T)strlen(name) + 1;
-  if ((fwrite(&type, sizeof(int32_T), 1, fp) == 0) ||
-      (fwrite(&m, sizeof(int32_T), 1, fp) == 0) ||
-      (fwrite(&n, sizeof(int32_T), 1, fp) == 0) ||
-      (fwrite(&imagf, sizeof(int32_T), 1, fp) == 0) ||
-      (fwrite(&name_len, sizeof(int32_T), 1, fp) == 0) ||
-      (fwrite(name, sizeof(char), name_len, fp) == 0)) {
-    return(1);
+  /* Prelookup - Index only
+     Index Search method: 'even'
+     Extrapolation method: 'Clip'
+     Use previous index: 'off'
+     Use last breakpoint for index at or above upper limit: 'on'
+     Remove protection against out-of-range input in generated code: 'off'
+   */
+  if (u <= bp0) {
+    bpIndex = 0U;
   } else {
-    return(0);
+    fbpIndex = (u - bp0) * (1.0 / bpSpace);
+    if (fbpIndex < maxIndex) {
+      bpIndex = (uint32_T)fbpIndex;
+    } else {
+      bpIndex = maxIndex;
+    }
   }
-}                                      /* end rt_WriteMat4FileHeader */
+
+  return bpIndex;
+}
+
+real_T rt_modd_snf(real_T u0, real_T u1)
+{
+  real_T q;
+  real_T y;
+  boolean_T yEq;
+  y = u0;
+  if (u1 == 0.0) {
+    if (u0 == 0.0) {
+      y = u1;
+    }
+  } else if (rtIsNaN(u0) || rtIsNaN(u1) || rtIsInf(u0)) {
+    y = (rtNaN);
+  } else if (u0 == 0.0) {
+    y = 0.0 / u1;
+  } else if (rtIsInf(u1)) {
+    if ((u1 < 0.0) != (u0 < 0.0)) {
+      y = u1;
+    }
+  } else {
+    y = fmod(u0, u1);
+    yEq = (y == 0.0);
+    if ((!yEq) && (u1 > floor(u1))) {
+      q = fabs(u0 / u1);
+      yEq = !(fabs(q - floor(q + 0.5)) > DBL_EPSILON * q);
+    }
+
+    if (yEq) {
+      y = u1 * 0.0;
+    } else if ((u0 < 0.0) != (u1 < 0.0)) {
+      y += u1;
+    }
+  }
+
+  return y;
+}
+
+static void untitled_SystemCore_setup_b(codertarget_raspi_internal__b_T *obj)
+{
+  int32_T isCANSetup;
+  int32_T stat1;
+  int32_T stat2;
+  char_T errString3[20];
+  char_T canInterface[5];
+  static const char_T tmp[19] = { ' ', 'i', 's', ' ', 'n', 'o', 't', ' ', 'u',
+    'p', '.', ' ', 'S', 'e', 't', ' ', 'u', 'p', ' ' };
+
+  static const char_T tmp_0[14] = { ' ', 'i', 's', ' ', 'n', 'o', 't', ' ', 's',
+    'e', 't', ' ', 'u', 'p' };
+
+  static const char_T tmp_1[46] = { ' ', 'd', 'o', 'e', 's', ' ', 'n', 'o', 't',
+    ' ', 'e', 'x', 'i', 's', 't', '.', ' ', 'S', 'e', 'l', 'e', 'c', 't', ' ',
+    'a', ' ', 'v', 'a', 'l', 'i', 'd', ' ', 'C', 'A', 'N', ' ', 'i', 'n', 't',
+    'e', 'r', 'f', 'a', 'c', 'e', '.' };
+
+  static const char_T tmp_2[34] = { ' ', 'b', 'e', 'f', 'o', 'r', 'e', ' ', 'l',
+    'a', 'u', 'n', 'c', 'h', 'i', 'n', 'g', ' ', 't', 'h', 'e', ' ', 'a', 'p',
+    'p', 'l', 'i', 'c', 'a', 't', 'i', 'o', 'n', '.' };
+
+  obj->isSetupComplete = false;
+  obj->isInitialized = 1;
+  canInterface[0] = 'c';
+  canInterface[1] = 'a';
+  canInterface[2] = 'n';
+  canInterface[3] = '0';
+  canInterface[4] = '\x00';
+  stat1 = -1;
+  stat2 = -1;
+  isCANSetup = MW_checkIFStatus(&canInterface[0]);
+  if (isCANSetup == 0) {
+    stat1 = MW_createSocket(&canInterface[0], &obj->sockHandleDataFrames);
+    stat2 = MW_createSocket(&canInterface[0], &obj->sockHandleErrorFrames);
+  } else if (isCANSetup == 1) {
+    untitled_B.errString1[0] = 'c';
+    untitled_B.errString1[1] = 'a';
+    untitled_B.errString1[2] = 'n';
+    untitled_B.errString1[3] = '0';
+    for (isCANSetup = 0; isCANSetup < 19; isCANSetup++) {
+      untitled_B.errString1[isCANSetup + 4] = tmp[isCANSetup];
+    }
+
+    untitled_B.errString1[23] = 'c';
+    untitled_B.errString1[24] = 'a';
+    untitled_B.errString1[25] = 'n';
+    untitled_B.errString1[26] = '0';
+    for (isCANSetup = 0; isCANSetup < 34; isCANSetup++) {
+      untitled_B.errString1[isCANSetup + 27] = tmp_2[isCANSetup];
+    }
+
+    untitled_B.errString1[61] = '\x0a';
+    untitled_B.errString1[62] = '\x00';
+    MW_printError(&untitled_B.errString1[0]);
+  } else if (isCANSetup == 2) {
+    untitled_B.errString2[0] = 'c';
+    untitled_B.errString2[1] = 'a';
+    untitled_B.errString2[2] = 'n';
+    untitled_B.errString2[3] = '0';
+    for (isCANSetup = 0; isCANSetup < 46; isCANSetup++) {
+      untitled_B.errString2[isCANSetup + 4] = tmp_1[isCANSetup];
+    }
+
+    untitled_B.errString2[50] = '\x0a';
+    untitled_B.errString2[51] = '\x00';
+    MW_printError(&untitled_B.errString2[0]);
+  } else {
+    errString3[0] = 'c';
+    errString3[1] = 'a';
+    errString3[2] = 'n';
+    errString3[3] = '0';
+    for (isCANSetup = 0; isCANSetup < 14; isCANSetup++) {
+      errString3[isCANSetup + 4] = tmp_0[isCANSetup];
+    }
+
+    errString3[18] = '\x0a';
+    errString3[19] = '\x00';
+    MW_printError(&errString3[0]);
+  }
+
+  if ((stat1 == 0) && (stat2 == 0)) {
+    obj->Initialized = true;
+  } else {
+    obj->Initialized = false;
+  }
+
+  obj->isSetupComplete = true;
+}
 
 static int8_T untitled_filedata(void)
 {
@@ -556,50 +685,52 @@ static void untitled_SystemCore_setup(codertarget_raspi_internal_CA_T *obj)
     'e', ' ', 'o', 'r', ' ', 'r', 'e', 's', 'o', 'u', 'r', 'c', 'e', ' ', 'b',
     'u', 's', 'y' };
 
-  static const char_T tmp_3[25] = { 'C', 'a', 'n', 'n', 'o', 't', ' ', 'f', 'i',
+  static const char_T tmp_3[11] = { 'C', 'a', 'n', 'n', 'o', 't', ' ', 's', 'e',
+    't', ' ' };
+
+  static const char_T tmp_4[25] = { 'C', 'a', 'n', 'n', 'o', 't', ' ', 'f', 'i',
     'n', 'd', ' ', 'd', 'e', 'v', 'i', 'c', 'e', ' ', '\"', 'c', 'a', 'n', '0',
     '\"' };
 
-  static const char_T tmp_4[41] = { 's', 'u', 'd', 'o', ' ', 't', 'o', 'u', 'c',
+  static const char_T tmp_5[41] = { 's', 'u', 'd', 'o', ' ', 't', 'o', 'u', 'c',
     'h', ' ', 'M', 'W', '_', 'S', 'o', 'c', 'k', 'e', 't', 'C', 'A', 'N', '_',
     'G', 'e', 't', 'B', 'i', 't', 'R', 'a', 't', 'e', '.', 't', 'x', 't', ' ',
     ';', ' ' };
 
-  static const char_T tmp_5[49] = { 's', 'u', 'd', 'o', ' ', 't', 'r', 'u', 'n',
+  static const char_T tmp_6[49] = { 's', 'u', 'd', 'o', ' ', 't', 'r', 'u', 'n',
     'c', 'a', 't', 'e', ' ', '-', 's', ' ', '0', ' ', 'M', 'W', '_', 'S', 'o',
     'c', 'k', 'e', 't', 'C', 'A', 'N', '_', 'G', 'e', 't', 'B', 'i', 't', 'R',
     'a', 't', 'e', '.', 't', 'x', 't', ' ', ';', ' ' };
 
-  static const char_T tmp_6[45] = { 's', 'u', 'd', 'o', ' ', 'c', 'h', 'm', 'o',
+  static const char_T tmp_7[45] = { 's', 'u', 'd', 'o', ' ', 'c', 'h', 'm', 'o',
     'd', ' ', '7', '7', '7', ' ', 'M', 'W', '_', 'S', 'o', 'c', 'k', 'e', 't',
     'C', 'A', 'N', '_', 'G', 'e', 't', 'B', 'i', 't', 'R', 'a', 't', 'e', '.',
     't', 'x', 't', ' ', ';', ' ' };
 
-  static const char_T tmp_7[23] = { 's', 'u', 'd', 'o', ' ', 'i', 'p', ' ', '-',
+  static const char_T tmp_8[23] = { 's', 'u', 'd', 'o', ' ', 'i', 'p', ' ', '-',
     'd', 'e', 't', ' ', 'l', 'i', 'n', 'k', ' ', 's', 'h', 'o', 'w', ' ' };
 
-  static const char_T tmp_8[18] = { ' ', '|', ' ', 'g', 'r', 'e', 'p', ' ', 'b',
+  static const char_T tmp_9[14] = { ' ', 'i', 's', ' ', 'n', 'o', 't', ' ', 's',
+    'e', 't', ' ', 'u', 'p' };
+
+  static const char_T tmp_a[18] = { ' ', '|', ' ', 'g', 'r', 'e', 'p', ' ', 'b',
     'i', 't', 'r', 'a', 't', 'e', ' ', '|', ' ' };
 
-  static const char_T tmp_9[11] = { 'C', 'a', 'n', 'n', 'o', 't', ' ', 's', 'e',
-    't', ' ' };
-
-  static const char_T tmp_a[12] = { '\'', '{', 'p', 'r', 'i', 'n', 't', ' ', '$',
+  static const char_T tmp_b[12] = { '\'', '{', 'p', 'r', 'i', 'n', 't', ' ', '$',
     '2', '}', '\'' };
 
-  static const char_T tmp_b[29] = { ' ', '>', 'M', 'W', '_', 'S', 'o', 'c', 'k',
+  static const char_T tmp_c[29] = { ' ', '>', 'M', 'W', '_', 'S', 'o', 'c', 'k',
     'e', 't', 'C', 'A', 'N', '_', 'G', 'e', 't', 'B', 'i', 't', 'R', 'a', 't',
     'e', '.', 't', 'x', 't' };
 
-  static const char_T tmp_c[14] = { ' ', 'i', 's', ' ', 'n', 'o', 't', ' ', 's',
-    'e', 't', ' ', 'u', 'p' };
+  static const char_T tmp_d[39] = { 's', 'u', 'd', 'o', ' ', 'r', 'm', ' ', '-',
+    'r', 'f', ' ', 'M', 'W', '_', 'S', 'o', 'c', 'k', 'e', 't', 'C', 'A', 'N',
+    '_', 'G', 'e', 't', 'B', 'i', 't', 'R', 'a', 't', 'e', '.', 't', 'x', 't' };
 
-  static const char_T tmp_d[24] = { ' ', 'i', 's', ' ', 'a', 'l', 'r', 'e', 'a',
+  static const char_T tmp_e[24] = { ' ', 'i', 's', ' ', 'a', 'l', 'r', 'e', 'a',
     'd', 'y', ' ', 's', 'e', 't', ' ', 'u', 'p', ' ', 'w', 'i', 't', 'h', ' ' };
 
   int32_T exitg1;
-  boolean_T guard1 = false;
-  boolean_T guard2 = false;
   obj->isSetupComplete = false;
   obj->isInitialized = 1;
   untitled_B.canInterface[0] = 'c';
@@ -607,8 +738,7 @@ static void untitled_SystemCore_setup(codertarget_raspi_internal_CA_T *obj)
   untitled_B.canInterface[2] = 'n';
   untitled_B.canInterface[3] = '0';
   untitled_B.canInterface[4] = '\x00';
-  untitled_B.stat1 = -1;
-  untitled_B.stat2 = -1;
+  untitled_B.stat = -1;
   MW_checkIFStatus(&untitled_B.canInterface[0]);
   untitled_B.len = MW_bitrate(&untitled_B.bitRate[0]);
   if (untitled_B.len < 1) {
@@ -643,11 +773,8 @@ static void untitled_SystemCore_setup(codertarget_raspi_internal_CA_T *obj)
   untitled_emxInit_char_T(&tline, 2);
   untitled_fgetl((real_T)fileid, tline);
   untitled_cfclose((real_T)fileid);
-  untitled_emxInit_char_T(&errString1, 2);
-  guard1 = false;
-  guard2 = false;
   if (tline->size[1] == 0) {
-    guard2 = true;
+    untitled_B.status = 0;
   } else {
     for (untitled_B.len = 0; untitled_B.len < 42; untitled_B.len++) {
       untitled_B.patVal[untitled_B.len] = tmp_2[untitled_B.len];
@@ -674,21 +801,22 @@ static void untitled_SystemCore_setup(codertarget_raspi_internal_CA_T *obj)
       }
     } while (exitg1 == 0);
 
+    untitled_emxInit_char_T(&errString1, 2);
     if (untitled_B.len > 0) {
       for (untitled_B.len = 0; untitled_B.len < 41; untitled_B.len++) {
-        untitled_B.cmd[untitled_B.len] = tmp_4[untitled_B.len];
+        untitled_B.cmd[untitled_B.len] = tmp_5[untitled_B.len];
       }
 
       for (untitled_B.len = 0; untitled_B.len < 49; untitled_B.len++) {
-        untitled_B.cmd[untitled_B.len + 41] = tmp_5[untitled_B.len];
+        untitled_B.cmd[untitled_B.len + 41] = tmp_6[untitled_B.len];
       }
 
       for (untitled_B.len = 0; untitled_B.len < 45; untitled_B.len++) {
-        untitled_B.cmd[untitled_B.len + 90] = tmp_6[untitled_B.len];
+        untitled_B.cmd[untitled_B.len + 90] = tmp_7[untitled_B.len];
       }
 
       for (untitled_B.len = 0; untitled_B.len < 23; untitled_B.len++) {
-        untitled_B.cmd[untitled_B.len + 135] = tmp_7[untitled_B.len];
+        untitled_B.cmd[untitled_B.len + 135] = tmp_8[untitled_B.len];
       }
 
       untitled_B.cmd[158] = 'c';
@@ -696,7 +824,7 @@ static void untitled_SystemCore_setup(codertarget_raspi_internal_CA_T *obj)
       untitled_B.cmd[160] = 'n';
       untitled_B.cmd[161] = '0';
       for (untitled_B.len = 0; untitled_B.len < 18; untitled_B.len++) {
-        untitled_B.cmd[untitled_B.len + 162] = tmp_8[untitled_B.len];
+        untitled_B.cmd[untitled_B.len + 162] = tmp_a[untitled_B.len];
       }
 
       untitled_B.cmd[180] = 'a';
@@ -704,11 +832,11 @@ static void untitled_SystemCore_setup(codertarget_raspi_internal_CA_T *obj)
       untitled_B.cmd[182] = 'k';
       untitled_B.cmd[183] = ' ';
       for (untitled_B.len = 0; untitled_B.len < 12; untitled_B.len++) {
-        untitled_B.cmd[untitled_B.len + 184] = tmp_a[untitled_B.len];
+        untitled_B.cmd[untitled_B.len + 184] = tmp_b[untitled_B.len];
       }
 
       for (untitled_B.len = 0; untitled_B.len < 29; untitled_B.len++) {
-        untitled_B.cmd[untitled_B.len + 196] = tmp_b[untitled_B.len];
+        untitled_B.cmd[untitled_B.len + 196] = tmp_c[untitled_B.len];
       }
 
       untitled_B.cmd[225] = '\x00';
@@ -745,8 +873,9 @@ static void untitled_SystemCore_setup(codertarget_raspi_internal_CA_T *obj)
       }
 
       if (b_bool) {
-        guard2 = true;
+        untitled_B.status = 0;
       } else {
+        untitled_B.status = 1;
         untitled_B.len = errString1->size[0] * errString1->size[1];
         errString1->size[0] = 1;
         errString1->size[1] = tline->size[1] + 30;
@@ -756,7 +885,7 @@ static void untitled_SystemCore_setup(codertarget_raspi_internal_CA_T *obj)
         errString1->data[2] = 'n';
         errString1->data[3] = '0';
         for (untitled_B.len = 0; untitled_B.len < 24; untitled_B.len++) {
-          errString1->data[untitled_B.len + 4] = tmp_d[untitled_B.len];
+          errString1->data[untitled_B.len + 4] = tmp_e[untitled_B.len];
         }
 
         untitled_B.j = tline->size[1];
@@ -768,11 +897,16 @@ static void untitled_SystemCore_setup(codertarget_raspi_internal_CA_T *obj)
         errString1->data[tline->size[1] + 28] = '\x0a';
         errString1->data[tline->size[1] + 29] = '\x00';
         MW_printError(&errString1->data[0]);
-        guard1 = true;
       }
+
+      for (untitled_B.len = 0; untitled_B.len < 39; untitled_B.len++) {
+        untitled_B.cmd1[untitled_B.len] = tmp_d[untitled_B.len];
+      }
+
+      MW_executeCommand(&untitled_B.cmd1[0]);
     } else {
       for (untitled_B.len = 0; untitled_B.len < 25; untitled_B.len++) {
-        untitled_B.patVal_m[untitled_B.len] = tmp_3[untitled_B.len];
+        untitled_B.patVal_m[untitled_B.len] = tmp_4[untitled_B.len];
       }
 
       untitled_B.len = 1;
@@ -806,6 +940,7 @@ static void untitled_SystemCore_setup(codertarget_raspi_internal_CA_T *obj)
         memcpy(&errString1->data[0], &tline->data[0], (uint32_T)untitled_B.j *
                sizeof(char_T));
         MW_printError(&errString1->data[0]);
+        untitled_B.status = 3;
       } else {
         untitled_B.len = errString1->size[0] * errString1->size[1];
         errString1->size[0] = 1;
@@ -815,22 +950,21 @@ static void untitled_SystemCore_setup(codertarget_raspi_internal_CA_T *obj)
         memcpy(&errString1->data[0], &tline->data[0], (uint32_T)untitled_B.j *
                sizeof(char_T));
         MW_printError(&errString1->data[0]);
+        untitled_B.status = -1;
       }
-
-      guard1 = true;
     }
+
+    untitled_emxFree_char_T(&errString1);
   }
 
-  if (guard2) {
-    untitled_B.stat1 = MW_createSocket(&untitled_B.canInterface[0],
-      &obj->sockHandleDataFrames);
-    untitled_B.stat2 = MW_createSocket(&untitled_B.canInterface[0],
+  untitled_emxFree_char_T(&tline);
+  if (untitled_B.status == 0) {
+    MW_createSocket(&untitled_B.canInterface[0], &obj->sockHandleDataFrames);
+    untitled_B.stat = MW_createSocket(&untitled_B.canInterface[0],
       &obj->sockHandleErrorFrames);
-  }
-
-  if (guard1) {
+  } else {
     for (untitled_B.len = 0; untitled_B.len < 11; untitled_B.len++) {
-      untitled_B.errString0[untitled_B.len] = tmp_9[untitled_B.len];
+      untitled_B.errString0[untitled_B.len] = tmp_3[untitled_B.len];
     }
 
     untitled_B.errString0[11] = 'c';
@@ -845,7 +979,7 @@ static void untitled_SystemCore_setup(codertarget_raspi_internal_CA_T *obj)
     untitled_B.errString3[2] = 'n';
     untitled_B.errString3[3] = '0';
     for (untitled_B.len = 0; untitled_B.len < 14; untitled_B.len++) {
-      untitled_B.errString3[untitled_B.len + 4] = tmp_c[untitled_B.len];
+      untitled_B.errString3[untitled_B.len + 4] = tmp_9[untitled_B.len];
     }
 
     untitled_B.errString3[18] = '\x0a';
@@ -853,43 +987,83 @@ static void untitled_SystemCore_setup(codertarget_raspi_internal_CA_T *obj)
     MW_printError(&untitled_B.errString3[0]);
   }
 
-  untitled_emxFree_char_T(&errString1);
-  untitled_emxFree_char_T(&tline);
-  if ((untitled_B.stat1 == 0) && (untitled_B.stat2 == 0)) {
-    obj->Initialized = true;
-  } else {
-    obj->Initialized = false;
-  }
-
+  obj->Initialized = (untitled_B.stat == 0);
   obj->isSetupComplete = true;
 }
 
 /* Model step function */
 void untitled_step(void)
 {
+  real_T rtb_Abs;
+  real_T rtb_deltafalllimit;
+  real_T uDLookupTable;
   int32_T c;
   int32_T sockStatus;
+  uint32_T rxid;
   char_T rxInterface[5];
   uint8_T txData[8];
+  uint8_T dataLength;
+  uint8_T error;
+  uint8_T extended;
+  uint8_T remote;
   uint8_T status;
 
-  /* Sum: '<Root>/Add' incorporates:
-   *  Constant: '<Root>/Constant'
+  /* Step: '<S1>/Step' */
+  if (untitled_M->Timing.t[0] < untitled_P.Ramp_start) {
+    rtb_Abs = untitled_P.Step_Y0;
+  } else {
+    rtb_Abs = untitled_P.Ramp_slope;
+  }
+
+  /* Lookup_n-D: '<Root>/1-D Lookup Table' incorporates:
+   *  Clock: '<S1>/Clock'
+   *  Constant: '<Root>/Constant3'
+   *  Constant: '<S1>/Constant'
+   *  Constant: '<S1>/Constant1'
+   *  Math: '<Root>/Mod'
+   *  Product: '<S1>/Product'
+   *  Step: '<S1>/Step'
+   *  Sum: '<S1>/Output'
+   *  Sum: '<S1>/Sum'
+   */
+  uDLookupTable = untitled_P.uDLookupTable_tableData[plook_u32d_evencka
+    (rt_modd_snf((untitled_M->Timing.t[0] - untitled_P.Ramp_start) * rtb_Abs +
+                 untitled_P.Ramp_InitialOutput, untitled_P.Constant3_Value),
+     untitled_P.uDLookupTable_bp01Data[0], untitled_P.uDLookupTable_bp01Data[1]
+     - untitled_P.uDLookupTable_bp01Data[0], 7U)];
+
+  /* Sum: '<Root>/Subtract' incorporates:
    *  UnitDelay: '<Root>/Unit Delay'
    */
-  untitled_B.Add += untitled_P.Constant_Value;
+  rtb_deltafalllimit = uDLookupTable - untitled_DW.UnitDelay_DSTATE;
 
-  /* Sum: '<Root>/Add1' incorporates:
-   *  Constant: '<Root>/Constant1'
-   *  UnitDelay: '<Root>/Unit Delay1'
+  /* Gain: '<Root>/Multiply' incorporates:
+   *  Constant: '<Root>/Constant'
+   *  Product: '<Root>/Divide'
    */
-  untitled_B.Add1 = untitled_DW.UnitDelay1_DSTATE + untitled_P.Constant1_Value;
+  untitled_B.Saturation1 = rtb_deltafalllimit / untitled_P.Constant_Value *
+    untitled_P.Multiply_Gain;
+
+  /* Saturate: '<Root>/Saturation1' */
+  if (untitled_B.Saturation1 > untitled_P.Saturation1_UpperSat) {
+    /* Gain: '<Root>/Multiply' incorporates:
+     *  Saturate: '<Root>/Saturation1'
+     */
+    untitled_B.Saturation1 = untitled_P.Saturation1_UpperSat;
+  } else if (untitled_B.Saturation1 < untitled_P.Saturation1_LowerSat) {
+    /* Gain: '<Root>/Multiply' incorporates:
+     *  Saturate: '<Root>/Saturation1'
+     */
+    untitled_B.Saturation1 = untitled_P.Saturation1_LowerSat;
+  }
+
+  /* End of Saturate: '<Root>/Saturation1' */
 
   /* S-Function (scanpack): '<Root>/CAN Pack' */
   /* S-Function (scanpack): '<Root>/CAN Pack' */
-  untitled_B.CANPack.ID = 1234U;
+  untitled_B.CANPack.ID = 201524227U;
   untitled_B.CANPack.Length = 8U;
-  untitled_B.CANPack.Extended = 0U;
+  untitled_B.CANPack.Extended = 1U;
   untitled_B.CANPack.Remote = 0;
   untitled_B.CANPack.Data[0] = 0;
   untitled_B.CANPack.Data[1] = 0;
@@ -907,7 +1081,7 @@ void untitled_step(void)
      *  desiredSignalByteLayout = LITTLEENDIAN
      *  dataType                = UNSIGNED
      *  factor                  = 1.0
-     *  offset                  = -10000.0
+     *  offset                  = 10000.0
      *  minimum                 = 0.0
      *  maximum                 = 0.0
      * -----------------------------------------------------------------------*/
@@ -915,10 +1089,10 @@ void untitled_step(void)
       real64_T outValue = 0;
 
       {
-        real64_T result = untitled_B.Add;
+        real64_T result = untitled_B.Saturation1;
 
         /* no factor to apply */
-        result = result - -10000.0;
+        result = result - 10000.0;
 
         /* round to closest integer value for integer CAN signal */
         outValue = round(result);
@@ -944,54 +1118,10 @@ void untitled_step(void)
         }
       }
     }
-
-    /* --------------- START Packing signal 1 ------------------
-     *  startBit                = 16
-     *  length                  = 16
-     *  desiredSignalByteLayout = LITTLEENDIAN
-     *  dataType                = UNSIGNED
-     *  factor                  = 1.0
-     *  offset                  = -10000.0
-     *  minimum                 = 0.0
-     *  maximum                 = 0.0
-     * -----------------------------------------------------------------------*/
-    {
-      real64_T outValue = 0;
-
-      {
-        real64_T result = untitled_B.Add1;
-
-        /* no factor to apply */
-        result = result - -10000.0;
-
-        /* round to closest integer value for integer CAN signal */
-        outValue = round(result);
-      }
-
-      {
-        uint16_T packedValue;
-        if (outValue > (real64_T)(65535)) {
-          packedValue = (uint16_T) 65535;
-        } else if (outValue < (real64_T)(0)) {
-          packedValue = (uint16_T) 0;
-        } else {
-          packedValue = (uint16_T) (outValue);
-        }
-
-        {
-          {
-            untitled_B.CANPack.Data[2] = untitled_B.CANPack.Data[2] | (uint8_T)
-              ((uint16_T)(packedValue & (uint16_T)0xFFU));
-            untitled_B.CANPack.Data[3] = untitled_B.CANPack.Data[3] | (uint8_T)
-              ((uint16_T)((uint16_T)(packedValue & (uint16_T)0xFF00U) >> 8));
-          }
-        }
-      }
-    }
   }
 
   /* MATLABSystem: '<Root>/CAN Transmit' */
-  if (untitled_DW.obj.Initialized) {
+  if (untitled_DW.obj_h.Initialized) {
     for (sockStatus = 0; sockStatus < 8; sockStatus++) {
       txData[sockStatus] = 0U;
     }
@@ -1012,45 +1142,129 @@ void untitled_step(void)
     sockStatus = MW_CAN_transmitCANMsg(&rxInterface[0], (uint8_T)
       (untitled_B.CANPack.Extended == 0), untitled_B.CANPack.ID,
       untitled_B.CANPack.Length, &txData[0], untitled_B.CANPack.Remote, &status,
-      0, 1.0, untitled_DW.obj.sockHandleDataFrames,
-      untitled_DW.obj.sockHandleErrorFrames, (uint8_T)
-      untitled_DW.obj.notFirstStep);
+      0, 1.0, untitled_DW.obj_h.sockHandleDataFrames,
+      untitled_DW.obj_h.sockHandleErrorFrames, (uint8_T)
+      untitled_DW.obj_h.notFirstStep);
+    if (sockStatus != 0) {
+      untitled_DW.obj_h.Initialized = false;
+    }
+  }
+
+  /* End of MATLABSystem: '<Root>/CAN Transmit' */
+
+  /* Abs: '<Root>/Abs' incorporates:
+   *  Gain: '<Root>/Gain2'
+   */
+  rtb_Abs = fabs(untitled_P.Gain2_Gain * rtb_deltafalllimit);
+
+  /* Sum: '<S2>/Difference Inputs1'
+   *
+   * Block description for '<S2>/Difference Inputs1':
+   *
+   *  Add in CPU
+   */
+  uDLookupTable -= untitled_DW.DelayInput2_DSTATE;
+
+  /* Product: '<S2>/delta rise limit' incorporates:
+   *  SampleTimeMath: '<S2>/sample time'
+   *
+   * About '<S2>/sample time':
+   *  y = K where K = ( w * Ts )
+   */
+  rtb_deltafalllimit = rtb_Abs * untitled_P.sampletime_WtEt;
+
+  /* Switch: '<S3>/Switch2' incorporates:
+   *  RelationalOperator: '<S3>/LowerRelop1'
+   */
+  if (!(uDLookupTable > rtb_deltafalllimit)) {
+    /* Product: '<S2>/delta fall limit' incorporates:
+     *  Gain: '<Root>/Gain1'
+     *  SampleTimeMath: '<S2>/sample time'
+     *
+     * About '<S2>/sample time':
+     *  y = K where K = ( w * Ts )
+     */
+    rtb_deltafalllimit = untitled_P.Gain1_Gain * rtb_Abs *
+      untitled_P.sampletime_WtEt;
+
+    /* Switch: '<S3>/Switch' incorporates:
+     *  RelationalOperator: '<S3>/UpperRelop'
+     */
+    if (!(uDLookupTable < rtb_deltafalllimit)) {
+      rtb_deltafalllimit = uDLookupTable;
+    }
+
+    /* End of Switch: '<S3>/Switch' */
+  }
+
+  /* End of Switch: '<S3>/Switch2' */
+
+  /* Sum: '<S2>/Difference Inputs2'
+   *
+   * Block description for '<S2>/Difference Inputs2':
+   *
+   *  Add in CPU
+   */
+  untitled_B.DifferenceInputs2 = rtb_deltafalllimit +
+    untitled_DW.DelayInput2_DSTATE;
+
+  /* MATLABSystem: '<Root>/CAN Receive' */
+  if (untitled_DW.obj.SampleTime != untitled_P.CANReceive_SampleTime) {
+    untitled_DW.obj.SampleTime = untitled_P.CANReceive_SampleTime;
+  }
+
+  if (untitled_DW.obj.Initialized) {
+    rxInterface[0] = 'c';
+    rxInterface[1] = 'a';
+    rxInterface[2] = 'n';
+    rxInterface[3] = '0';
+    rxInterface[4] = '\x00';
+    sockStatus = MW_CAN_receiveCANMsg(&rxInterface[0], &rxid, &txData[0],
+      &dataLength, &status, &extended, &remote, &error,
+      untitled_DW.obj.sockHandleDataFrames,
+      untitled_DW.obj.sockHandleErrorFrames);
     if (sockStatus != 0) {
       untitled_DW.obj.Initialized = false;
     }
   }
 
-  /* End of MATLABSystem: '<Root>/CAN Transmit' */
-  /* ToFile: '<Root>/To File' */
-  {
-    if (!(++untitled_DW.ToFile_IWORK.Decimation % 1) &&
-        (untitled_DW.ToFile_IWORK.Count * (1 + 1)) + 1 < 100000000 ) {
-      FILE *fp = (FILE *) untitled_DW.ToFile_PWORK.FilePtr;
-      if (fp != (NULL)) {
-        real_T u[1 + 1];
-        untitled_DW.ToFile_IWORK.Decimation = 0;
-        u[0] = untitled_M->Timing.taskTime0;
-        u[1] = untitled_B.Add1;
-        if (fwrite(u, sizeof(real_T), 1 + 1, fp) != 1 + 1) {
-          rtmSetErrorStatus(untitled_M, "Error writing to MAT-file untitled.mat");
-          return;
-        }
+  /* End of MATLABSystem: '<Root>/CAN Receive' */
 
-        if (((++untitled_DW.ToFile_IWORK.Count) * (1 + 1))+1 >= 100000000) {
-          (void)fprintf(stdout,
-                        "*** The ToFile block will stop logging data before\n"
-                        "    the simulation has ended, because it has reached\n"
-                        "    the maximum number of elements (100000000)\n"
-                        "    allowed in MAT-file untitled.mat.\n");
-        }
-      }
+  /* Update for UnitDelay: '<Root>/Unit Delay' */
+  untitled_DW.UnitDelay_DSTATE = untitled_B.DifferenceInputs2;
+
+  /* Update for UnitDelay: '<S2>/Delay Input2'
+   *
+   * Block description for '<S2>/Delay Input2':
+   *
+   *  Store in Global RAM
+   */
+  untitled_DW.DelayInput2_DSTATE = untitled_B.DifferenceInputs2;
+
+  {                                    /* Sample time: [0.0s, 0.0s] */
+    extmodeErrorCode_T errorCode = EXTMODE_SUCCESS;
+    extmodeSimulationTime_T currentTime = (extmodeSimulationTime_T)
+      untitled_M->Timing.t[0];
+
+    /* Trigger External Mode event */
+    errorCode = extmodeEvent(0,currentTime);
+    if (errorCode != EXTMODE_SUCCESS) {
+      /* Code to handle External Mode event errors
+         may be added here */
     }
   }
 
-  /* Update for UnitDelay: '<Root>/Unit Delay1' */
-  untitled_DW.UnitDelay1_DSTATE = untitled_B.Add1;
+  {                                    /* Sample time: [1.12s, 0.0s] */
+    extmodeErrorCode_T errorCode = EXTMODE_SUCCESS;
+    extmodeSimulationTime_T currentTime = (extmodeSimulationTime_T)
+      ((untitled_M->Timing.clockTick1) * 1.12);
 
-  {                                    /* Sample time: [4.0s, 0.0s] */
+    /* Trigger External Mode event */
+    errorCode = extmodeEvent(1,currentTime);
+    if (errorCode != EXTMODE_SUCCESS) {
+      /* Code to handle External Mode event errors
+         may be added here */
+    }
   }
 
   /* Update absolute time for base rate */
@@ -1059,64 +1273,87 @@ void untitled_step(void)
    * and "Timing.stepSize0". Size of "clockTick0" ensures timer will not
    * overflow during the application lifespan selected.
    */
-  untitled_M->Timing.taskTime0 =
+  untitled_M->Timing.t[0] =
     ((time_T)(++untitled_M->Timing.clockTick0)) * untitled_M->Timing.stepSize0;
+
+  {
+    /* Update absolute timer for sample time: [1.12s, 0.0s] */
+    /* The "clockTick1" counts the number of times the code of this task has
+     * been executed. The resolution of this integer timer is 1.12, which is the step size
+     * of the task. Size of "clockTick1" ensures timer will not overflow during the
+     * application lifespan selected.
+     */
+    untitled_M->Timing.clockTick1++;
+  }
 }
 
 /* Model initialize function */
 void untitled_initialize(void)
 {
   /* Registration code */
-  rtmSetTFinal(untitled_M, 200.0);
-  untitled_M->Timing.stepSize0 = 4.0;
+
+  /* initialize non-finites */
+  rt_InitInfAndNaN(sizeof(real_T));
+
+  {
+    /* Setup solver object */
+    rtsiSetSimTimeStepPtr(&untitled_M->solverInfo,
+                          &untitled_M->Timing.simTimeStep);
+    rtsiSetTPtr(&untitled_M->solverInfo, &rtmGetTPtr(untitled_M));
+    rtsiSetStepSizePtr(&untitled_M->solverInfo, &untitled_M->Timing.stepSize0);
+    rtsiSetErrorStatusPtr(&untitled_M->solverInfo, (&rtmGetErrorStatus
+      (untitled_M)));
+    rtsiSetRTModelPtr(&untitled_M->solverInfo, untitled_M);
+  }
+
+  rtsiSetSimTimeStep(&untitled_M->solverInfo, MAJOR_TIME_STEP);
+  rtsiSetSolverName(&untitled_M->solverInfo,"FixedStepDiscrete");
+  rtmSetTPtr(untitled_M, &untitled_M->Timing.tArray[0]);
+  rtmSetTFinal(untitled_M, 56.000000000000007);
+  untitled_M->Timing.stepSize0 = 1.12;
 
   /* External mode info */
-  untitled_M->Sizes.checksums[0] = (16840947U);
-  untitled_M->Sizes.checksums[1] = (3113309621U);
-  untitled_M->Sizes.checksums[2] = (1603427643U);
-  untitled_M->Sizes.checksums[3] = (1108455936U);
+  untitled_M->Sizes.checksums[0] = (2287887003U);
+  untitled_M->Sizes.checksums[1] = (3550829715U);
+  untitled_M->Sizes.checksums[2] = (631369001U);
+  untitled_M->Sizes.checksums[3] = (1740203300U);
 
   {
     static const sysRanDType rtAlwaysEnabled = SUBSYS_RAN_BC_ENABLE;
     static RTWExtModeInfo rt_ExtModeInfo;
-    static const sysRanDType *systemRan[2];
+    static const sysRanDType *systemRan[4];
     untitled_M->extModeInfo = (&rt_ExtModeInfo);
     rteiSetSubSystemActiveVectorAddresses(&rt_ExtModeInfo, systemRan);
     systemRan[0] = &rtAlwaysEnabled;
     systemRan[1] = &rtAlwaysEnabled;
+    systemRan[2] = &rtAlwaysEnabled;
+    systemRan[3] = &rtAlwaysEnabled;
     rteiSetModelMappingInfoPtr(untitled_M->extModeInfo,
       &untitled_M->SpecialInfo.mappingInfo);
     rteiSetChecksumsPtr(untitled_M->extModeInfo, untitled_M->Sizes.checksums);
     rteiSetTPtr(untitled_M->extModeInfo, rtmGetTPtr(untitled_M));
   }
 
-  /* Start for ToFile: '<Root>/To File' */
-  {
-    FILE *fp = (NULL);
-    char fileName[509] = "untitled.mat";
-    if ((fp = fopen(fileName, "wb")) == (NULL)) {
-      rtmSetErrorStatus(untitled_M, "Error creating .mat file untitled.mat");
-      return;
-    }
-
-    if (rt_WriteMat4FileHeader(fp, 1 + 1, 0, "ans")) {
-      rtmSetErrorStatus(untitled_M,
-                        "Error writing mat file header to file untitled.mat");
-      return;
-    }
-
-    untitled_DW.ToFile_IWORK.Count = 0;
-    untitled_DW.ToFile_IWORK.Decimation = -1;
-    untitled_DW.ToFile_PWORK.FilePtr = fp;
-  }
-
   /* InitializeConditions for UnitDelay: '<Root>/Unit Delay' */
-  untitled_B.Add = untitled_P.UnitDelay_InitialCondition;
+  untitled_DW.UnitDelay_DSTATE = untitled_P.UnitDelay_InitialCondition;
 
-  /* InitializeConditions for UnitDelay: '<Root>/Unit Delay1' */
-  untitled_DW.UnitDelay1_DSTATE = untitled_P.UnitDelay1_InitialCondition;
+  /* InitializeConditions for UnitDelay: '<S2>/Delay Input2'
+   *
+   * Block description for '<S2>/Delay Input2':
+   *
+   *  Store in Global RAM
+   */
+  untitled_DW.DelayInput2_DSTATE = untitled_P.DelayInput2_InitialCondition;
 
   /* Start for MATLABSystem: '<Root>/CAN Transmit' */
+  untitled_DW.obj_h.sockHandleDataFrames = 0;
+  untitled_DW.obj_h.sockHandleErrorFrames = 0;
+  untitled_DW.obj_h.notFirstStep = false;
+  untitled_DW.obj_h.isInitialized = 0;
+  untitled_DW.obj_h.matlabCodegenIsDeleted = false;
+  untitled_SystemCore_setup_b(&untitled_DW.obj_h);
+
+  /* Start for MATLABSystem: '<Root>/CAN Receive' */
   untitled_B.a = NULL;
   for (untitled_B.i = 0; untitled_B.i < 20; untitled_B.i++) {
     untitled_DW.eml_openfiles[untitled_B.i] = untitled_B.a;
@@ -1124,12 +1361,12 @@ void untitled_initialize(void)
 
   untitled_DW.obj.sockHandleDataFrames = 0;
   untitled_DW.obj.sockHandleErrorFrames = 0;
-  untitled_DW.obj.notFirstStep = false;
   untitled_DW.obj.isInitialized = 0;
   untitled_DW.obj.matlabCodegenIsDeleted = false;
+  untitled_DW.obj.SampleTime = untitled_P.CANReceive_SampleTime;
   untitled_SystemCore_setup(&untitled_DW.obj);
 
-  /* End of Start for MATLABSystem: '<Root>/CAN Transmit' */
+  /* End of Start for MATLABSystem: '<Root>/CAN Receive' */
 }
 
 /* Model terminate function */
@@ -1138,6 +1375,22 @@ void untitled_terminate(void)
   char_T canInterface[5];
 
   /* Terminate for MATLABSystem: '<Root>/CAN Transmit' */
+  if (!untitled_DW.obj_h.matlabCodegenIsDeleted) {
+    untitled_DW.obj_h.matlabCodegenIsDeleted = true;
+    if ((untitled_DW.obj_h.isInitialized == 1) &&
+        untitled_DW.obj_h.isSetupComplete && untitled_DW.obj_h.Initialized) {
+      canInterface[0] = 'c';
+      canInterface[1] = 'a';
+      canInterface[2] = 'n';
+      canInterface[3] = '0';
+      canInterface[4] = '\x00';
+      MW_clearSocket(&untitled_DW.obj_h.sockHandleDataFrames, &canInterface[0]);
+      MW_clearSocket(&untitled_DW.obj_h.sockHandleErrorFrames, &canInterface[0]);
+    }
+  }
+
+  /* End of Terminate for MATLABSystem: '<Root>/CAN Transmit' */
+  /* Terminate for MATLABSystem: '<Root>/CAN Receive' */
   if (!untitled_DW.obj.matlabCodegenIsDeleted) {
     untitled_DW.obj.matlabCodegenIsDeleted = true;
     if ((untitled_DW.obj.isInitialized == 1) && untitled_DW.obj.isSetupComplete &&
@@ -1152,36 +1405,7 @@ void untitled_terminate(void)
     }
   }
 
-  /* End of Terminate for MATLABSystem: '<Root>/CAN Transmit' */
-  /* Terminate for ToFile: '<Root>/To File' */
-  {
-    FILE *fp = (FILE *) untitled_DW.ToFile_PWORK.FilePtr;
-    if (fp != (NULL)) {
-      char fileName[509] = "untitled.mat";
-      if (fclose(fp) == EOF) {
-        rtmSetErrorStatus(untitled_M, "Error closing MAT-file untitled.mat");
-        return;
-      }
-
-      if ((fp = fopen(fileName, "r+b")) == (NULL)) {
-        rtmSetErrorStatus(untitled_M, "Error reopening MAT-file untitled.mat");
-        return;
-      }
-
-      if (rt_WriteMat4FileHeader(fp, 1 + 1, untitled_DW.ToFile_IWORK.Count,
-           "ans")) {
-        rtmSetErrorStatus(untitled_M,
-                          "Error writing header for ans to MAT-file untitled.mat");
-      }
-
-      if (fclose(fp) == EOF) {
-        rtmSetErrorStatus(untitled_M, "Error closing MAT-file untitled.mat");
-        return;
-      }
-
-      untitled_DW.ToFile_PWORK.FilePtr = (NULL);
-    }
-  }
+  /* End of Terminate for MATLABSystem: '<Root>/CAN Receive' */
 }
 
 /*

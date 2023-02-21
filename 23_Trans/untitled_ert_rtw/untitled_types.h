@@ -9,7 +9,7 @@
  *
  * Model version                  : 1.0
  * Simulink Coder version         : 9.8 (R2022b) 13-May-2022
- * C/C++ source code generated on : Fri Jan 27 14:21:57 2023
+ * C/C++ source code generated on : Wed Feb  8 16:11:00 2023
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM Cortex
@@ -35,9 +35,47 @@ typedef struct {
 
 #endif
 
-/* Custom Type definition for MATLABSystem: '<Root>/CAN Transmit' */
+#ifndef DEFINED_TYPEDEF_FOR_linuxCANMsg_
+#define DEFINED_TYPEDEF_FOR_linuxCANMsg_
+
+typedef struct {
+  uint8_T Extended;
+  uint8_T Length;
+  uint8_T Remote;
+  uint8_T Error;
+  uint32_T ID;
+  real_T Timestamp;
+  uint8_T Data[8];
+} linuxCANMsg;
+
+#endif
+
+/* Custom Type definition for MATLABSystem: '<Root>/CAN Receive' */
 #include <stdio.h>
 #include <stdio.h>
+#ifndef struct_tag_MRn9RnGM9y9H1ik1iAfDlE
+#define struct_tag_MRn9RnGM9y9H1ik1iAfDlE
+
+struct tag_MRn9RnGM9y9H1ik1iAfDlE
+{
+  boolean_T matlabCodegenIsDeleted;
+  int32_T isInitialized;
+  boolean_T isSetupComplete;
+  real_T SampleTime;
+  int32_T sockHandleDataFrames;
+  int32_T sockHandleErrorFrames;
+  boolean_T Initialized;
+};
+
+#endif                                 /* struct_tag_MRn9RnGM9y9H1ik1iAfDlE */
+
+#ifndef typedef_codertarget_raspi_internal_CA_T
+#define typedef_codertarget_raspi_internal_CA_T
+
+typedef struct tag_MRn9RnGM9y9H1ik1iAfDlE codertarget_raspi_internal_CA_T;
+
+#endif                             /* typedef_codertarget_raspi_internal_CA_T */
+
 #ifndef struct_tag_VWsHpLnzr3Sj7pOoaPHLtE
 #define struct_tag_VWsHpLnzr3Sj7pOoaPHLtE
 
@@ -54,12 +92,12 @@ struct tag_VWsHpLnzr3Sj7pOoaPHLtE
 
 #endif                                 /* struct_tag_VWsHpLnzr3Sj7pOoaPHLtE */
 
-#ifndef typedef_codertarget_raspi_internal_CA_T
-#define typedef_codertarget_raspi_internal_CA_T
+#ifndef typedef_codertarget_raspi_internal__b_T
+#define typedef_codertarget_raspi_internal__b_T
 
-typedef struct tag_VWsHpLnzr3Sj7pOoaPHLtE codertarget_raspi_internal_CA_T;
+typedef struct tag_VWsHpLnzr3Sj7pOoaPHLtE codertarget_raspi_internal__b_T;
 
-#endif                             /* typedef_codertarget_raspi_internal_CA_T */
+#endif                             /* typedef_codertarget_raspi_internal__b_T */
 
 #ifndef struct_emxArray_char_T
 #define struct_emxArray_char_T

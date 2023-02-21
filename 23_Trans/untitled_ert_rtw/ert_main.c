@@ -9,7 +9,7 @@
  *
  * Model version                  : 1.0
  * Simulink Coder version         : 9.8 (R2022b) 13-May-2022
- * C/C++ source code generated on : Fri Jan 27 14:21:57 2023
+ * C/C++ source code generated on : Wed Feb  8 16:11:00 2023
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM Cortex
@@ -23,6 +23,7 @@
 #include "untitled_private.h"
 #include "rtwtypes.h"
 #include "limits.h"
+#include "rt_nonfinite.h"
 #include "ext_mode.h"
 #include "MW_raspi_init.h"
 #include "MW_Pyserver_control.h"
@@ -49,8 +50,6 @@ void *baseRateTask(void *arg)
   runModel = (rtmGetErrorStatus(untitled_M) == (NULL));
   while (runModel) {
     sem_wait(&baserateTaskSem);
-    extmodeSimulationTime_T currentTime = (extmodeSimulationTime_T)
-      untitled_M->Timing.taskTime0;
 
     /* Run External Mode background activities */
     errorCode = extmodeBackgroundRun();
@@ -62,9 +61,6 @@ void *baseRateTask(void *arg)
     untitled_step();
 
     /* Get model outputs here */
-
-    /* Trigger External Mode event */
-    extmodeEvent(0, currentTime);
     stopRequested = !((rtmGetErrorStatus(untitled_M) == (NULL)));
     runModel = !stopRequested && !extmodeSimulationComplete() &&
       !extmodeStopRequested();
@@ -135,7 +131,7 @@ int main(int argc, char **argv)
   }
 
   /* Call RTOS Initialization function */
-  myRTOSInit(4.0, 0);
+  myRTOSInit(1.12, 0);
 
   /* Wait for stop semaphore */
   sem_wait(&stopSem);

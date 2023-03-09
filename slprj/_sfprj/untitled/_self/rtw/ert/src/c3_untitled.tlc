@@ -1,0 +1,74 @@
+%implements "chartSource" "C"
+%function ChartConfig(block, system) void
+  %createrecord chartConfiguration { ...
+          executeAtInitialization  0 ...
+  }
+  %return chartConfiguration
+%endfunction
+%function ChartDataMap(block, system) void
+  %createrecord ChartDataElements {\
+    NumChartData   8 \
+    ChartDataDefaults {\
+      RecordType   "ChartData"\
+      Dimensions   []\
+      IsTestPoint  0\
+    }\
+    ChartData {\
+      Name         "is_c3_untitled"\
+      Description  "StateActiveChild"\
+      SFName       ""\
+      Path         ""\
+      SrcLocation  ""\
+    }\
+    ChartData {\
+      Name         "is_Enabled"\
+      Description  "StateActiveChild"\
+      SFName       ""\
+      Path         "Enabled"\
+      SrcLocation  ""\
+    }\
+    ChartData {\
+      Name         "is_Throttle_Setting"\
+      Description  "StateActiveChild"\
+      SFName       ""\
+      Path         "Enabled.Throttle_Setting"\
+      SrcLocation  ""\
+    }\
+    ChartData {\
+      Name         "Count"\
+      Description  "ChartLocal"\
+      SFName       ""\
+      Path         "Count"\
+      SrcLocation  ""\
+    }\
+    ChartData {\
+      Name         "is_active_c3_untitled"\
+      Description  "StateIsActive"\
+      SFName       ""\
+      Path         ""\
+      SrcLocation  ""\
+    }\
+    ChartData {\
+      Name         "temporalCounter_i1"\
+      Description  "TemporalCounter"\
+      SFName       ""\
+      Path         ""\
+      SrcLocation  ""\
+    }\
+    ChartData {\
+      Name         "Enable_prev"\
+      Description  "ChangeDetectionDoubleBuffer"\
+      SFName       ""\
+      Path         "Enable"\
+      SrcLocation  ""\
+    }\
+    ChartData {\
+      Name         "Enable_start"\
+      Description  "ChangeDetectionDoubleBuffer"\
+      SFName       ""\
+      Path         "Enable"\
+      SrcLocation  ""\
+    }\
+  }
+  %return ChartDataElements
+%endfunction

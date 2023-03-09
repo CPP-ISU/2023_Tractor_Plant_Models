@@ -1,0 +1,108 @@
+%implements "chartSource" "C"
+%function ChartConfig(block, system) void
+  %createrecord chartConfiguration { ...
+          executeAtInitialization  0 ...
+  }
+  %return chartConfiguration
+%endfunction
+%function ChartDataMap(block, system) void
+  %createrecord ChartDataElements {\
+    NumChartData   12 \
+    ChartDataDefaults {\
+      RecordType   "ChartData"\
+      Dimensions   []\
+      IsTestPoint  0\
+    }\
+    ChartData {\
+      Name         "is_c3_untitled1"\
+      Description  "StateActiveChild"\
+      SFName       "is_c3_untitled1"\
+      Path         "is_c3_untitled1"\
+      SrcLocation  ""\
+      IsTestPoint  1\
+    }\
+    ChartData {\
+      Name         "is_Enabled"\
+      Description  "StateActiveChild"\
+      SFName       "is_Enabled"\
+      Path         "Enabled.is_Enabled"\
+      SrcLocation  ""\
+      IsTestPoint  1\
+    }\
+    ChartData {\
+      Name         "is_Throttle_Setting"\
+      Description  "StateActiveChild"\
+      SFName       "is_Throttle_Setting"\
+      Path         "Enabled.Throttle_Setting.is_Throttle_Setting"\
+      SrcLocation  ""\
+      IsTestPoint  1\
+    }\
+    ChartData {\
+      Name         "is_Load_Increase"\
+      Description  "StateActiveChild"\
+      SFName       "is_Load_Increase"\
+      Path         "Enabled.Throttle_Setting.Load_Increase.is_Load_Increase"\
+      SrcLocation  ""\
+      IsTestPoint  1\
+    }\
+    ChartData {\
+      Name         "is_Speed"\
+      Description  "StateActiveChild"\
+      SFName       "is_Speed"\
+      Path         "Enabled.Throttle_Setting.Load_Increase.Speed.is_Speed"\
+      SrcLocation  ""\
+      IsTestPoint  1\
+    }\
+    ChartData {\
+      Name         "Count"\
+      Description  "ChartLocal"\
+      SFName       ""\
+      Path         "Count"\
+      SrcLocation  ""\
+    }\
+    ChartData {\
+      Name         "sfEvent"\
+      Description  "ActiveChartEvent"\
+      SFName       ""\
+      Path         ""\
+      SrcLocation  ""\
+    }\
+    ChartData {\
+      Name         "is_active_c3_untitled1"\
+      Description  "StateIsActive"\
+      SFName       "is_active_c3_untitled1"\
+      Path         "is_active_c3_untitled1"\
+      SrcLocation  ""\
+      IsTestPoint  1\
+    }\
+    ChartData {\
+      Name         "temporalCounter_i1"\
+      Description  "TemporalCounter"\
+      SFName       ""\
+      Path         ""\
+      SrcLocation  ""\
+    }\
+    ChartData {\
+      Name         "durationCounter_1"\
+      Description  ""\
+      SFName       ""\
+      Path         "Enabled.Throttle_Setting.Load_Increase.Speed"\
+      SrcLocation  ""\
+    }\
+    ChartData {\
+      Name         "Enable_prev"\
+      Description  "ChangeDetectionDoubleBuffer"\
+      SFName       ""\
+      Path         "Enable"\
+      SrcLocation  ""\
+    }\
+    ChartData {\
+      Name         "Enable_start"\
+      Description  "ChangeDetectionDoubleBuffer"\
+      SFName       ""\
+      Path         "Enable"\
+      SrcLocation  ""\
+    }\
+  }
+  %return ChartDataElements
+%endfunction

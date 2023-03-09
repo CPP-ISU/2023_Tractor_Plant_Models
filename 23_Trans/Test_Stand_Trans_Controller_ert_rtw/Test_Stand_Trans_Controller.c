@@ -7,9 +7,9 @@
  *
  * Code generated for Simulink model 'Test_Stand_Trans_Controller'.
  *
- * Model version                  : 1.5
+ * Model version                  : 1.8
  * Simulink Coder version         : 9.8 (R2022b) 13-May-2022
- * C/C++ source code generated on : Fri Jan 27 17:11:46 2023
+ * C/C++ source code generated on : Mon Mar  6 21:37:24 2023
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM Cortex
@@ -27,10 +27,7 @@
 #include <string.h>
 #include <stddef.h>
 #include <stdlib.h>
-
-/* Named constants for Chart: '<S1>/Chart' */
-#define Test_Stand_Trans_C_IN_phase_one ((uint8_T)1U)
-#define Test_Stand_Trans_C_IN_phase_two ((uint8_T)2U)
+#define Test_Stand_Trans_Control_period (0.01)
 
 /* Block signals (default storage) */
 B_Test_Stand_Trans_Controller_T Test_Stand_Trans_Controller_B;
@@ -60,6 +57,258 @@ static void Test_Stand_Trans_Controll_fgetl(real_T fileID,
 static int32_T Test_Stand_Trans_Contro_cfclose(real_T fid);
 static void Test_Stand_T_SystemCore_setup_l(codertarget_raspi_internal__l_T *obj);
 static void Test_Stand__SystemCore_setup_lm(codertarget_raspi_internal__l_T *obj);
+
+/* n-D Spline interpolation function */
+real_T look_SplNBinCZcd(uint32_T numDims, const real_T* u, const
+  rt_LUTSplineWork * const SWork)
+{
+  /*
+   *   n-D column-major table lookup operating on real_T with:
+   *       - Spline interpolation
+   *       - Clipping
+   *       - Binary breakpoint search
+   *       - Index search starts at the same place each time
+   */
+  rt_LUTnWork * const TWork_look = SWork->m_TWork;
+  real_T* const fraction = (real_T*) TWork_look->m_bpLambda;
+  uint32_T* const bpIdx = TWork_look->m_bpIndex;
+  const uint32_T* const maxIndex = TWork_look->m_maxIndex;
+  uint32_T k;
+  for (k = 0U; k < numDims; k++) {
+    const real_T* const bpData = ((const real_T * const *)
+      TWork_look->m_bpDataSet)[k];
+    bpIdx[k] = plook_binc(u[k], bpData, maxIndex[k], &fraction[k]);
+  }
+
+  return(intrp_NSplcd(numDims, SWork, 1U));
+}
+
+/*
+ * Second derivative initialization function for spline
+ * for last dimension.
+ */
+void rt_Spline2Derivd(const real_T *x, const real_T *y, uint32_T n, real_T *u,
+                      real_T *y2)
+{
+  real_T p, qn, sig, un;
+  uint32_T n1, i, k;
+  n1 = n - 1U;
+  y2[0U] = 0.0;
+  u[0U] = 0.0;
+  for (i = 1U; i < n1; i++) {
+    real_T dxm1 = x[i] - x[i - 1U];
+    real_T dxp1 = x[i + 1U] - x[i];
+    real_T dxpm = dxp1 + dxm1;
+    sig = dxm1 / dxpm;
+    p = (sig * y2[i - 1U]) + 2.0;
+    y2[i] = (sig - 1.0) / p;
+    u[i] = ((y[i + 1U] - y[i]) / dxp1) - ((y[i] - y[i - 1U]) / dxm1);
+    u[i] = (((6.0 * u[i]) / dxpm) - (sig * u[i - 1U])) / p;
+  }
+
+  qn = 0.0;
+  un = 0.0;
+  y2[n1] = (un - (qn * u[n1 - 1U])) / ((qn * y2[n1 - 1U]) + 1.0);
+  for (k = n1; k > 0U; k--) {
+    y2[k-1U] = (y2[k-1U] * y2[k]) + u[k-1U];
+  }
+
+  return;
+}
+
+/* n-D natural spline calculation function */
+real_T intrp_NSplcd(uint32_T numDims, const rt_LUTSplineWork * const splWork,
+                    uint32_T extrapMethod)
+{
+  uint32_T il;
+  uint32_T iu, k, i;
+  real_T h, s, p, smsq, pmsq;
+
+  /* intermediate results work areas "this" and "next" */
+  const rt_LUTnWork *TWork_interp = (const rt_LUTnWork *)splWork->m_TWork;
+  const real_T *fraction = (real_T *) TWork_interp->m_bpLambda;
+  const real_T *yp = (real_T *) TWork_interp->m_tableData;
+  real_T *yyA = (real_T *) splWork->m_yyA;
+  real_T *yyB = (real_T *) splWork->m_yyB;
+  real_T *yy2 = (real_T *) splWork->m_yy2;
+  real_T *up = (real_T *) splWork->m_up;
+  real_T *y2 = (real_T *) splWork->m_y2;
+  uint8_T* reCalc = splWork->m_reCalc;
+  real_T *dp = (real_T *) splWork->m_preBp0AndTable;
+  const real_T **bpDataSet = (const real_T **) TWork_interp->m_bpDataSet;
+  const real_T *xp = bpDataSet[0U];
+  real_T *yy = yyA;
+  uint32_T bufBank = 0U;
+  uint32_T len = TWork_interp->m_maxIndex[0U] + 1U;
+
+  /* compare bp0 and table to see whether they get changed */
+  {
+    /* compare the bp0 data */
+    if (memcmp(dp, xp,
+               len * sizeof(real_T)) != 0) {
+      *reCalc = 1;
+      (void) memcpy(dp, xp,
+                    len * sizeof(real_T));
+    }
+
+    /* compare the table data */
+    dp = &(dp[len]);
+    if (memcmp(dp, yp,
+               len * splWork->m_numYWorkElts[0U] * sizeof(real_T)) != 0) {
+      *reCalc = 1;
+      (void) memcpy(dp, yp,
+                    len * splWork->m_numYWorkElts[0U] * sizeof(real_T));
+    }
+  }
+
+  if (*reCalc == 1) {
+    /* If table and bps are tunable calculate 1st dim 2nd deriv */
+    /* Generate first dimension's second derivatives */
+    for (i = 0U; i < splWork->m_numYWorkElts[0U]; i++) {
+      rt_Spline2Derivd(xp, yp, len, up, y2);
+      yp = &yp[len];
+      y2 = &y2[len];
+    }
+
+    /* Set pointers back to beginning */
+    yp = (const real_T *) TWork_interp->m_tableData;
+    y2 = (real_T *) splWork->m_y2;
+  }
+
+  *reCalc = 0;
+
+  /* Generate at-point splines in each dimension */
+  for (k = 0U; k < numDims; k++ ) {
+    /* this dimension's input setup */
+    xp = bpDataSet[k];
+    len = TWork_interp->m_maxIndex[k] + 1U;
+    il = TWork_interp->m_bpIndex[k];
+    iu = il + 1U;
+    h = xp[iu] - xp[il];
+    p = fraction[k];
+    s = 1.0 - p;
+    pmsq = p * ((p*p) - 1.0);
+    smsq = s * ((s*s) - 1.0);
+
+    /*
+     * Calculate spline curves for input in this
+     * dimension at each value of the higher
+     * other dimensions\' points in the table.
+     */
+    if ((p > 1.0) && (extrapMethod == 2U) ) {
+      real_T slope;
+      for (i = 0U; i < splWork->m_numYWorkElts[k]; i++) {
+        slope = (yp[iu] - yp[il]) + ((y2[il]*h*h)*(1.0/6.0));
+        yy[i] = yp[iu] + (slope * (p-1.0));
+        yp = &yp[len];
+        y2 = &y2[len];
+      }
+    } else if ((p < 0.0) && (extrapMethod == 2U) ) {
+      real_T slope;
+      for (i = 0U; i < splWork->m_numYWorkElts[k]; i++) {
+        slope = (yp[iu] - yp[il]) - ((y2[iu]*h*h)*(1.0/6.0));
+        yy[i] = yp[il] + (slope * p);
+        yp = &yp[len];
+        y2 = &y2[len];
+      }
+    } else {
+      for (i = 0U; i < splWork->m_numYWorkElts[k]; i++) {
+        yy[i] = yp[il] + p * (yp[iu] - yp[il]) +
+          ((smsq * y2[il] + pmsq * y2[iu])*h*h)*(1.0/6.0);
+        yp = &yp[len];
+        y2 = &y2[len];
+      }
+    }
+
+    /* set pointers to new result and calculate second derivatives */
+    yp = yy;
+    y2 = yy2;
+    if (splWork->m_numYWorkElts[k+1U] > 0U ) {
+      uint32_T nextLen = TWork_interp->m_maxIndex[k+1U] + 1U;
+      const real_T *nextXp = bpDataSet[k+1U];
+      for (i = 0U; i < splWork->m_numYWorkElts[k+1U]; i++) {
+        rt_Spline2Derivd(nextXp, yp, nextLen, up, y2);
+        yp = &yp[nextLen];
+        y2 = &y2[nextLen];
+      }
+    }
+
+    /*
+     * Set work vectors yp, y2 and yy for next iteration;
+     * the yy just calculated becomes the yp in the
+     * next iteration, y2 was just calculated for these
+     * new points and the yy buffer is swapped to the space
+     * for storing the next iteration\'s results.
+     */
+    yp = yy;
+    y2 = yy2;
+
+    /*
+     * Swap buffers for next dimension and
+     * toggle bufBank for next iteration.
+     */
+    if (bufBank == 0U) {
+      yy = yyA;
+      bufBank = 1U;
+    } else {
+      yy = yyB;
+      bufBank = 0U;
+    }
+  }
+
+  return( yp[0U] );
+}
+
+uint32_T plook_binc(real_T u, const real_T bp[], uint32_T maxIndex, real_T
+                    *fraction)
+{
+  uint32_T bpIndex;
+
+  /* Prelookup - Index and Fraction
+     Index Search method: 'binary'
+     Extrapolation method: 'Clip'
+     Use previous index: 'off'
+     Use last breakpoint for index at or above upper limit: 'off'
+     Remove protection against out-of-range input in generated code: 'off'
+   */
+  if (u <= bp[0U]) {
+    bpIndex = 0U;
+    *fraction = 0.0;
+  } else if (u < bp[maxIndex]) {
+    bpIndex = binsearch_u32d(u, bp, maxIndex >> 1U, maxIndex);
+    *fraction = (u - bp[bpIndex]) / (bp[bpIndex + 1U] - bp[bpIndex]);
+  } else {
+    bpIndex = maxIndex - 1U;
+    *fraction = 1.0;
+  }
+
+  return bpIndex;
+}
+
+uint32_T binsearch_u32d(real_T u, const real_T bp[], uint32_T startIndex,
+  uint32_T maxIndex)
+{
+  uint32_T bpIdx;
+  uint32_T bpIndex;
+  uint32_T iRght;
+
+  /* Binary Search */
+  bpIdx = startIndex;
+  bpIndex = 0U;
+  iRght = maxIndex;
+  while (iRght - bpIndex > 1U) {
+    if (u < bp[bpIdx]) {
+      iRght = bpIdx;
+    } else {
+      bpIndex = bpIdx;
+    }
+
+    bpIdx = (iRght + bpIndex) >> 1U;
+  }
+
+  return bpIndex;
+}
+
 real_T rt_powd_snf(real_T u0, real_T u1)
 {
   real_T tmp;
@@ -1170,10 +1419,8 @@ static void Test_Stand__SystemCore_setup_lm(codertarget_raspi_internal__l_T *obj
 /* Model step function */
 void Test_Stand_Trans_Controller_step(void)
 {
-  real_T rtb_Gain1;
   real_T rtb_Gain11_tmp;
-  real_T rtb_Saturation5;
-  real_T u0_tmp;
+  real_T rtb_IC3_tmp;
   int32_T b_i;
   int32_T sockStatus;
   char_T rxInterface[5];
@@ -1419,179 +1666,378 @@ void Test_Stand_Trans_Controller_step(void)
     Test_Stand_Trans_Controller_P.Constant1_Value *
     Test_Stand_Trans_Controller_P.Gain11_Gain;
 
-  /* Gain: '<S1>/Gain13' */
-  Test_Stand_Trans_Controller_B.Minimumswashcommand =
+  /* Saturate: '<S1>/Saturation14' incorporates:
+   *  Gain: '<S1>/Gain13'
+   */
+  Test_Stand_Trans_Controller_B.Saturation14 =
     Test_Stand_Trans_Controller_P.Gain13_Gain *
     Test_Stand_Trans_Controller_B.Gain11;
 
-  /* Gain: '<S1>/Gain17' incorporates:
-   *  Constant: '<S1>/Constant19'
-   *  Fcn: '<S1>/MaxTorqueatSpeed'
-   *  Product: '<S1>/Product16'
+  /* Fcn: '<S1>/MaxTorqueatSpeed' */
+  Test_Stand_Trans_Controller_B.MaxTorque = (-1.9E-5 * rt_powd_snf
+    (Test_Stand_Trans_Controller_B.Saturation14, 2.0) + 0.102035 *
+    Test_Stand_Trans_Controller_B.Saturation14) - 80.132873;
+
+  /* Sum: '<S1>/Subtract8' incorporates:
+   *  Sum: '<S1>/Subtract10'
+   *  Sum: '<S1>/Subtract2'
+   *  Sum: '<S1>/Subtract3'
    */
-  Test_Stand_Trans_Controller_B.Gain17 = ((-1.9E-5 * rt_powd_snf
-    (Test_Stand_Trans_Controller_B.Minimumswashcommand, 2.0) + 0.102035 *
-    Test_Stand_Trans_Controller_B.Minimumswashcommand) - 80.132873) *
-    Test_Stand_Trans_Controller_P.Constant19_Value *
-    Test_Stand_Trans_Controller_P.Gain17_Gain;
+  Test_Stand_Trans_Controller_B.Min1 = Test_Stand_Trans_Controller_B.Pressure_A
+    - Test_Stand_Trans_Controller_B.Pressure_B;
 
-  /* S-Function (scanunpack): '<Root>/CAN Unpack1' */
-  {
-    /* S-Function (scanunpack): '<Root>/CAN Unpack1' */
-    if ((8 == Test_Stand_Trans_Controller_B.CANReceive_o1.Length) &&
-        (Test_Stand_Trans_Controller_B.CANReceive_o1.ID != INVALID_CAN_ID) ) {
-      if ((201457923 == Test_Stand_Trans_Controller_B.CANReceive_o1.ID) && (1U ==
-           Test_Stand_Trans_Controller_B.CANReceive_o1.Extended) ) {
-        {
-          /* --------------- START Unpacking signal 0 ------------------
-           *  startBit                = 0
-           *  length                  = 16
-           *  desiredSignalByteLayout = LITTLEENDIAN
-           *  dataType                = UNSIGNED
-           *  factor                  = 1.0
-           *  offset                  = -10000.0
-           * -----------------------------------------------------------------------*/
-          {
-            real64_T outValue = 0;
+  /* Saturate: '<S1>/Saturation14' incorporates:
+   *  Abs: '<S1>/Abs10'
+   *  Sum: '<S1>/Subtract8'
+   */
+  Test_Stand_Trans_Controller_B.Saturation14 =
+    Test_Stand_Trans_Controller_B.Min1;
+  Test_Stand_Trans_Controller_B.Saturation14 = fabs
+    (Test_Stand_Trans_Controller_B.Saturation14);
 
-            {
-              uint16_T unpackedValue = 0;
-
-              {
-                uint16_T tempValue = (uint16_T) (0);
-
-                {
-                  tempValue = tempValue | (uint16_T)
-                    (Test_Stand_Trans_Controller_B.CANReceive_o1.Data[0]);
-                  tempValue = tempValue | (uint16_T)((uint16_T)
-                    (Test_Stand_Trans_Controller_B.CANReceive_o1.Data[1]) << 8);
-                }
-
-                unpackedValue = tempValue;
-              }
-
-              outValue = (real64_T) (unpackedValue);
-            }
-
-            {
-              real64_T result = (real64_T) outValue;
-              result = result + -10000.0;
-              Test_Stand_Trans_Controller_B.MP1_Swash = result;
-            }
-          }
-
-          /* --------------- START Unpacking signal 1 ------------------
-           *  startBit                = 16
-           *  length                  = 16
-           *  desiredSignalByteLayout = LITTLEENDIAN
-           *  dataType                = UNSIGNED
-           *  factor                  = 1.0
-           *  offset                  = -10000.0
-           * -----------------------------------------------------------------------*/
-          {
-            real64_T outValue = 0;
-
-            {
-              uint16_T unpackedValue = 0;
-
-              {
-                uint16_T tempValue = (uint16_T) (0);
-
-                {
-                  tempValue = tempValue | (uint16_T)
-                    (Test_Stand_Trans_Controller_B.CANReceive_o1.Data[2]);
-                  tempValue = tempValue | (uint16_T)((uint16_T)
-                    (Test_Stand_Trans_Controller_B.CANReceive_o1.Data[3]) << 8);
-                }
-
-                unpackedValue = tempValue;
-              }
-
-              outValue = (real64_T) (unpackedValue);
-            }
-
-            {
-              real64_T result = (real64_T) outValue;
-              result = result + -10000.0;
-              Test_Stand_Trans_Controller_B.MP2_Swash = result;
-            }
-          }
-        }
-      }
-    }
+  /* Saturate: '<S1>/Saturation8' */
+  if (Test_Stand_Trans_Controller_B.Saturation14 >
+      Test_Stand_Trans_Controller_P.Saturation8_UpperSat) {
+    /* Saturate: '<S1>/Saturation14' */
+    Test_Stand_Trans_Controller_B.Saturation14 =
+      Test_Stand_Trans_Controller_P.Saturation8_UpperSat;
+  } else if (Test_Stand_Trans_Controller_B.Saturation14 <
+             Test_Stand_Trans_Controller_P.Saturation8_LowerSat) {
+    /* Saturate: '<S1>/Saturation14' */
+    Test_Stand_Trans_Controller_B.Saturation14 =
+      Test_Stand_Trans_Controller_P.Saturation8_LowerSat;
   }
 
-  /* Abs: '<S1>/Abs' incorporates:
-   *  Abs: '<S1>/Abs1'
-   *  Sum: '<S1>/Subtract2'
-   */
-  rtb_Saturation5 = fabs(Test_Stand_Trans_Controller_B.Pressure_A -
-    Test_Stand_Trans_Controller_B.Pressure_B);
+  /* End of Saturate: '<S1>/Saturation8' */
 
-  /* Product: '<S1>/Divide12' incorporates:
-   *  Abs: '<S1>/Abs'
-   *  Constant: '<S1>/Constant17'
-   *  Gain: '<S1>/Gain5'
-   *  Product: '<S1>/Product6'
+  /* Saturate: '<S1>/Saturation14' incorporates:
+   *  Gain: '<S1>/Gain25'
    */
-  Test_Stand_Trans_Controller_B.Minimumswashcommand =
-    Test_Stand_Trans_Controller_P.Gain5_Gain *
-    Test_Stand_Trans_Controller_B.MP1_Swash * rtb_Saturation5 /
-    Test_Stand_Trans_Controller_P.Constant17_Value;
+  Test_Stand_Trans_Controller_B.Saturation14 *=
+    Test_Stand_Trans_Controller_P.Gain25_Gain;
+
+  /* Abs: '<S1>/Abs11' */
+  Test_Stand_Trans_Controller_B.IC = fabs
+    (Test_Stand_Trans_Controller_B.MP2_Speed);
+
+  /* RateLimiter: '<Root>/Rate Limiter1' incorporates:
+   *  UnitDelay: '<Root>/Unit Delay1'
+   */
+  Test_Stand_Trans_Controller_B.Product6 =
+    Test_Stand_Trans_Controller_DW.UnitDelay1_DSTATE -
+    Test_Stand_Trans_Controller_DW.PrevY;
+  if (Test_Stand_Trans_Controller_B.Product6 >
+      Test_Stand_Trans_Controller_P.RateLimiter1_RisingLim *
+      Test_Stand_Trans_Control_period) {
+    /* MinMax: '<S1>/Min1' */
+    Test_Stand_Trans_Controller_DW.UnitDelay1_DSTATE =
+      Test_Stand_Trans_Controller_P.RateLimiter1_RisingLim *
+      Test_Stand_Trans_Control_period + Test_Stand_Trans_Controller_DW.PrevY;
+  } else if (Test_Stand_Trans_Controller_B.Product6 <
+             Test_Stand_Trans_Controller_P.RateLimiter1_FallingLim *
+             Test_Stand_Trans_Control_period) {
+    /* MinMax: '<S1>/Min1' */
+    Test_Stand_Trans_Controller_DW.UnitDelay1_DSTATE =
+      Test_Stand_Trans_Controller_P.RateLimiter1_FallingLim *
+      Test_Stand_Trans_Control_period + Test_Stand_Trans_Controller_DW.PrevY;
+  }
+
+  Test_Stand_Trans_Controller_DW.PrevY =
+    Test_Stand_Trans_Controller_DW.UnitDelay1_DSTATE;
+
+  /* End of RateLimiter: '<Root>/Rate Limiter1' */
+
+  /* MinMax: '<S1>/Min' incorporates:
+   *  Abs: '<S1>/Abs12'
+   *  Gain: '<S1>/Gain24'
+   *  InitialCondition: '<S1>/IC3'
+   */
+  Test_Stand_Trans_Controller_B.IC3 = Test_Stand_Trans_Controller_P.Gain24_Gain *
+    Test_Stand_Trans_Controller_DW.UnitDelay1_DSTATE;
+  Test_Stand_Trans_Controller_B.IC3 = fabs(Test_Stand_Trans_Controller_B.IC3);
+
+  /* Lookup_n-D: '<S1>/3-D Lookup Table1' */
+  /*
+   * About '<S1>/3-D Lookup Table1':
+   *       Table size:  3 x 3 x 3
+   *    Interpolation:  Spline
+   *    Extrapolation:  None - Clip
+   *   Breakpt Search:  Binary
+   *    Breakpt Cache:  OFF
+   */
+  {
+    real_T rt_LUTuVect[3];
+    rt_LUTuVect[0] = Test_Stand_Trans_Controller_B.Saturation14;
+    rt_LUTuVect[1] = Test_Stand_Trans_Controller_B.IC;
+    rt_LUTuVect[2] = Test_Stand_Trans_Controller_B.IC3;
+    Test_Stand_Trans_Controller_B.Saturation14 = look_SplNBinCZcd(3U,
+      rt_LUTuVect, (rt_LUTSplineWork*)&Test_Stand_Trans_Controller_DW.SWork[0]);
+  }
+
+  /* Saturate: '<S1>/Saturation14' */
+  if (Test_Stand_Trans_Controller_B.Saturation14 >
+      Test_Stand_Trans_Controller_P.Saturation14_UpperSat) {
+    /* Saturate: '<S1>/Saturation14' */
+    Test_Stand_Trans_Controller_B.Saturation14 =
+      Test_Stand_Trans_Controller_P.Saturation14_UpperSat;
+  } else if (Test_Stand_Trans_Controller_B.Saturation14 <
+             Test_Stand_Trans_Controller_P.Saturation14_LowerSat) {
+    /* Saturate: '<S1>/Saturation14' */
+    Test_Stand_Trans_Controller_B.Saturation14 =
+      Test_Stand_Trans_Controller_P.Saturation14_LowerSat;
+  }
+
+  /* End of Saturate: '<S1>/Saturation14' */
+
+  /* MinMax: '<S1>/Min' incorporates:
+   *  Abs: '<S1>/Abs1'
+   *  InitialCondition: '<S1>/IC3'
+   *  Sum: '<S1>/Subtract3'
+   */
+  Test_Stand_Trans_Controller_B.IC3 = Test_Stand_Trans_Controller_B.Min1;
+  Test_Stand_Trans_Controller_B.IC3 = fabs(Test_Stand_Trans_Controller_B.IC3);
 
   /* Product: '<S1>/Divide15' incorporates:
    *  Constant: '<S1>/Constant6'
    *  Constant: '<S1>/Constant7'
    *  Product: '<S1>/Divide2'
    */
-  rtb_Gain1 = Test_Stand_Trans_Controller_P.Constant6_Value /
+  rtb_IC3_tmp = Test_Stand_Trans_Controller_P.Constant6_Value /
     Test_Stand_Trans_Controller_P.Constant7_Value;
+
+  /* MinMax: '<S1>/Min' incorporates:
+   *  Abs: '<S1>/Abs2'
+   *  Constant: '<S1>/Constant18'
+   *  Gain: '<S1>/Gain6'
+   *  InitialCondition: '<S1>/IC3'
+   *  Product: '<S1>/Divide14'
+   *  Product: '<S1>/Divide15'
+   *  Product: '<S1>/Product10'
+   *  Product: '<S1>/Product23'
+   *  Product: '<S1>/Product9'
+   */
+  Test_Stand_Trans_Controller_B.IC3 = Test_Stand_Trans_Controller_P.Gain6_Gain *
+    Test_Stand_Trans_Controller_DW.UnitDelay1_DSTATE *
+    Test_Stand_Trans_Controller_B.IC3 /
+    Test_Stand_Trans_Controller_P.Constant18_Value *
+    Test_Stand_Trans_Controller_B.Saturation14 * rtb_IC3_tmp;
+  Test_Stand_Trans_Controller_B.IC3 = fabs(Test_Stand_Trans_Controller_B.IC3);
+
+  /* Gain: '<S1>/Gain10' */
+  Test_Stand_Trans_Controller_B.MP2 = Test_Stand_Trans_Controller_P.Gain10_Gain *
+    Test_Stand_Trans_Controller_B.IC3;
+
+  /* MinMax: '<S1>/Min' incorporates:
+   *  Abs: '<S1>/Abs'
+   *  InitialCondition: '<S1>/IC3'
+   *  Sum: '<S1>/Subtract2'
+   */
+  Test_Stand_Trans_Controller_B.IC3 = Test_Stand_Trans_Controller_B.Min1;
+  Test_Stand_Trans_Controller_B.IC3 = fabs(Test_Stand_Trans_Controller_B.IC3);
+
+  /* RateLimiter: '<Root>/Rate Limiter' incorporates:
+   *  UnitDelay: '<Root>/Unit Delay'
+   */
+  Test_Stand_Trans_Controller_B.Product6 =
+    Test_Stand_Trans_Controller_DW.UnitDelay_DSTATE -
+    Test_Stand_Trans_Controller_DW.PrevY_b;
+  if (Test_Stand_Trans_Controller_B.Product6 >
+      Test_Stand_Trans_Controller_P.RateLimiter_RisingLim *
+      Test_Stand_Trans_Control_period) {
+    /* MinMax: '<S1>/Min1' */
+    Test_Stand_Trans_Controller_DW.UnitDelay1_DSTATE =
+      Test_Stand_Trans_Controller_P.RateLimiter_RisingLim *
+      Test_Stand_Trans_Control_period + Test_Stand_Trans_Controller_DW.PrevY_b;
+  } else if (Test_Stand_Trans_Controller_B.Product6 <
+             Test_Stand_Trans_Controller_P.RateLimiter_FallingLim *
+             Test_Stand_Trans_Control_period) {
+    /* MinMax: '<S1>/Min1' */
+    Test_Stand_Trans_Controller_DW.UnitDelay1_DSTATE =
+      Test_Stand_Trans_Controller_P.RateLimiter_FallingLim *
+      Test_Stand_Trans_Control_period + Test_Stand_Trans_Controller_DW.PrevY_b;
+  } else {
+    /* MinMax: '<S1>/Min1' */
+    Test_Stand_Trans_Controller_DW.UnitDelay1_DSTATE =
+      Test_Stand_Trans_Controller_DW.UnitDelay_DSTATE;
+  }
+
+  Test_Stand_Trans_Controller_DW.PrevY_b =
+    Test_Stand_Trans_Controller_DW.UnitDelay1_DSTATE;
+
+  /* End of RateLimiter: '<Root>/Rate Limiter' */
+
+  /* Product: '<S1>/Product6' incorporates:
+   *  Gain: '<S1>/Gain5'
+   */
+  Test_Stand_Trans_Controller_B.Product6 =
+    Test_Stand_Trans_Controller_P.Gain5_Gain *
+    Test_Stand_Trans_Controller_DW.UnitDelay1_DSTATE *
+    Test_Stand_Trans_Controller_B.IC3;
+
+  /* MinMax: '<S1>/Min' incorporates:
+   *  Abs: '<S1>/Abs13'
+   *  InitialCondition: '<S1>/IC3'
+   *  Sum: '<S1>/Subtract10'
+   */
+  Test_Stand_Trans_Controller_B.IC3 = Test_Stand_Trans_Controller_B.Min1;
+  Test_Stand_Trans_Controller_B.IC3 = fabs(Test_Stand_Trans_Controller_B.IC3);
+
+  /* Saturate: '<S1>/Saturation10' */
+  if (Test_Stand_Trans_Controller_B.IC3 >
+      Test_Stand_Trans_Controller_P.Saturation10_UpperSat) {
+    /* MinMax: '<S1>/Min' incorporates:
+     *  InitialCondition: '<S1>/IC3'
+     */
+    Test_Stand_Trans_Controller_B.IC3 =
+      Test_Stand_Trans_Controller_P.Saturation10_UpperSat;
+  } else if (Test_Stand_Trans_Controller_B.IC3 <
+             Test_Stand_Trans_Controller_P.Saturation10_LowerSat) {
+    /* MinMax: '<S1>/Min' incorporates:
+     *  InitialCondition: '<S1>/IC3'
+     */
+    Test_Stand_Trans_Controller_B.IC3 =
+      Test_Stand_Trans_Controller_P.Saturation10_LowerSat;
+  }
+
+  /* End of Saturate: '<S1>/Saturation10' */
+
+  /* MinMax: '<S1>/Min' incorporates:
+   *  Gain: '<S1>/Gain29'
+   *  InitialCondition: '<S1>/IC3'
+   */
+  Test_Stand_Trans_Controller_B.IC3 *= Test_Stand_Trans_Controller_P.Gain29_Gain;
+
+  /* Abs: '<S1>/Abs14' */
+  Test_Stand_Trans_Controller_B.IC = fabs
+    (Test_Stand_Trans_Controller_B.MP1_Speed);
+
+  /* Abs: '<S1>/Abs15' incorporates:
+   *  Gain: '<S1>/Gain28'
+   */
+  Test_Stand_Trans_Controller_B.Min1 = fabs
+    (Test_Stand_Trans_Controller_P.Gain28_Gain *
+     Test_Stand_Trans_Controller_DW.UnitDelay1_DSTATE);
+
+  /* Lookup_n-D: '<S1>/3-D Lookup Table3' */
+  /*
+   * About '<S1>/3-D Lookup Table3':
+   *       Table size:  3 x 3 x 3
+   *    Interpolation:  Spline
+   *    Extrapolation:  None - Clip
+   *   Breakpt Search:  Binary
+   *    Breakpt Cache:  OFF
+   */
+  {
+    real_T rt_LUTuVect[3];
+    rt_LUTuVect[0] = Test_Stand_Trans_Controller_B.IC3;
+    rt_LUTuVect[1] = Test_Stand_Trans_Controller_B.IC;
+    rt_LUTuVect[2] = Test_Stand_Trans_Controller_B.Min1;
+    Test_Stand_Trans_Controller_B.IC3 = look_SplNBinCZcd(3U, rt_LUTuVect,
+      (rt_LUTSplineWork*)&Test_Stand_Trans_Controller_DW.SWork_l[0]);
+  }
+
+  /* Saturate: '<S1>/Saturation12' */
+  if (Test_Stand_Trans_Controller_B.IC3 >
+      Test_Stand_Trans_Controller_P.Saturation12_UpperSat) {
+    /* MinMax: '<S1>/Min' incorporates:
+     *  InitialCondition: '<S1>/IC3'
+     */
+    Test_Stand_Trans_Controller_B.IC3 =
+      Test_Stand_Trans_Controller_P.Saturation12_UpperSat;
+  } else if (Test_Stand_Trans_Controller_B.IC3 <
+             Test_Stand_Trans_Controller_P.Saturation12_LowerSat) {
+    /* MinMax: '<S1>/Min' incorporates:
+     *  InitialCondition: '<S1>/IC3'
+     */
+    Test_Stand_Trans_Controller_B.IC3 =
+      Test_Stand_Trans_Controller_P.Saturation12_LowerSat;
+  }
+
+  /* End of Saturate: '<S1>/Saturation12' */
+
+  /* MinMax: '<S1>/Min' incorporates:
+   *  Constant: '<S1>/Constant17'
+   *  InitialCondition: '<S1>/IC3'
+   *  Product: '<S1>/Divide12'
+   *  Product: '<S1>/Product24'
+   */
+  Test_Stand_Trans_Controller_B.IC3 *= Test_Stand_Trans_Controller_B.Product6 /
+    Test_Stand_Trans_Controller_P.Constant17_Value;
 
   /* Product: '<S1>/Divide13' incorporates:
    *  Constant: '<S1>/Constant4'
    *  Constant: '<S1>/Constant5'
    *  Product: '<S1>/Divide1'
    */
-  u0_tmp = Test_Stand_Trans_Controller_P.Constant4_Value /
+  Test_Stand_Trans_Controller_B.Min1 =
+    Test_Stand_Trans_Controller_P.Constant4_Value /
     Test_Stand_Trans_Controller_P.Constant5_Value;
 
-  /* Product: '<S1>/Product17' incorporates:
-   *  Abs: '<S1>/Abs2'
+  /* MinMax: '<S1>/Min1' incorporates:
    *  Abs: '<S1>/Abs3'
-   *  Constant: '<S1>/Constant18'
    *  Constant: '<S1>/Constant3'
-   *  Gain: '<S1>/Gain10'
-   *  Gain: '<S1>/Gain6'
    *  Gain: '<S1>/Gain9'
    *  Product: '<S1>/Divide11'
    *  Product: '<S1>/Divide13'
-   *  Product: '<S1>/Divide14'
-   *  Product: '<S1>/Divide15'
-   *  Product: '<S1>/Divide20'
-   *  Product: '<S1>/Product10'
    *  Product: '<S1>/Product7'
    *  Product: '<S1>/Product8'
-   *  Product: '<S1>/Product9'
    *  Sum: '<S1>/Add2'
    */
-  Test_Stand_Trans_Controller_B.Gain17 = Test_Stand_Trans_Controller_B.Gain17 /
-    (fabs(Test_Stand_Trans_Controller_P.Gain6_Gain *
-          Test_Stand_Trans_Controller_B.MP2_Swash * rtb_Saturation5 /
-          Test_Stand_Trans_Controller_P.Constant18_Value * rtb_Gain1) *
-     Test_Stand_Trans_Controller_P.Gain10_Gain + fabs(u0_tmp *
-      Test_Stand_Trans_Controller_B.Minimumswashcommand * (rtb_Gain11_tmp /
-       Test_Stand_Trans_Controller_P.Constant3_Value) *
-      Test_Stand_Trans_Controller_P.Gain9_Gain)) *
+  Test_Stand_Trans_Controller_DW.UnitDelay1_DSTATE = fabs
+    (Test_Stand_Trans_Controller_B.Min1 * Test_Stand_Trans_Controller_B.IC3 *
+     (rtb_Gain11_tmp / Test_Stand_Trans_Controller_P.Constant3_Value) *
+     Test_Stand_Trans_Controller_P.Gain9_Gain) +
+    Test_Stand_Trans_Controller_B.MP2;
+
+  /* RateLimiter: '<S1>/Rate Limiter' */
+  Test_Stand_Trans_Controller_B.Product6 =
+    Test_Stand_Trans_Controller_DW.UnitDelay1_DSTATE -
+    Test_Stand_Trans_Controller_DW.PrevY_g;
+  if (Test_Stand_Trans_Controller_B.Product6 >
+      Test_Stand_Trans_Controller_P.RateLimiter_RisingLim_e *
+      Test_Stand_Trans_Control_period) {
+    /* MinMax: '<S1>/Min1' */
+    Test_Stand_Trans_Controller_DW.UnitDelay1_DSTATE =
+      Test_Stand_Trans_Controller_P.RateLimiter_RisingLim_e *
+      Test_Stand_Trans_Control_period + Test_Stand_Trans_Controller_DW.PrevY_g;
+  } else if (Test_Stand_Trans_Controller_B.Product6 <
+             Test_Stand_Trans_Controller_P.RateLimiter_FallingLim_d *
+             Test_Stand_Trans_Control_period) {
+    /* MinMax: '<S1>/Min1' */
+    Test_Stand_Trans_Controller_DW.UnitDelay1_DSTATE =
+      Test_Stand_Trans_Controller_P.RateLimiter_FallingLim_d *
+      Test_Stand_Trans_Control_period + Test_Stand_Trans_Controller_DW.PrevY_g;
+  }
+
+  Test_Stand_Trans_Controller_DW.PrevY_g =
+    Test_Stand_Trans_Controller_DW.UnitDelay1_DSTATE;
+
+  /* End of RateLimiter: '<S1>/Rate Limiter' */
+
+  /* MinMax: '<S1>/Min1' incorporates:
+   *  Constant: '<S1>/Constant19'
+   *  Gain: '<S1>/Gain17'
+   *  Product: '<S1>/Divide20'
+   *  Product: '<S1>/Product16'
+   *  Product: '<S1>/Product17'
+   */
+  Test_Stand_Trans_Controller_DW.UnitDelay1_DSTATE =
+    Test_Stand_Trans_Controller_P.Constant19_Value *
+    Test_Stand_Trans_Controller_B.MaxTorque *
+    Test_Stand_Trans_Controller_P.Gain17_Gain /
+    Test_Stand_Trans_Controller_DW.UnitDelay1_DSTATE *
     Test_Stand_Trans_Controller_B.Gain11;
 
   /* Saturate: '<S1>/Saturation3' */
-  if (Test_Stand_Trans_Controller_B.Gain17 >
+  if (Test_Stand_Trans_Controller_DW.UnitDelay1_DSTATE >
       Test_Stand_Trans_Controller_P.Saturation3_UpperSat) {
-    Test_Stand_Trans_Controller_B.Gain17 =
+    /* MinMax: '<S1>/Min1' */
+    Test_Stand_Trans_Controller_DW.UnitDelay1_DSTATE =
       Test_Stand_Trans_Controller_P.Saturation3_UpperSat;
-  } else if (Test_Stand_Trans_Controller_B.Gain17 <
+  } else if (Test_Stand_Trans_Controller_DW.UnitDelay1_DSTATE <
              Test_Stand_Trans_Controller_P.Saturation3_LowerSat) {
-    Test_Stand_Trans_Controller_B.Gain17 =
+    /* MinMax: '<S1>/Min1' */
+    Test_Stand_Trans_Controller_DW.UnitDelay1_DSTATE =
       Test_Stand_Trans_Controller_P.Saturation3_LowerSat;
   }
 
@@ -1600,20 +2046,21 @@ void Test_Stand_Trans_Controller_step(void)
   /* MinMax: '<S1>/Min1' incorporates:
    *  Constant: '<Root>/Constant'
    */
-  if ((!(Test_Stand_Trans_Controller_B.Gain17 <=
+  if ((!(Test_Stand_Trans_Controller_DW.UnitDelay1_DSTATE <=
          Test_Stand_Trans_Controller_P.Constant_Value_k)) && (!rtIsNaN
        (Test_Stand_Trans_Controller_P.Constant_Value_k))) {
-    Test_Stand_Trans_Controller_B.Gain17 =
+    /* MinMax: '<S1>/Min1' */
+    Test_Stand_Trans_Controller_DW.UnitDelay1_DSTATE =
       Test_Stand_Trans_Controller_P.Constant_Value_k;
   }
 
   /* End of MinMax: '<S1>/Min1' */
 
-  /* RelationalOperator: '<S3>/Compare' incorporates:
-   *  Constant: '<S3>/Constant'
+  /* RelationalOperator: '<S2>/Compare' incorporates:
+   *  Constant: '<S2>/Constant'
    *  Product: '<S1>/Divide21'
    */
-  rtb_IC2 = (Test_Stand_Trans_Controller_B.Gain17 /
+  rtb_IC2 = (Test_Stand_Trans_Controller_DW.UnitDelay1_DSTATE /
              Test_Stand_Trans_Controller_B.Gain11 >=
              Test_Stand_Trans_Controller_P.CompareToConstant_const);
 
@@ -1628,111 +2075,129 @@ void Test_Stand_Trans_Controller_step(void)
   /* Gain: '<S1>/Gain1' incorporates:
    *  Product: '<S1>/Product4'
    */
-  rtb_Gain1 = rtb_Gain1 * Test_Stand_Trans_Controller_B.Gain17 *
+  Test_Stand_Trans_Controller_B.MaxTorque = rtb_IC3_tmp *
+    Test_Stand_Trans_Controller_DW.UnitDelay1_DSTATE *
     Test_Stand_Trans_Controller_P.Gain1_Gain;
 
   /* Switch: '<S1>/Switch3' incorporates:
    *  Constant: '<S1>/Constant'
+   *  Constant: '<S1>/Constant36'
    *  Product: '<S1>/Divide8'
    *  Product: '<S1>/Product3'
-   *  UnitDelay: '<S1>/Unit Delay'
    *  UnitDelay: '<S1>/Unit Delay3'
    */
   if (rtb_IC2) {
-    rtb_Saturation5 = Test_Stand_Trans_Controller_P.Constant_Value;
+    Test_Stand_Trans_Controller_B.IC =
+      Test_Stand_Trans_Controller_P.Constant_Value;
   } else {
-    rtb_Saturation5 = rtb_Gain1 *
-      Test_Stand_Trans_Controller_DW.UnitDelay_DSTATE /
+    Test_Stand_Trans_Controller_B.IC = Test_Stand_Trans_Controller_B.MaxTorque *
+      Test_Stand_Trans_Controller_P.Constant36_Value /
       Test_Stand_Trans_Controller_DW.UnitDelay3_DSTATE;
   }
 
   /* End of Switch: '<S1>/Switch3' */
 
-  /* InitialCondition: '<S1>/IC' incorporates:
-   *  Gain: '<S1>/Gain3'
+  /* MinMax: '<S1>/Min' incorporates:
+   *  Constant: '<S1>/Constant20'
+   *  Constant: '<S1>/Constant21'
+   *  Constant: '<S1>/Constant22'
+   *  Constant: '<S1>/Constant37'
+   *  Gain: '<S1>/Gain15'
+   *  Gain: '<S1>/Gain16'
+   *  Gain: '<S1>/Gain18'
+   *  Gain: '<S1>/Gain30'
+   *  InitialCondition: '<S1>/IC3'
+   *  Product: '<S1>/Divide22'
+   *  Product: '<S1>/Product18'
+   *  Sum: '<S1>/Subtract11'
+   */
+  Test_Stand_Trans_Controller_B.IC3 = (Test_Stand_Trans_Controller_P.Gain18_Gain
+    * Test_Stand_Trans_Controller_B.IC3 -
+    Test_Stand_Trans_Controller_P.Constant37_Value) *
+    Test_Stand_Trans_Controller_P.Gain30_Gain *
+    Test_Stand_Trans_Controller_P.Gain15_Gain *
+    Test_Stand_Trans_Controller_P.Constant20_Value *
+    Test_Stand_Trans_Controller_P.Constant22_Value /
+    Test_Stand_Trans_Controller_P.Constant21_Value *
+    Test_Stand_Trans_Controller_P.Gain16_Gain;
+  if ((Test_Stand_Trans_Controller_B.IC >= Test_Stand_Trans_Controller_B.IC3) ||
+      rtIsNaN(Test_Stand_Trans_Controller_B.IC3)) {
+    Test_Stand_Trans_Controller_B.IC3 = Test_Stand_Trans_Controller_B.IC;
+  }
+
+  /* Saturate: '<S1>/Saturation' */
+  if (Test_Stand_Trans_Controller_B.IC3 >
+      Test_Stand_Trans_Controller_P.Saturation_UpperSat) {
+    /* MinMax: '<S1>/Min' */
+    Test_Stand_Trans_Controller_B.IC3 =
+      Test_Stand_Trans_Controller_P.Saturation_UpperSat;
+  } else if (Test_Stand_Trans_Controller_B.IC3 <
+             Test_Stand_Trans_Controller_P.Saturation_LowerSat) {
+    /* MinMax: '<S1>/Min' */
+    Test_Stand_Trans_Controller_B.IC3 =
+      Test_Stand_Trans_Controller_P.Saturation_LowerSat;
+  }
+
+  /* Gain: '<S1>/Gain3' incorporates:
    *  Saturate: '<S1>/Saturation'
    */
+  Test_Stand_Trans_Controller_B.IC = Test_Stand_Trans_Controller_P.Gain3_Gain *
+    Test_Stand_Trans_Controller_B.IC3;
+
+  /* InitialCondition: '<S1>/IC' */
   if (Test_Stand_Trans_Controller_DW.IC_FirstOutputTime) {
     Test_Stand_Trans_Controller_DW.IC_FirstOutputTime = false;
-    Test_Stand_Trans_Controller_B.Minimumswashcommand =
-      Test_Stand_Trans_Controller_P.IC_Value;
-  } else {
-    /* Gain: '<S1>/Gain16' incorporates:
-     *  Constant: '<S1>/Constant20'
-     *  Constant: '<S1>/Constant21'
-     *  Constant: '<S1>/Constant22'
-     *  Gain: '<S1>/Gain15'
-     *  Gain: '<S1>/Gain18'
-     *  Product: '<S1>/Divide22'
-     *  Product: '<S1>/Product18'
-     */
-    Test_Stand_Trans_Controller_B.Minimumswashcommand =
-      Test_Stand_Trans_Controller_P.Gain18_Gain *
-      Test_Stand_Trans_Controller_B.Minimumswashcommand *
-      Test_Stand_Trans_Controller_P.Gain15_Gain *
-      Test_Stand_Trans_Controller_P.Constant20_Value *
-      Test_Stand_Trans_Controller_P.Constant22_Value /
-      Test_Stand_Trans_Controller_P.Constant21_Value *
-      Test_Stand_Trans_Controller_P.Gain16_Gain;
-
-    /* MinMax: '<S1>/Min' */
-    if ((rtb_Saturation5 >= Test_Stand_Trans_Controller_B.Minimumswashcommand) ||
-        rtIsNaN(Test_Stand_Trans_Controller_B.Minimumswashcommand)) {
-      Test_Stand_Trans_Controller_B.Minimumswashcommand = rtb_Saturation5;
-    }
-
-    /* End of MinMax: '<S1>/Min' */
-
-    /* Saturate: '<S1>/Saturation' */
-    if (Test_Stand_Trans_Controller_B.Minimumswashcommand >
-        Test_Stand_Trans_Controller_P.Saturation_UpperSat) {
-      Test_Stand_Trans_Controller_B.Minimumswashcommand =
-        Test_Stand_Trans_Controller_P.Saturation_UpperSat;
-    } else if (Test_Stand_Trans_Controller_B.Minimumswashcommand <
-               Test_Stand_Trans_Controller_P.Saturation_LowerSat) {
-      Test_Stand_Trans_Controller_B.Minimumswashcommand =
-        Test_Stand_Trans_Controller_P.Saturation_LowerSat;
-    }
-
-    Test_Stand_Trans_Controller_B.Minimumswashcommand *=
-      Test_Stand_Trans_Controller_P.Gain3_Gain;
+    Test_Stand_Trans_Controller_B.IC = Test_Stand_Trans_Controller_P.IC_Value;
   }
 
   /* End of InitialCondition: '<S1>/IC' */
 
   /* Saturate: '<S1>/Saturation6' */
-  if (Test_Stand_Trans_Controller_B.Minimumswashcommand >
+  if (Test_Stand_Trans_Controller_B.IC >
       Test_Stand_Trans_Controller_P.Saturation6_UpperSat) {
-    rtb_Saturation5 = Test_Stand_Trans_Controller_P.Saturation6_UpperSat;
-  } else if (Test_Stand_Trans_Controller_B.Minimumswashcommand <
+    Test_Stand_Trans_Controller_DW.UnitDelay_DSTATE =
+      Test_Stand_Trans_Controller_P.Saturation6_UpperSat;
+  } else if (Test_Stand_Trans_Controller_B.IC <
              Test_Stand_Trans_Controller_P.Saturation6_LowerSat) {
-    rtb_Saturation5 = Test_Stand_Trans_Controller_P.Saturation6_LowerSat;
+    Test_Stand_Trans_Controller_DW.UnitDelay_DSTATE =
+      Test_Stand_Trans_Controller_P.Saturation6_LowerSat;
   } else {
-    rtb_Saturation5 = Test_Stand_Trans_Controller_B.Minimumswashcommand;
+    Test_Stand_Trans_Controller_DW.UnitDelay_DSTATE =
+      Test_Stand_Trans_Controller_B.IC;
   }
 
+  /* End of Saturate: '<S1>/Saturation6' */
+
   /* Gain: '<Root>/Gain' incorporates:
-   *  Saturate: '<S1>/Saturation6'
+   *  UnitDelay: '<Root>/Unit Delay'
    */
   Test_Stand_Trans_Controller_B.Gain = Test_Stand_Trans_Controller_P.Gain_Gain *
-    rtb_Saturation5;
+    Test_Stand_Trans_Controller_DW.UnitDelay_DSTATE;
 
-  /* Product: '<S1>/Divide' incorporates:
+  /* MinMax: '<S1>/Min' incorporates:
    *  Constant: '<S1>/Constant1'
    *  Constant: '<S1>/Constant3'
+   *  InitialCondition: '<S1>/IC3'
+   *  Product: '<S1>/Divide'
    *  Product: '<S1>/Product'
    *  Product: '<S1>/Product1'
    *  Sum: '<S1>/Subtract'
    */
-  rtb_Saturation5 = (rtb_Gain11_tmp * Test_Stand_Trans_Controller_B.Gain17 -
-                     Test_Stand_Trans_Controller_B.Gain11 *
-                     Test_Stand_Trans_Controller_P.Constant1_Value) /
+  Test_Stand_Trans_Controller_B.IC3 = (rtb_Gain11_tmp *
+    Test_Stand_Trans_Controller_DW.UnitDelay1_DSTATE -
+    Test_Stand_Trans_Controller_B.Gain11 *
+    Test_Stand_Trans_Controller_P.Constant1_Value) /
     Test_Stand_Trans_Controller_P.Constant3_Value;
 
   /* InitialCondition: '<S1>/IC1' */
   if (Test_Stand_Trans_Controller_DW.IC1_FirstOutputTime) {
     Test_Stand_Trans_Controller_DW.IC1_FirstOutputTime = false;
-    rtb_Saturation5 = Test_Stand_Trans_Controller_P.IC1_Value;
+
+    /* MinMax: '<S1>/Min' incorporates:
+     *  InitialCondition: '<S1>/IC1'
+     *  InitialCondition: '<S1>/IC3'
+     */
+    Test_Stand_Trans_Controller_B.IC3 = Test_Stand_Trans_Controller_P.IC1_Value;
   }
 
   /* End of InitialCondition: '<S1>/IC1' */
@@ -1741,58 +2206,96 @@ void Test_Stand_Trans_Controller_step(void)
    *  Product: '<S1>/Product2'
    *  UnitDelay: '<S1>/Unit Delay3'
    */
-  Test_Stand_Trans_Controller_DW.UnitDelay3_DSTATE = u0_tmp * rtb_Saturation5 *
+  Test_Stand_Trans_Controller_DW.UnitDelay3_DSTATE =
+    Test_Stand_Trans_Controller_B.Min1 * Test_Stand_Trans_Controller_B.IC3 *
     Test_Stand_Trans_Controller_P.Gain_Gain_e;
 
-  /* Switch: '<S1>/Switch2' incorporates:
-   *  Constant: '<S1>/Constant8'
-   *  Product: '<S1>/Divide9'
-   *  Product: '<S1>/Product5'
-   *  UnitDelay: '<S1>/Unit Delay1'
-   *  UnitDelay: '<S1>/Unit Delay3'
-   */
+  /* Switch: '<S1>/Switch2' */
   if (rtb_IC2) {
-    rtb_Saturation5 = Test_Stand_Trans_Controller_DW.UnitDelay3_DSTATE *
-      Test_Stand_Trans_Controller_DW.UnitDelay1_DSTATE / rtb_Gain1;
+    /* MinMax: '<S1>/Min' incorporates:
+     *  Constant: '<S1>/Constant35'
+     *  InitialCondition: '<S1>/IC3'
+     *  Product: '<S1>/Divide9'
+     *  Product: '<S1>/Product5'
+     *  UnitDelay: '<S1>/Unit Delay3'
+     */
+    Test_Stand_Trans_Controller_B.IC3 =
+      Test_Stand_Trans_Controller_DW.UnitDelay3_DSTATE *
+      Test_Stand_Trans_Controller_P.Constant35_Value /
+      Test_Stand_Trans_Controller_B.MaxTorque;
   } else {
-    rtb_Saturation5 = Test_Stand_Trans_Controller_P.Constant8_Value;
+    /* MinMax: '<S1>/Min' incorporates:
+     *  Constant: '<S1>/Constant8'
+     *  InitialCondition: '<S1>/IC3'
+     */
+    Test_Stand_Trans_Controller_B.IC3 =
+      Test_Stand_Trans_Controller_P.Constant8_Value;
   }
 
   /* End of Switch: '<S1>/Switch2' */
 
   /* Saturate: '<S1>/Saturation1' */
-  if (rtb_Saturation5 > Test_Stand_Trans_Controller_P.Saturation1_UpperSat) {
-    rtb_Saturation5 = Test_Stand_Trans_Controller_P.Saturation1_UpperSat;
-  } else if (rtb_Saturation5 <
+  if (Test_Stand_Trans_Controller_B.IC3 >
+      Test_Stand_Trans_Controller_P.Saturation1_UpperSat) {
+    /* MinMax: '<S1>/Min' incorporates:
+     *  InitialCondition: '<S1>/IC3'
+     */
+    Test_Stand_Trans_Controller_B.IC3 =
+      Test_Stand_Trans_Controller_P.Saturation1_UpperSat;
+  } else if (Test_Stand_Trans_Controller_B.IC3 <
              Test_Stand_Trans_Controller_P.Saturation1_LowerSat) {
-    rtb_Saturation5 = Test_Stand_Trans_Controller_P.Saturation1_LowerSat;
+    /* MinMax: '<S1>/Min' incorporates:
+     *  InitialCondition: '<S1>/IC3'
+     */
+    Test_Stand_Trans_Controller_B.IC3 =
+      Test_Stand_Trans_Controller_P.Saturation1_LowerSat;
   }
 
-  /* Gain: '<S1>/Gain4' incorporates:
-   *  Saturate: '<S1>/Saturation1'
-   *  UnitDelay: '<S1>/Unit Delay'
-   */
-  Test_Stand_Trans_Controller_DW.UnitDelay_DSTATE =
-    Test_Stand_Trans_Controller_P.Gain4_Gain * rtb_Saturation5;
+  /* End of Saturate: '<S1>/Saturation1' */
 
-  /* Saturate: '<S1>/Saturation5' incorporates:
-   *  UnitDelay: '<S1>/Unit Delay'
+  /* MinMax: '<S1>/Min' incorporates:
+   *  Gain: '<S1>/Gain4'
+   *  InitialCondition: '<S1>/IC3'
    */
-  if (Test_Stand_Trans_Controller_DW.UnitDelay_DSTATE >
+  Test_Stand_Trans_Controller_B.IC3 *= Test_Stand_Trans_Controller_P.Gain4_Gain;
+
+  /* InitialCondition: '<S1>/IC3' */
+  if (Test_Stand_Trans_Controller_DW.IC3_FirstOutputTime) {
+    Test_Stand_Trans_Controller_DW.IC3_FirstOutputTime = false;
+
+    /* MinMax: '<S1>/Min' incorporates:
+     *  InitialCondition: '<S1>/IC3'
+     */
+    Test_Stand_Trans_Controller_B.IC3 = Test_Stand_Trans_Controller_P.IC3_Value;
+  }
+
+  /* End of InitialCondition: '<S1>/IC3' */
+
+  /* Saturate: '<S1>/Saturation5' */
+  if (Test_Stand_Trans_Controller_B.IC3 >
       Test_Stand_Trans_Controller_P.Saturation5_UpperSat) {
-    rtb_Saturation5 = Test_Stand_Trans_Controller_P.Saturation5_UpperSat;
-  } else if (Test_Stand_Trans_Controller_DW.UnitDelay_DSTATE <
+    /* MinMax: '<S1>/Min1' */
+    Test_Stand_Trans_Controller_DW.UnitDelay1_DSTATE =
+      Test_Stand_Trans_Controller_P.Saturation5_UpperSat;
+  } else if (Test_Stand_Trans_Controller_B.IC3 <
              Test_Stand_Trans_Controller_P.Saturation5_LowerSat) {
-    rtb_Saturation5 = Test_Stand_Trans_Controller_P.Saturation5_LowerSat;
+    /* MinMax: '<S1>/Min1' */
+    Test_Stand_Trans_Controller_DW.UnitDelay1_DSTATE =
+      Test_Stand_Trans_Controller_P.Saturation5_LowerSat;
   } else {
-    rtb_Saturation5 = Test_Stand_Trans_Controller_DW.UnitDelay_DSTATE;
+    /* MinMax: '<S1>/Min1' */
+    Test_Stand_Trans_Controller_DW.UnitDelay1_DSTATE =
+      Test_Stand_Trans_Controller_B.IC3;
   }
+
+  /* End of Saturate: '<S1>/Saturation5' */
 
   /* Gain: '<Root>/Gain1' incorporates:
-   *  Saturate: '<S1>/Saturation5'
+   *  UnitDelay: '<Root>/Unit Delay1'
    */
   Test_Stand_Trans_Controller_B.Gain1 =
-    Test_Stand_Trans_Controller_P.Gain1_Gain_f * rtb_Saturation5;
+    Test_Stand_Trans_Controller_P.Gain1_Gain_f *
+    Test_Stand_Trans_Controller_DW.UnitDelay1_DSTATE;
 
   /* S-Function (scanpack): '<Root>/CAN Pack' */
   /* S-Function (scanpack): '<Root>/CAN Pack' */
@@ -1904,7 +2407,7 @@ void Test_Stand_Trans_Controller_step(void)
   }
 
   /* MATLABSystem: '<Root>/CAN Transmit' */
-  if (Test_Stand_Trans_Controller_DW.obj_pe.Initialized) {
+  if (Test_Stand_Trans_Controller_DW.obj_p.Initialized) {
     for (sockStatus = 0; sockStatus < 8; sockStatus++) {
       Test_Stand_Trans_Controller_B.rxData[sockStatus] = 0U;
     }
@@ -1929,11 +2432,11 @@ void Test_Stand_Trans_Controller_step(void)
       Test_Stand_Trans_Controller_B.CANPack.Length,
       &Test_Stand_Trans_Controller_B.rxData[0],
       Test_Stand_Trans_Controller_B.CANPack.Remote, &status, 0, 1.0,
-      Test_Stand_Trans_Controller_DW.obj_pe.sockHandleDataFrames,
-      Test_Stand_Trans_Controller_DW.obj_pe.sockHandleErrorFrames, (uint8_T)
-      Test_Stand_Trans_Controller_DW.obj_pe.notFirstStep);
+      Test_Stand_Trans_Controller_DW.obj_p.sockHandleDataFrames,
+      Test_Stand_Trans_Controller_DW.obj_p.sockHandleErrorFrames, (uint8_T)
+      Test_Stand_Trans_Controller_DW.obj_p.notFirstStep);
     if (sockStatus != 0) {
-      Test_Stand_Trans_Controller_DW.obj_pe.Initialized = false;
+      Test_Stand_Trans_Controller_DW.obj_p.Initialized = false;
     }
   }
 
@@ -2066,7 +2569,7 @@ void Test_Stand_Trans_Controller_step(void)
   }
 
   /* MATLABSystem: '<Root>/CAN Transmit1' */
-  if (Test_Stand_Trans_Controller_DW.obj_p.Initialized) {
+  if (Test_Stand_Trans_Controller_DW.obj_pl.Initialized) {
     for (sockStatus = 0; sockStatus < 8; sockStatus++) {
       Test_Stand_Trans_Controller_B.rxData[sockStatus] = 0U;
     }
@@ -2091,46 +2594,15 @@ void Test_Stand_Trans_Controller_step(void)
       Test_Stand_Trans_Controller_B.CANPack1.Length,
       &Test_Stand_Trans_Controller_B.rxData[0],
       Test_Stand_Trans_Controller_B.CANPack1.Remote, &status, 0, 1.0,
-      Test_Stand_Trans_Controller_DW.obj_p.sockHandleDataFrames,
-      Test_Stand_Trans_Controller_DW.obj_p.sockHandleErrorFrames, (uint8_T)
-      Test_Stand_Trans_Controller_DW.obj_p.notFirstStep);
+      Test_Stand_Trans_Controller_DW.obj_pl.sockHandleDataFrames,
+      Test_Stand_Trans_Controller_DW.obj_pl.sockHandleErrorFrames, (uint8_T)
+      Test_Stand_Trans_Controller_DW.obj_pl.notFirstStep);
     if (sockStatus != 0) {
-      Test_Stand_Trans_Controller_DW.obj_p.Initialized = false;
+      Test_Stand_Trans_Controller_DW.obj_pl.Initialized = false;
     }
   }
 
   /* End of MATLABSystem: '<Root>/CAN Transmit1' */
-
-  /* Chart: '<S1>/Chart' incorporates:
-   *  UnitDelay: '<S1>/Unit Delay3'
-   */
-  if (Test_Stand_Trans_Controller_DW.is_active_c3_Test_Stand_Trans_C == 0U) {
-    Test_Stand_Trans_Controller_DW.is_active_c3_Test_Stand_Trans_C = 1U;
-    Test_Stand_Trans_Controller_DW.is_c3_Test_Stand_Trans_Controll =
-      Test_Stand_Trans_C_IN_phase_one;
-    Test_Stand_Trans_Controller_B.Mp1 = 0.0;
-  } else if (Test_Stand_Trans_Controller_DW.is_c3_Test_Stand_Trans_Controll ==
-             Test_Stand_Trans_C_IN_phase_one) {
-    if (Test_Stand_Trans_Controller_B.Mp1 >= 1.0) {
-      Test_Stand_Trans_Controller_DW.is_c3_Test_Stand_Trans_Controll =
-        Test_Stand_Trans_C_IN_phase_two;
-      Test_Stand_Trans_Controller_B.Mp1 =
-        -Test_Stand_Trans_Controller_DW.UnitDelay3_DSTATE / rtb_Gain1;
-    } else {
-      Test_Stand_Trans_Controller_B.Mp1 = -rtb_Gain1 /
-        Test_Stand_Trans_Controller_DW.UnitDelay3_DSTATE;
-    }
-  } else {
-    /* case IN_phase_two: */
-    Test_Stand_Trans_Controller_B.Mp1 =
-      -Test_Stand_Trans_Controller_DW.UnitDelay3_DSTATE / rtb_Gain1;
-  }
-
-  /* End of Chart: '<S1>/Chart' */
-
-  /* Update for UnitDelay: '<S1>/Unit Delay1' */
-  Test_Stand_Trans_Controller_DW.UnitDelay1_DSTATE =
-    Test_Stand_Trans_Controller_B.Minimumswashcommand;
 }
 
 /* Model initialize function */
@@ -2141,13 +2613,133 @@ void Test_Stand_Trans_Controller_initialize(void)
   /* initialize non-finites */
   rt_InitInfAndNaN(sizeof(real_T));
 
+  /* non-finite (run-time) assignments */
+  Test_Stand_Trans_Controller_P.RateLimiter_RisingLim_e = rtInf;
+  Test_Stand_Trans_Controller_P.RateLimiter_FallingLim_d = rtMinusInf;
+
   /* Start for S-Function (scanunpack): '<Root>/CAN Unpack' */
 
   /*-----------S-Function Block: <Root>/CAN Unpack -----------------*/
 
-  /* Start for S-Function (scanunpack): '<Root>/CAN Unpack1' */
+  /* Start for Lookup_n-D: '<S1>/3-D Lookup Table1' */
+  {
+    rt_LUTnWork *TWork_start = (rt_LUTnWork *)
+      &Test_Stand_Trans_Controller_DW.TWork[0];
+    void **bpDataSet = (void **) &Test_Stand_Trans_Controller_DW.m_bpDataSet[0];
+    TWork_start->m_dimSizes = (const uint32_T *)
+      Test_Stand_Trans_Controller_P.uDLookupTable1_dimSizes;
+    TWork_start->m_tableData = (void *)
+      Test_Stand_Trans_Controller_P.uDLookupTable1_tableData;
+    TWork_start->m_bpDataSet = bpDataSet;
+    TWork_start->m_bpIndex = &Test_Stand_Trans_Controller_DW.m_bpIndex[0];
+    TWork_start->m_bpLambda = &Test_Stand_Trans_Controller_DW.m_bpLambda[0];
+    TWork_start->m_maxIndex = (const uint32_T *)
+      Test_Stand_Trans_Controller_P.uDLookupTable1_maxIndex;
+    bpDataSet[0] = (void *)
+      Test_Stand_Trans_Controller_P.uDLookupTable1_bp01Data;
+    bpDataSet[1] = (void *)
+      Test_Stand_Trans_Controller_P.uDLookupTable1_bp02Data;
+    bpDataSet[2] = (void *)
+      Test_Stand_Trans_Controller_P.uDLookupTable1_bp03Data;
+  }
 
-  /*-----------S-Function Block: <Root>/CAN Unpack1 -----------------*/
+  {
+    const real_T **bpDataSet;
+    const real_T *xp, *yp;
+    real_T *dp;
+    uint32_T len;
+    const rt_LUTnWork *TWork_interp;
+    rt_LUTSplineWork *rt_SplWk = (rt_LUTSplineWork*)
+      &Test_Stand_Trans_Controller_DW.SWork[0];
+    rt_SplWk->m_TWork = (rt_LUTnWork*)&Test_Stand_Trans_Controller_DW.TWork[0];
+    rt_SplWk->m_yyA = &Test_Stand_Trans_Controller_DW.m_yyA[0];
+    rt_SplWk->m_yyB = &Test_Stand_Trans_Controller_DW.m_yyB[0];
+    rt_SplWk->m_yy2 = &Test_Stand_Trans_Controller_DW.m_yy2[0];
+    rt_SplWk->m_up = &Test_Stand_Trans_Controller_DW.m_up[0];
+    rt_SplWk->m_y2 = &Test_Stand_Trans_Controller_DW.m_y2[0];
+    rt_SplWk->m_numYWorkElts =
+      Test_Stand_Trans_Controller_P.uDLookupTable1_numYWorkElts;
+    rt_SplWk->m_reCalc =
+      &Test_Stand_Trans_Controller_DW.reCalcSecDerivFirstDimCoeffs;
+    rt_SplWk->m_preBp0AndTable =
+      &Test_Stand_Trans_Controller_DW.prevBp0AndTableData[0];
+    *rt_SplWk->m_reCalc = 1;
+
+    /* cache table data and first breakpoint data */
+    TWork_interp = (const rt_LUTnWork *)rt_SplWk->m_TWork;
+    bpDataSet = (const real_T **) TWork_interp->m_bpDataSet;
+    xp = bpDataSet[0U];
+    len = TWork_interp->m_maxIndex[0U] + 1U;
+    dp = (real_T *) rt_SplWk->m_preBp0AndTable;
+    yp = (real_T *) TWork_interp->m_tableData;
+    (void) memcpy(dp, xp,
+                  len * sizeof(real_T));
+    dp = &(dp[len]);
+
+    /* save the table data */
+    (void) memcpy(dp, yp,
+                  len * rt_SplWk->m_numYWorkElts[0U] * sizeof(real_T));
+  }
+
+  /* Start for Lookup_n-D: '<S1>/3-D Lookup Table3' */
+  {
+    rt_LUTnWork *TWork_start = (rt_LUTnWork *)
+      &Test_Stand_Trans_Controller_DW.TWork_i[0];
+    void **bpDataSet = (void **) &Test_Stand_Trans_Controller_DW.m_bpDataSet_l[0];
+    TWork_start->m_dimSizes = (const uint32_T *)
+      Test_Stand_Trans_Controller_P.uDLookupTable3_dimSizes;
+    TWork_start->m_tableData = (void *)
+      Test_Stand_Trans_Controller_P.uDLookupTable3_tableData;
+    TWork_start->m_bpDataSet = bpDataSet;
+    TWork_start->m_bpIndex = &Test_Stand_Trans_Controller_DW.m_bpIndex_h[0];
+    TWork_start->m_bpLambda = &Test_Stand_Trans_Controller_DW.m_bpLambda_m[0];
+    TWork_start->m_maxIndex = (const uint32_T *)
+      Test_Stand_Trans_Controller_P.uDLookupTable3_maxIndex;
+    bpDataSet[0] = (void *)
+      Test_Stand_Trans_Controller_P.uDLookupTable3_bp01Data;
+    bpDataSet[1] = (void *)
+      Test_Stand_Trans_Controller_P.uDLookupTable3_bp02Data;
+    bpDataSet[2] = (void *)
+      Test_Stand_Trans_Controller_P.uDLookupTable3_bp03Data;
+  }
+
+  {
+    const real_T **bpDataSet;
+    const real_T *xp, *yp;
+    real_T *dp;
+    uint32_T len;
+    const rt_LUTnWork *TWork_interp;
+    rt_LUTSplineWork *rt_SplWk = (rt_LUTSplineWork*)
+      &Test_Stand_Trans_Controller_DW.SWork_l[0];
+    rt_SplWk->m_TWork = (rt_LUTnWork*)&Test_Stand_Trans_Controller_DW.TWork_i[0];
+    rt_SplWk->m_yyA = &Test_Stand_Trans_Controller_DW.m_yyA_h[0];
+    rt_SplWk->m_yyB = &Test_Stand_Trans_Controller_DW.m_yyB_n[0];
+    rt_SplWk->m_yy2 = &Test_Stand_Trans_Controller_DW.m_yy2_a[0];
+    rt_SplWk->m_up = &Test_Stand_Trans_Controller_DW.m_up_g[0];
+    rt_SplWk->m_y2 = &Test_Stand_Trans_Controller_DW.m_y2_o[0];
+    rt_SplWk->m_numYWorkElts =
+      Test_Stand_Trans_Controller_P.uDLookupTable3_numYWorkElts;
+    rt_SplWk->m_reCalc =
+      &Test_Stand_Trans_Controller_DW.reCalcSecDerivFirstDimCoeffs_j;
+    rt_SplWk->m_preBp0AndTable =
+      &Test_Stand_Trans_Controller_DW.prevBp0AndTableData_k[0];
+    *rt_SplWk->m_reCalc = 1;
+
+    /* cache table data and first breakpoint data */
+    TWork_interp = (const rt_LUTnWork *)rt_SplWk->m_TWork;
+    bpDataSet = (const real_T **) TWork_interp->m_bpDataSet;
+    xp = bpDataSet[0U];
+    len = TWork_interp->m_maxIndex[0U] + 1U;
+    dp = (real_T *) rt_SplWk->m_preBp0AndTable;
+    yp = (real_T *) TWork_interp->m_tableData;
+    (void) memcpy(dp, xp,
+                  len * sizeof(real_T));
+    dp = &(dp[len]);
+
+    /* save the table data */
+    (void) memcpy(dp, yp,
+                  len * rt_SplWk->m_numYWorkElts[0U] * sizeof(real_T));
+  }
 
   /* Start for InitialCondition: '<S1>/IC2' */
   Test_Stand_Trans_Controller_DW.IC2_FirstOutputTime = true;
@@ -2158,17 +2750,34 @@ void Test_Stand_Trans_Controller_initialize(void)
   /* Start for InitialCondition: '<S1>/IC1' */
   Test_Stand_Trans_Controller_DW.IC1_FirstOutputTime = true;
 
-  /* InitializeConditions for UnitDelay: '<S1>/Unit Delay' */
+  /* Start for InitialCondition: '<S1>/IC3' */
+  Test_Stand_Trans_Controller_DW.IC3_FirstOutputTime = true;
+
+  /* InitializeConditions for MinMax: '<S1>/Min1' incorporates:
+   *  UnitDelay: '<Root>/Unit Delay1'
+   */
+  Test_Stand_Trans_Controller_DW.UnitDelay1_DSTATE =
+    Test_Stand_Trans_Controller_P.UnitDelay1_InitialCondition;
+
+  /* InitializeConditions for RateLimiter: '<Root>/Rate Limiter1' */
+  Test_Stand_Trans_Controller_DW.PrevY =
+    Test_Stand_Trans_Controller_P.RateLimiter1_IC;
+
+  /* InitializeConditions for UnitDelay: '<Root>/Unit Delay' */
   Test_Stand_Trans_Controller_DW.UnitDelay_DSTATE =
     Test_Stand_Trans_Controller_P.UnitDelay_InitialCondition;
+
+  /* InitializeConditions for RateLimiter: '<Root>/Rate Limiter' */
+  Test_Stand_Trans_Controller_DW.PrevY_b =
+    Test_Stand_Trans_Controller_P.RateLimiter_IC;
+
+  /* InitializeConditions for RateLimiter: '<S1>/Rate Limiter' */
+  Test_Stand_Trans_Controller_DW.PrevY_g =
+    Test_Stand_Trans_Controller_P.RateLimiter_IC_f;
 
   /* InitializeConditions for UnitDelay: '<S1>/Unit Delay3' */
   Test_Stand_Trans_Controller_DW.UnitDelay3_DSTATE =
     Test_Stand_Trans_Controller_P.UnitDelay3_InitialCondition;
-
-  /* InitializeConditions for UnitDelay: '<S1>/Unit Delay1' */
-  Test_Stand_Trans_Controller_DW.UnitDelay1_DSTATE =
-    Test_Stand_Trans_Controller_P.UnitDelay1_InitialCondition;
 
   /* Start for MATLABSystem: '<Root>/CAN Receive' */
   Test_Stand_Trans_Controller_DW.obj.sockHandleDataFrames = 0;
@@ -2187,22 +2796,22 @@ void Test_Stand_Trans_Controller_initialize(void)
       = Test_Stand_Trans_Controller_B.a;
   }
 
-  Test_Stand_Trans_Controller_DW.obj_pe.sockHandleDataFrames = 0;
-  Test_Stand_Trans_Controller_DW.obj_pe.sockHandleErrorFrames = 0;
-  Test_Stand_Trans_Controller_DW.obj_pe.notFirstStep = false;
-  Test_Stand_Trans_Controller_DW.obj_pe.isInitialized = 0;
-  Test_Stand_Trans_Controller_DW.obj_pe.matlabCodegenIsDeleted = false;
-  Test_Stand_T_SystemCore_setup_l(&Test_Stand_Trans_Controller_DW.obj_pe);
-
-  /* End of Start for MATLABSystem: '<Root>/CAN Transmit' */
-
-  /* Start for MATLABSystem: '<Root>/CAN Transmit1' */
   Test_Stand_Trans_Controller_DW.obj_p.sockHandleDataFrames = 0;
   Test_Stand_Trans_Controller_DW.obj_p.sockHandleErrorFrames = 0;
   Test_Stand_Trans_Controller_DW.obj_p.notFirstStep = false;
   Test_Stand_Trans_Controller_DW.obj_p.isInitialized = 0;
   Test_Stand_Trans_Controller_DW.obj_p.matlabCodegenIsDeleted = false;
-  Test_Stand__SystemCore_setup_lm(&Test_Stand_Trans_Controller_DW.obj_p);
+  Test_Stand_T_SystemCore_setup_l(&Test_Stand_Trans_Controller_DW.obj_p);
+
+  /* End of Start for MATLABSystem: '<Root>/CAN Transmit' */
+
+  /* Start for MATLABSystem: '<Root>/CAN Transmit1' */
+  Test_Stand_Trans_Controller_DW.obj_pl.sockHandleDataFrames = 0;
+  Test_Stand_Trans_Controller_DW.obj_pl.sockHandleErrorFrames = 0;
+  Test_Stand_Trans_Controller_DW.obj_pl.notFirstStep = false;
+  Test_Stand_Trans_Controller_DW.obj_pl.isInitialized = 0;
+  Test_Stand_Trans_Controller_DW.obj_pl.matlabCodegenIsDeleted = false;
+  Test_Stand__SystemCore_setup_lm(&Test_Stand_Trans_Controller_DW.obj_pl);
 }
 
 /* Model terminate function */
@@ -2231,27 +2840,6 @@ void Test_Stand_Trans_Controller_terminate(void)
   /* End of Terminate for MATLABSystem: '<Root>/CAN Receive' */
 
   /* Terminate for MATLABSystem: '<Root>/CAN Transmit' */
-  if (!Test_Stand_Trans_Controller_DW.obj_pe.matlabCodegenIsDeleted) {
-    Test_Stand_Trans_Controller_DW.obj_pe.matlabCodegenIsDeleted = true;
-    if ((Test_Stand_Trans_Controller_DW.obj_pe.isInitialized == 1) &&
-        Test_Stand_Trans_Controller_DW.obj_pe.isSetupComplete &&
-        Test_Stand_Trans_Controller_DW.obj_pe.Initialized) {
-      canInterface[0] = 'c';
-      canInterface[1] = 'a';
-      canInterface[2] = 'n';
-      canInterface[3] = '0';
-      canInterface[4] = '\x00';
-      MW_clearSocket(&Test_Stand_Trans_Controller_DW.obj_pe.sockHandleDataFrames,
-                     &canInterface[0]);
-      MW_clearSocket
-        (&Test_Stand_Trans_Controller_DW.obj_pe.sockHandleErrorFrames,
-         &canInterface[0]);
-    }
-  }
-
-  /* End of Terminate for MATLABSystem: '<Root>/CAN Transmit' */
-
-  /* Terminate for MATLABSystem: '<Root>/CAN Transmit1' */
   if (!Test_Stand_Trans_Controller_DW.obj_p.matlabCodegenIsDeleted) {
     Test_Stand_Trans_Controller_DW.obj_p.matlabCodegenIsDeleted = true;
     if ((Test_Stand_Trans_Controller_DW.obj_p.isInitialized == 1) &&
@@ -2266,6 +2854,27 @@ void Test_Stand_Trans_Controller_terminate(void)
                      &canInterface[0]);
       MW_clearSocket(&Test_Stand_Trans_Controller_DW.obj_p.sockHandleErrorFrames,
                      &canInterface[0]);
+    }
+  }
+
+  /* End of Terminate for MATLABSystem: '<Root>/CAN Transmit' */
+
+  /* Terminate for MATLABSystem: '<Root>/CAN Transmit1' */
+  if (!Test_Stand_Trans_Controller_DW.obj_pl.matlabCodegenIsDeleted) {
+    Test_Stand_Trans_Controller_DW.obj_pl.matlabCodegenIsDeleted = true;
+    if ((Test_Stand_Trans_Controller_DW.obj_pl.isInitialized == 1) &&
+        Test_Stand_Trans_Controller_DW.obj_pl.isSetupComplete &&
+        Test_Stand_Trans_Controller_DW.obj_pl.Initialized) {
+      canInterface[0] = 'c';
+      canInterface[1] = 'a';
+      canInterface[2] = 'n';
+      canInterface[3] = '0';
+      canInterface[4] = '\x00';
+      MW_clearSocket(&Test_Stand_Trans_Controller_DW.obj_pl.sockHandleDataFrames,
+                     &canInterface[0]);
+      MW_clearSocket
+        (&Test_Stand_Trans_Controller_DW.obj_pl.sockHandleErrorFrames,
+         &canInterface[0]);
     }
   }
 

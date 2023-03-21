@@ -1,0 +1,36 @@
+Constrained Instances: 'Frame_Assy_Part-1', 'Frame_Assy_Part-1', 'Trans_Diff_Part-1', 'Trans_Diff_Part-1'
+Constraint Name: Width1
+Error Details: Constraint is not supported. The constraint has been ignored.
+---------------------------------------------------------------------------------
+Constrained Instances: 'OpStation_Top_Assy_Part-1', 'OpStation_Top_Assy_Part-1', 'Trans_Diff_Part-1', 'Trans_Diff_Part-1'
+Constraint Name: Width2
+Error Details: Constraint is not supported. The constraint has been ignored.
+---------------------------------------------------------------------------------
+Constrained Instances: 'Frame_Assy_Part-1', 'SteeringCyliner-1'
+Constraint Name: Lock1
+Error Details: Constraint is not supported. The constraint has been exported as unknown constraint.
+---------------------------------------------------------------------------------
+Constrained Instances: 'Frame_Assy_Part-1', 'SteeringCyliner-1'
+Constraint Name: Lock1
+Error Details: Constraint geometry is not supported. The constraint geometry has been exported as unknown geometry.
+---------------------------------------------------------------------------------
+Constrained Instances: 'Frame_Assy_Part-1', 'SteeringCyliner-1'
+Constraint Name: Lock1
+Error Details: Constraint geometry is not supported. The constraint geometry has been exported as unknown geometry.
+---------------------------------------------------------------------------------
+Constrained Instances: 'frame_mount_sim-2', 'frame_mount_sim-2', 'Lower_A-Arm_Assembly_sim-1', 'Lower_A-Arm_Assembly_sim-1'
+Constraint Name: Width9
+Error Details: Constraint is not supported. The constraint has been ignored.
+---------------------------------------------------------------------------------
+Constrained Instances: 'Upper-Cast-Assembly_sim-1', 'Upper-Cast-Assembly_sim-1', 'frame_mount_sim-2', 'frame_mount_sim-2'
+Constraint Name: Width10
+Error Details: Constraint is not supported. The constraint has been ignored.
+---------------------------------------------------------------------------------
+Constrained Instances: 'Upper-Cast-Assembly_sim-2', 'Upper-Cast-Assembly_sim-2', 'frame_mount_sim-3', 'frame_mount_sim-3'
+Constraint Name: Width12
+Error Details: Constraint is not supported. The constraint has been ignored.
+---------------------------------------------------------------------------------
+Constrained Instances: 'Lower_A-Arm_Assembly_sim-2', 'Lower_A-Arm_Assembly_sim-2', 'frame_mount_sim-3', 'frame_mount_sim-3'
+Constraint Name: Width14
+Error Details: Constraint is not supported. The constraint has been ignored.
+---------------------------------------------------------------------------------

@@ -1,0 +1,1515 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<SimscapeMultibodyImportXML version="2.0" xmlns="urn:mathworks:SimscapeMultibody:import" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<Created by="" on="04/10/23||23:47:21" using="Simscape Multibody Link Version 7.4" from="SolidWorks 30.5.0"/>
+<ModelUnits mass="kilogram" length="millimeter"/>
+<DataUnits mass="kilogram" length="meter"/>
+<RootAssembly name="Rear_Weight_Bracket" uid="Rear_Weight_Bracket" version="265">
+<AssemblyFile name="Rear_Weight_Bracket.SLDASM" type="SolidWorks Assembly"/>
+<InstanceTree>
+<Instance name="20 lb Weight-29" uid="20 lb Weight-29" entityUid="20 lb Weight*:*Default">
+<Transform>
+<Rotation>1 0 0 0 1 0 0 0 1</Rotation>
+<Translation>0.55065442585592606 0.11744867896649513 -0.39330728565467299</Translation>
+</Transform>
+</Instance>
+<Instance name="20 lb Weight-28" uid="20 lb Weight-28" entityUid="20 lb Weight*:*Default">
+<Transform>
+<Rotation>1 0 0 0 1 0 0 0 1</Rotation>
+<Translation>0.55065442585592606 0.11744867896649513 -0.36790728565467312</Translation>
+</Transform>
+</Instance>
+<Instance name="20 lb Weight-1" uid="20 lb Weight-1" entityUid="20 lb Weight*:*Default">
+<Transform>
+<Rotation>1 0 0 0 1 0 0 0 1</Rotation>
+<Translation>0.55065442585592606 0.11744867896649513 0.092467714345326829</Translation>
+</Transform>
+</Instance>
+<Instance name="WackyWeightBracket-1" uid="WackyWeightBracket-1" grounded="true" entityUid="WackyWeightBracket*:*Default">
+<Transform>
+<Rotation>1 0 0 0 1 0 0 0 1</Rotation>
+<Translation>0.71582154803660492 -0.46655111961876383 -0.59380241461921202</Translation>
+</Transform>
+</Instance>
+<Instance name="20 lb Weight-18" uid="20 lb Weight-18" entityUid="20 lb Weight*:*Default">
+<Transform>
+<Rotation>1 0 0 0 1 0 0 0 1</Rotation>
+<Translation>0.55065442585592606 0.11744867896649513 -0.08533228565467299</Translation>
+</Transform>
+</Instance>
+<Instance name="20 lb Weight-21" uid="20 lb Weight-21" entityUid="20 lb Weight*:*Default">
+<Transform>
+<Rotation>1 0 0 0 1 0 0 0 1</Rotation>
+<Translation>0.55065442585592606 0.11744867896649513 -0.19010728565467311</Translation>
+</Transform>
+</Instance>
+<Instance name="20 lb Weight-22" uid="20 lb Weight-22" entityUid="20 lb Weight*:*Default">
+<Transform>
+<Rotation>1 0 0 0 1 0 0 0 1</Rotation>
+<Translation>0.55065442585592606 0.11744867896649513 -0.2155072856546732</Translation>
+</Transform>
+</Instance>
+<Instance name="20 lb Weight-24" uid="20 lb Weight-24" entityUid="20 lb Weight*:*Default">
+<Transform>
+<Rotation>1 0 0 0 1 0 0 0 1</Rotation>
+<Translation>0.55065442585592606 0.11744867896649513 -0.26630728565467321</Translation>
+</Transform>
+</Instance>
+<Instance name="20 lb Weight-17" uid="20 lb Weight-17" entityUid="20 lb Weight*:*Default">
+<Transform>
+<Rotation>1 0 0 0 1 0 0 0 1</Rotation>
+<Translation>0.55065442585592606 0.11744867896649513 -0.059932285654673012</Translation>
+</Transform>
+</Instance>
+<Instance name="20 lb Weight-25" uid="20 lb Weight-25" entityUid="20 lb Weight*:*Default">
+<Transform>
+<Rotation>1 0 0 0 1 0 0 0 1</Rotation>
+<Translation>0.55065442585592606 0.11744867896649513 -0.29170728565467308</Translation>
+</Transform>
+</Instance>
+<Instance name="20 lb Weight-27" uid="20 lb Weight-27" entityUid="20 lb Weight*:*Default">
+<Transform>
+<Rotation>1 0 0 0 1 0 0 0 1</Rotation>
+<Translation>0.55065442585592606 0.11744867896649513 -0.34250728565467303</Translation>
+</Transform>
+</Instance>
+<Instance name="20 lb Weight-19" uid="20 lb Weight-19" entityUid="20 lb Weight*:*Default">
+<Transform>
+<Rotation>1 0 0 0 1 0 0 0 1</Rotation>
+<Translation>0.55065442585592617 0.11744867896649513 -0.13930728565467321</Translation>
+</Transform>
+</Instance>
+<Instance name="20 lb Weight-23" uid="20 lb Weight-23" entityUid="20 lb Weight*:*Default">
+<Transform>
+<Rotation>1 0 0 0 1 0 0 0 1</Rotation>
+<Translation>0.55065442585592606 0.11744867896649513 -0.24090728565467312</Translation>
+</Transform>
+</Instance>
+<Instance name="20 lb Weight-14" uid="20 lb Weight-14" entityUid="20 lb Weight*:*Default">
+<Transform>
+<Rotation>1 0 0 0 1 0 0 0 1</Rotation>
+<Translation>0.55065442585592606 0.11744867896649511 0.016267714345326922</Translation>
+</Transform>
+</Instance>
+<Instance name="20 lb Weight-12" uid="20 lb Weight-12" entityUid="20 lb Weight*:*Default">
+<Transform>
+<Rotation>1 0 0 0 1 0 0 0 1</Rotation>
+<Translation>0.55065442585592606 0.11744867896649513 0.067067714345326879</Translation>
+</Transform>
+</Instance>
+<Instance name="20 lb Weight-26" uid="20 lb Weight-26" entityUid="20 lb Weight*:*Default">
+<Transform>
+<Rotation>1 0 0 0 1 0 0 0 1</Rotation>
+<Translation>0.55065442585592606 0.11744867896649513 -0.31710728565467328</Translation>
+</Transform>
+</Instance>
+<Instance name="20 lb Weight-13" uid="20 lb Weight-13" entityUid="20 lb Weight*:*Default">
+<Transform>
+<Rotation>1 0 0 0 1 0 0 0 1</Rotation>
+<Translation>0.55065442585592606 0.11744867896649511 0.041667714345326873</Translation>
+</Transform>
+</Instance>
+<Instance name="20 lb Weight-16" uid="20 lb Weight-16" entityUid="20 lb Weight*:*Default">
+<Transform>
+<Rotation>1 0 0 0 1 0 0 0 1</Rotation>
+<Translation>0.55065442585592606 0.11744867896649513 -0.034532285654673034</Translation>
+</Transform>
+</Instance>
+<Instance name="20 lb Weight-15" uid="20 lb Weight-15" entityUid="20 lb Weight*:*Default">
+<Transform>
+<Rotation>1 0 0 0 1 0 0 0 1</Rotation>
+<Translation>0.55065442585592606 0.11744867896649511 -0.0091322856546730558</Translation>
+</Transform>
+</Instance>
+<Instance name="20 lb Weight-20" uid="20 lb Weight-20" entityUid="20 lb Weight*:*Default">
+<Transform>
+<Rotation>1 0 0 0 1 0 0 0 1</Rotation>
+<Translation>0.55065442585592606 0.11744867896649513 -0.1647072856546733</Translation>
+</Transform>
+</Instance>
+<Instance name="20 lb Weight-37" uid="20 lb Weight-37" entityUid="20 lb Weight*:*Default">
+<Transform>
+<Rotation>1 0 0 0 1 0 0 0 1</Rotation>
+<Translation>0.55065442585592594 0.11744867896649513 -0.61555728565467249</Translation>
+</Transform>
+</Instance>
+<Instance name="20 lb Weight-35" uid="20 lb Weight-35" entityUid="20 lb Weight*:*Default">
+<Transform>
+<Rotation>1 0 0 0 1 0 0 0 1</Rotation>
+<Translation>0.55065442585592606 0.11744867896649513 -0.56475728565467276</Translation>
+</Transform>
+</Instance>
+<Instance name="20 lb Weight-30" uid="20 lb Weight-30" entityUid="20 lb Weight*:*Default">
+<Transform>
+<Rotation>1 0 0 0 1 0 0 0 1</Rotation>
+<Translation>0.55065442585592617 0.11744867896649513 -0.43775728565467298</Translation>
+</Transform>
+</Instance>
+<Instance name="20 lb Weight-31" uid="20 lb Weight-31" entityUid="20 lb Weight*:*Default">
+<Transform>
+<Rotation>1 0 0 0 1 0 0 0 1</Rotation>
+<Translation>0.55065442585592617 0.11744867896649513 -0.46315728565467296</Translation>
+</Transform>
+</Instance>
+<Instance name="20 lb Weight-32" uid="20 lb Weight-32" entityUid="20 lb Weight*:*Default">
+<Transform>
+<Rotation>1 0 0 0 1 0 0 0 1</Rotation>
+<Translation>0.55065442585592617 0.11744867896649513 -0.48855728565467293</Translation>
+</Transform>
+</Instance>
+<Instance name="20 lb Weight-34" uid="20 lb Weight-34" entityUid="20 lb Weight*:*Default">
+<Transform>
+<Rotation>1 0 0 0 1 0 0 0 1</Rotation>
+<Translation>0.55065442585592606 0.11744867896649513 -0.53935728565467289</Translation>
+</Transform>
+</Instance>
+<Instance name="20 lb Weight-36" uid="20 lb Weight-36" entityUid="20 lb Weight*:*Default">
+<Transform>
+<Rotation>1 0 0 0 1 0 0 0 1</Rotation>
+<Translation>0.55065442585592617 0.11744867896649513 -0.5901572856546724</Translation>
+</Transform>
+</Instance>
+<Instance name="20 lb Weight-33" uid="20 lb Weight-33" entityUid="20 lb Weight*:*Default">
+<Transform>
+<Rotation>1 0 0 0 1 0 0 0 1</Rotation>
+<Translation>0.55065442585592594 0.11744867896649513 -0.51395728565467302</Translation>
+</Transform>
+</Instance>
+</InstanceTree>
+<Constraints>
+<Coincident name="Coincident1">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>WackyWeightBracket-1</Uid>
+</InstancePath>
+<Position>-0.076267122180678881 0.67289979858525895 -0.04715487103546101</Position>
+<Axis>-1 0 0</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>20 lb Weight-1</Uid>
+</InstancePath>
+<Position>0.088899999999999979 0.088899999999999979 0.025400000000000006</Position>
+<Axis>1 0 0</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Coincident name="Coincident2">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>WackyWeightBracket-1</Uid>
+</InstancePath>
+<Position>-0.071504622180678878 0.67289979858525895 -0.04715487103546101</Position>
+<Axis>0 1 0</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>20 lb Weight-1</Uid>
+</InstancePath>
+<Position>0.069849999999999968 0.088899999999999979 0</Position>
+<Axis>0 -1 0</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Coincident name="Coincident3">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>WackyWeightBracket-1</Uid>
+</InstancePath>
+<Position>-0.029277122180679127 0.62936909022321741 0.71167012896453885</Position>
+<Axis>0 0 -1</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>20 lb Weight-1</Uid>
+</InstancePath>
+<Position>-0.088899999999999979 -0.088899999999999993 0.025400000000000006</Position>
+<Axis>0 0 1</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Coincident name="Coincident8">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>WackyWeightBracket-1</Uid>
+</InstancePath>
+<Position>-0.071504622180678878 0.67289979858525895 -0.04715487103546101</Position>
+<Axis>0 1 0</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>20 lb Weight-12</Uid>
+</InstancePath>
+<Position>0.069849999999999968 0.088899999999999979 0</Position>
+<Axis>0 -1 0</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Coincident name="Coincident9">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>WackyWeightBracket-1</Uid>
+</InstancePath>
+<Position>-0.076267122180678881 0.67289979858525895 -0.04715487103546101</Position>
+<Axis>-1 0 0</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>20 lb Weight-12</Uid>
+</InstancePath>
+<Position>0.088899999999999979 0.088899999999999979 0.025400000000000006</Position>
+<Axis>1 0 0</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Coincident name="Coincident10">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>20 lb Weight-1</Uid>
+</InstancePath>
+<Position>-0.088899999999999979 -0.088899999999999993 0</Position>
+<Axis>0 0 -1</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>20 lb Weight-12</Uid>
+</InstancePath>
+<Position>-0.088899999999999979 -0.088899999999999993 0.025400000000000006</Position>
+<Axis>0 0 1</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Coincident name="Coincident11">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>WackyWeightBracket-1</Uid>
+</InstancePath>
+<Position>-0.076267122180678881 0.67289979858525895 -0.04715487103546101</Position>
+<Axis>-1 0 0</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>20 lb Weight-13</Uid>
+</InstancePath>
+<Position>0.088899999999999979 0.088900000000000007 0.025400000000000006</Position>
+<Axis>1 0 0</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Coincident name="Coincident12">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>WackyWeightBracket-1</Uid>
+</InstancePath>
+<Position>-0.071504622180678878 0.67289979858525895 -0.04715487103546101</Position>
+<Axis>0 1 0</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>20 lb Weight-13</Uid>
+</InstancePath>
+<Position>0.069849999999999968 0.088900000000000007 0</Position>
+<Axis>0 -1 0</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Coincident name="Coincident13">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>20 lb Weight-12</Uid>
+</InstancePath>
+<Position>-0.088899999999999979 -0.088899999999999993 0</Position>
+<Axis>0 0 -1</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>20 lb Weight-13</Uid>
+</InstancePath>
+<Position>-0.088899999999999979 -0.088899999999999993 0.025400000000000006</Position>
+<Axis>0 0 1</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Coincident name="Coincident14">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>WackyWeightBracket-1</Uid>
+</InstancePath>
+<Position>-0.076267122180678881 0.67289979858525895 -0.04715487103546101</Position>
+<Axis>-1 0 0</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>20 lb Weight-14</Uid>
+</InstancePath>
+<Position>0.088899999999999979 0.088900000000000007 0.025399999999999999</Position>
+<Axis>1 0 0</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Coincident name="Coincident15">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>WackyWeightBracket-1</Uid>
+</InstancePath>
+<Position>-0.071504622180678878 0.67289979858525895 -0.04715487103546101</Position>
+<Axis>0 1 0</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>20 lb Weight-14</Uid>
+</InstancePath>
+<Position>0.069849999999999968 0.088900000000000007 0</Position>
+<Axis>0 -1 0</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Coincident name="Coincident16">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>20 lb Weight-13</Uid>
+</InstancePath>
+<Position>-0.088899999999999979 -0.088899999999999993 0</Position>
+<Axis>0 0 -1</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>20 lb Weight-14</Uid>
+</InstancePath>
+<Position>-0.088899999999999979 -0.088899999999999993 0.025399999999999999</Position>
+<Axis>0 0 1</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Coincident name="Coincident17">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>WackyWeightBracket-1</Uid>
+</InstancePath>
+<Position>-0.076267122180678881 0.67289979858525895 -0.04715487103546101</Position>
+<Axis>-1 0 0</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>20 lb Weight-15</Uid>
+</InstancePath>
+<Position>0.088899999999999979 0.088900000000000007 0.025399999999999999</Position>
+<Axis>1 0 0</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Coincident name="Coincident18">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>WackyWeightBracket-1</Uid>
+</InstancePath>
+<Position>-0.071504622180678878 0.67289979858525895 -0.04715487103546101</Position>
+<Axis>0 1 0</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>20 lb Weight-15</Uid>
+</InstancePath>
+<Position>0.069849999999999968 0.088900000000000007 0</Position>
+<Axis>0 -1 0</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Coincident name="Coincident19">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>20 lb Weight-14</Uid>
+</InstancePath>
+<Position>-0.088899999999999979 -0.088899999999999993 0</Position>
+<Axis>0 0 -1</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>20 lb Weight-15</Uid>
+</InstancePath>
+<Position>-0.088899999999999979 -0.088899999999999993 0.025399999999999999</Position>
+<Axis>0 0 1</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Coincident name="Coincident20">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>WackyWeightBracket-1</Uid>
+</InstancePath>
+<Position>-0.076267122180678881 0.67289979858525895 -0.04715487103546101</Position>
+<Axis>-1 0 0</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>20 lb Weight-16</Uid>
+</InstancePath>
+<Position>0.088899999999999979 0.088899999999999979 0.025399999999999999</Position>
+<Axis>1 0 0</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Coincident name="Coincident21">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>WackyWeightBracket-1</Uid>
+</InstancePath>
+<Position>-0.071504622180678878 0.67289979858525895 -0.04715487103546101</Position>
+<Axis>0 1 0</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>20 lb Weight-16</Uid>
+</InstancePath>
+<Position>0.069849999999999968 0.088899999999999979 0</Position>
+<Axis>0 -1 0</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Coincident name="Coincident22">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>20 lb Weight-15</Uid>
+</InstancePath>
+<Position>-0.088899999999999979 -0.088899999999999993 0</Position>
+<Axis>0 0 -1</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>20 lb Weight-16</Uid>
+</InstancePath>
+<Position>-0.088899999999999979 -0.088899999999999993 0.025399999999999999</Position>
+<Axis>0 0 1</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Coincident name="Coincident23">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>WackyWeightBracket-1</Uid>
+</InstancePath>
+<Position>-0.076267122180678881 0.67289979858525895 -0.04715487103546101</Position>
+<Axis>-1 0 0</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>20 lb Weight-17</Uid>
+</InstancePath>
+<Position>0.088899999999999979 0.088899999999999979 0.025399999999999999</Position>
+<Axis>1 0 0</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Coincident name="Coincident24">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>WackyWeightBracket-1</Uid>
+</InstancePath>
+<Position>-0.071504622180678878 0.67289979858525895 -0.04715487103546101</Position>
+<Axis>0 1 0</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>20 lb Weight-17</Uid>
+</InstancePath>
+<Position>0.069849999999999968 0.088899999999999979 0</Position>
+<Axis>0 -1 0</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Coincident name="Coincident25">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>20 lb Weight-16</Uid>
+</InstancePath>
+<Position>-0.088899999999999979 -0.088899999999999993 0</Position>
+<Axis>0 0 -1</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>20 lb Weight-17</Uid>
+</InstancePath>
+<Position>-0.088899999999999979 -0.088899999999999993 0.025399999999999999</Position>
+<Axis>0 0 1</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Coincident name="Coincident26">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>WackyWeightBracket-1</Uid>
+</InstancePath>
+<Position>-0.076267122180678881 0.67289979858525895 -0.04715487103546101</Position>
+<Axis>-1 0 0</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>20 lb Weight-18</Uid>
+</InstancePath>
+<Position>0.088899999999999979 0.088899999999999979 0.025399999999999999</Position>
+<Axis>1 0 0</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Coincident name="Coincident27">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>WackyWeightBracket-1</Uid>
+</InstancePath>
+<Position>-0.071504622180678878 0.67289979858525895 -0.04715487103546101</Position>
+<Axis>0 1 0</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>20 lb Weight-18</Uid>
+</InstancePath>
+<Position>0.069849999999999968 0.088899999999999979 0</Position>
+<Axis>0 -1 0</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Coincident name="Coincident28">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>20 lb Weight-17</Uid>
+</InstancePath>
+<Position>-0.088899999999999979 -0.088899999999999993 0</Position>
+<Axis>0 0 -1</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>20 lb Weight-18</Uid>
+</InstancePath>
+<Position>-0.088899999999999979 -0.088899999999999993 0.025399999999999999</Position>
+<Axis>0 0 1</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Coincident name="Coincident29">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>WackyWeightBracket-1</Uid>
+</InstancePath>
+<Position>-0.076267122180678881 0.67289979858525895 -0.04715487103546101</Position>
+<Axis>-1 0 0</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>20 lb Weight-19</Uid>
+</InstancePath>
+<Position>0.088899999999999979 0.088899999999999979 0.025400000000000006</Position>
+<Axis>1 0 0</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Coincident name="Coincident30">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>WackyWeightBracket-1</Uid>
+</InstancePath>
+<Position>-0.071504622180678878 0.67289979858525895 -0.04715487103546101</Position>
+<Axis>0 1 0</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>20 lb Weight-19</Uid>
+</InstancePath>
+<Position>0.069849999999999968 0.088899999999999979 0</Position>
+<Axis>0 -1 0</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Coincident name="Coincident31">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>WackyWeightBracket-1</Uid>
+</InstancePath>
+<Position>-0.057217122180678981 0.26903979858525895 0.47989512896453884</Position>
+<Axis>7.3395058981118941e-16 0 -1</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>20 lb Weight-19</Uid>
+</InstancePath>
+<Position>-0.088899999999999979 -0.088899999999999993 0.025400000000000006</Position>
+<Axis>0 0 1</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Coincident name="Coincident32">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>WackyWeightBracket-1</Uid>
+</InstancePath>
+<Position>-0.076267122180678881 0.67289979858525895 -0.04715487103546101</Position>
+<Axis>-1 0 0</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>20 lb Weight-20</Uid>
+</InstancePath>
+<Position>0.088899999999999979 0.088899999999999979 0.025400000000000006</Position>
+<Axis>1 0 0</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Coincident name="Coincident33">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>WackyWeightBracket-1</Uid>
+</InstancePath>
+<Position>-0.071504622180678878 0.67289979858525895 -0.04715487103546101</Position>
+<Axis>0 1 0</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>20 lb Weight-20</Uid>
+</InstancePath>
+<Position>0.069849999999999968 0.088899999999999979 0</Position>
+<Axis>0 -1 0</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Coincident name="Coincident34">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>20 lb Weight-19</Uid>
+</InstancePath>
+<Position>-0.088899999999999979 -0.088899999999999993 0</Position>
+<Axis>0 0 -1</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>20 lb Weight-20</Uid>
+</InstancePath>
+<Position>-0.088899999999999979 -0.088899999999999993 0.025400000000000006</Position>
+<Axis>0 0 1</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Coincident name="Coincident35">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>WackyWeightBracket-1</Uid>
+</InstancePath>
+<Position>-0.076267122180678881 0.67289979858525895 -0.04715487103546101</Position>
+<Axis>-1 0 0</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>20 lb Weight-21</Uid>
+</InstancePath>
+<Position>0.088899999999999979 0.088899999999999979 0.025400000000000006</Position>
+<Axis>1 0 0</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Coincident name="Coincident36">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>WackyWeightBracket-1</Uid>
+</InstancePath>
+<Position>-0.071504622180678878 0.67289979858525895 -0.04715487103546101</Position>
+<Axis>0 1 0</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>20 lb Weight-21</Uid>
+</InstancePath>
+<Position>0.069849999999999968 0.088899999999999979 0</Position>
+<Axis>0 -1 0</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Coincident name="Coincident37">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>20 lb Weight-20</Uid>
+</InstancePath>
+<Position>-0.088899999999999979 -0.088899999999999993 0</Position>
+<Axis>0 0 -1</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>20 lb Weight-21</Uid>
+</InstancePath>
+<Position>-0.088899999999999979 -0.088899999999999993 0.025400000000000006</Position>
+<Axis>0 0 1</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Coincident name="Coincident38">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>WackyWeightBracket-1</Uid>
+</InstancePath>
+<Position>-0.076267122180678881 0.67289979858525895 -0.04715487103546101</Position>
+<Axis>-1 0 0</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>20 lb Weight-22</Uid>
+</InstancePath>
+<Position>0.088899999999999979 0.088899999999999979 0.025400000000000006</Position>
+<Axis>1 0 0</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Coincident name="Coincident39">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>WackyWeightBracket-1</Uid>
+</InstancePath>
+<Position>-0.071504622180678878 0.67289979858525895 -0.04715487103546101</Position>
+<Axis>0 1 0</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>20 lb Weight-22</Uid>
+</InstancePath>
+<Position>0.069849999999999968 0.088899999999999979 0</Position>
+<Axis>0 -1 0</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Coincident name="Coincident40">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>20 lb Weight-21</Uid>
+</InstancePath>
+<Position>-0.088899999999999979 -0.088899999999999993 0</Position>
+<Axis>0 0 -1</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>20 lb Weight-22</Uid>
+</InstancePath>
+<Position>-0.088899999999999979 -0.088899999999999993 0.025400000000000006</Position>
+<Axis>0 0 1</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Coincident name="Coincident41">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>WackyWeightBracket-1</Uid>
+</InstancePath>
+<Position>-0.076267122180678881 0.67289979858525895 -0.04715487103546101</Position>
+<Axis>-1 0 0</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>20 lb Weight-23</Uid>
+</InstancePath>
+<Position>0.088899999999999979 0.088899999999999979 0.025400000000000006</Position>
+<Axis>1 0 0</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Coincident name="Coincident42">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>WackyWeightBracket-1</Uid>
+</InstancePath>
+<Position>-0.071504622180678878 0.67289979858525895 -0.04715487103546101</Position>
+<Axis>0 1 0</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>20 lb Weight-23</Uid>
+</InstancePath>
+<Position>0.069849999999999968 0.088899999999999979 0</Position>
+<Axis>0 -1 0</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Coincident name="Coincident43">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>20 lb Weight-22</Uid>
+</InstancePath>
+<Position>-0.088899999999999979 -0.088899999999999993 0</Position>
+<Axis>0 0 -1</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>20 lb Weight-23</Uid>
+</InstancePath>
+<Position>-0.088899999999999979 -0.088899999999999993 0.025400000000000006</Position>
+<Axis>0 0 1</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Coincident name="Coincident44">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>WackyWeightBracket-1</Uid>
+</InstancePath>
+<Position>-0.076267122180678881 0.67289979858525895 -0.04715487103546101</Position>
+<Axis>-1 0 0</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>20 lb Weight-24</Uid>
+</InstancePath>
+<Position>0.088899999999999979 0.088899999999999979 0.025400000000000006</Position>
+<Axis>1 0 0</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Coincident name="Coincident45">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>WackyWeightBracket-1</Uid>
+</InstancePath>
+<Position>-0.071504622180678878 0.67289979858525895 -0.04715487103546101</Position>
+<Axis>0 1 0</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>20 lb Weight-24</Uid>
+</InstancePath>
+<Position>0.069849999999999968 0.088899999999999979 0</Position>
+<Axis>0 -1 0</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Coincident name="Coincident46">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>20 lb Weight-23</Uid>
+</InstancePath>
+<Position>-0.088899999999999979 -0.088899999999999993 0</Position>
+<Axis>0 0 -1</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>20 lb Weight-24</Uid>
+</InstancePath>
+<Position>-0.088899999999999979 -0.088899999999999993 0.025400000000000006</Position>
+<Axis>0 0 1</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Coincident name="Coincident47">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>WackyWeightBracket-1</Uid>
+</InstancePath>
+<Position>-0.076267122180678881 0.67289979858525895 -0.04715487103546101</Position>
+<Axis>-1 0 0</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>20 lb Weight-25</Uid>
+</InstancePath>
+<Position>0.088899999999999979 0.088899999999999979 0.025399999999999978</Position>
+<Axis>1 0 0</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Coincident name="Coincident48">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>WackyWeightBracket-1</Uid>
+</InstancePath>
+<Position>-0.071504622180678878 0.67289979858525895 -0.04715487103546101</Position>
+<Axis>0 1 0</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>20 lb Weight-25</Uid>
+</InstancePath>
+<Position>0.069849999999999968 0.088899999999999979 0</Position>
+<Axis>0 -1 0</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Coincident name="Coincident49">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>20 lb Weight-24</Uid>
+</InstancePath>
+<Position>-0.088899999999999979 -0.088899999999999993 0</Position>
+<Axis>0 0 -1</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>20 lb Weight-25</Uid>
+</InstancePath>
+<Position>-0.088899999999999979 -0.088899999999999993 0.025399999999999978</Position>
+<Axis>0 0 1</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Coincident name="Coincident50">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>WackyWeightBracket-1</Uid>
+</InstancePath>
+<Position>-0.076267122180678881 0.67289979858525895 -0.04715487103546101</Position>
+<Axis>-1 0 0</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>20 lb Weight-26</Uid>
+</InstancePath>
+<Position>0.088899999999999979 0.088899999999999979 0.025399999999999978</Position>
+<Axis>1 0 0</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Coincident name="Coincident51">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>WackyWeightBracket-1</Uid>
+</InstancePath>
+<Position>-0.071504622180678878 0.67289979858525895 -0.04715487103546101</Position>
+<Axis>0 1 0</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>20 lb Weight-26</Uid>
+</InstancePath>
+<Position>0.069849999999999968 0.088899999999999979 0</Position>
+<Axis>0 -1 0</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Coincident name="Coincident52">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>20 lb Weight-25</Uid>
+</InstancePath>
+<Position>-0.088899999999999979 -0.088899999999999993 0</Position>
+<Axis>0 0 -1</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>20 lb Weight-26</Uid>
+</InstancePath>
+<Position>-0.088899999999999979 -0.088899999999999993 0.025399999999999978</Position>
+<Axis>0 0 1</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Coincident name="Coincident53">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>WackyWeightBracket-1</Uid>
+</InstancePath>
+<Position>-0.076267122180678881 0.67289979858525895 -0.04715487103546101</Position>
+<Axis>-1 0 0</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>20 lb Weight-27</Uid>
+</InstancePath>
+<Position>0.088899999999999979 0.088899999999999979 0.025399999999999978</Position>
+<Axis>1 0 0</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Coincident name="Coincident54">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>WackyWeightBracket-1</Uid>
+</InstancePath>
+<Position>-0.071504622180678878 0.67289979858525895 -0.04715487103546101</Position>
+<Axis>0 1 0</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>20 lb Weight-27</Uid>
+</InstancePath>
+<Position>0.069849999999999968 0.088899999999999979 0</Position>
+<Axis>0 -1 0</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Coincident name="Coincident55">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>20 lb Weight-26</Uid>
+</InstancePath>
+<Position>-0.088899999999999979 -0.088899999999999993 0</Position>
+<Axis>0 0 -1</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>20 lb Weight-27</Uid>
+</InstancePath>
+<Position>-0.088899999999999979 -0.088899999999999993 0.025399999999999978</Position>
+<Axis>0 0 1</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Coincident name="Coincident56">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>WackyWeightBracket-1</Uid>
+</InstancePath>
+<Position>-0.076267122180678881 0.67289979858525895 -0.04715487103546101</Position>
+<Axis>-1 0 0</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>20 lb Weight-28</Uid>
+</InstancePath>
+<Position>0.088899999999999979 0.088899999999999979 0.025399999999999978</Position>
+<Axis>1 0 0</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Coincident name="Coincident57">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>WackyWeightBracket-1</Uid>
+</InstancePath>
+<Position>-0.071504622180678878 0.67289979858525895 -0.04715487103546101</Position>
+<Axis>0 1 0</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>20 lb Weight-28</Uid>
+</InstancePath>
+<Position>0.069849999999999968 0.088899999999999979 0</Position>
+<Axis>0 -1 0</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Coincident name="Coincident58">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>20 lb Weight-27</Uid>
+</InstancePath>
+<Position>-0.088899999999999979 -0.088899999999999993 0</Position>
+<Axis>0 0 -1</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>20 lb Weight-28</Uid>
+</InstancePath>
+<Position>-0.088899999999999979 -0.088899999999999993 0.025399999999999978</Position>
+<Axis>0 0 1</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Coincident name="Coincident59">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>WackyWeightBracket-1</Uid>
+</InstancePath>
+<Position>-0.076267122180678881 0.67289979858525895 -0.04715487103546101</Position>
+<Axis>-1 0 0</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>20 lb Weight-29</Uid>
+</InstancePath>
+<Position>0.088899999999999979 0.088899999999999979 0.025399999999999978</Position>
+<Axis>1 0 0</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Coincident name="Coincident60">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>WackyWeightBracket-1</Uid>
+</InstancePath>
+<Position>-0.071504622180678878 0.67289979858525895 -0.04715487103546101</Position>
+<Axis>0 1 0</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>20 lb Weight-29</Uid>
+</InstancePath>
+<Position>0.069849999999999968 0.088899999999999979 0</Position>
+<Axis>0 -1 0</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Coincident name="Coincident61">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>20 lb Weight-28</Uid>
+</InstancePath>
+<Position>-0.088899999999999979 -0.088899999999999993 0</Position>
+<Axis>0 0 -1</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>20 lb Weight-29</Uid>
+</InstancePath>
+<Position>-0.088899999999999979 -0.088899999999999993 0.025399999999999978</Position>
+<Axis>0 0 1</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Coincident name="Coincident62">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>WackyWeightBracket-1</Uid>
+</InstancePath>
+<Position>-0.076267122180678881 0.67289979858525895 -0.04715487103546101</Position>
+<Axis>-1 0 0</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>20 lb Weight-30</Uid>
+</InstancePath>
+<Position>0.088899999999999979 0.088899999999999979 0.025399999999999978</Position>
+<Axis>1 0 0</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Coincident name="Coincident63">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>WackyWeightBracket-1</Uid>
+</InstancePath>
+<Position>-0.071504622180678878 0.67289979858525895 -0.04715487103546101</Position>
+<Axis>0 1 0</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>20 lb Weight-30</Uid>
+</InstancePath>
+<Position>0.069849999999999968 0.088899999999999979 0</Position>
+<Axis>0 -1 0</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Coincident name="Coincident64">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>WackyWeightBracket-1</Uid>
+</InstancePath>
+<Position>-0.05721712218067887 0.26903979858525895 0.18144512896453902</Position>
+<Axis>0 0 -1</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>20 lb Weight-30</Uid>
+</InstancePath>
+<Position>-0.088899999999999979 -0.088899999999999993 0.025399999999999978</Position>
+<Axis>0 0 1</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Coincident name="Coincident65">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>WackyWeightBracket-1</Uid>
+</InstancePath>
+<Position>-0.076267122180678881 0.67289979858525895 -0.04715487103546101</Position>
+<Axis>-1 0 0</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>20 lb Weight-31</Uid>
+</InstancePath>
+<Position>0.088899999999999979 0.088899999999999979 0.025399999999999978</Position>
+<Axis>1 0 0</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Coincident name="Coincident66">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>WackyWeightBracket-1</Uid>
+</InstancePath>
+<Position>-0.071504622180678878 0.67289979858525895 -0.04715487103546101</Position>
+<Axis>0 1 0</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>20 lb Weight-31</Uid>
+</InstancePath>
+<Position>0.069849999999999968 0.088899999999999979 0</Position>
+<Axis>0 -1 0</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Coincident name="Coincident67">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>20 lb Weight-30</Uid>
+</InstancePath>
+<Position>-0.088899999999999979 -0.088899999999999993 0</Position>
+<Axis>0 0 -1</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>20 lb Weight-31</Uid>
+</InstancePath>
+<Position>-0.088899999999999979 -0.088899999999999993 0.025399999999999978</Position>
+<Axis>0 0 1</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Coincident name="Coincident68">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>WackyWeightBracket-1</Uid>
+</InstancePath>
+<Position>-0.076267122180678881 0.67289979858525895 -0.04715487103546101</Position>
+<Axis>-1 0 0</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>20 lb Weight-32</Uid>
+</InstancePath>
+<Position>0.088899999999999979 0.088899999999999979 0.025399999999999978</Position>
+<Axis>1 0 0</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Coincident name="Coincident69">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>WackyWeightBracket-1</Uid>
+</InstancePath>
+<Position>-0.071504622180678878 0.67289979858525895 -0.04715487103546101</Position>
+<Axis>0 1 0</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>20 lb Weight-32</Uid>
+</InstancePath>
+<Position>0.069849999999999968 0.088899999999999979 0</Position>
+<Axis>0 -1 0</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Coincident name="Coincident70">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>20 lb Weight-31</Uid>
+</InstancePath>
+<Position>-0.088899999999999979 -0.088899999999999993 0</Position>
+<Axis>0 0 -1</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>20 lb Weight-32</Uid>
+</InstancePath>
+<Position>-0.088899999999999979 -0.088899999999999993 0.025399999999999978</Position>
+<Axis>0 0 1</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Coincident name="Coincident71">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>WackyWeightBracket-1</Uid>
+</InstancePath>
+<Position>-0.076267122180678881 0.67289979858525895 -0.04715487103546101</Position>
+<Axis>-1 0 0</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>20 lb Weight-33</Uid>
+</InstancePath>
+<Position>0.088899999999999979 0.088899999999999979 0.025399999999999978</Position>
+<Axis>1 0 0</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Coincident name="Coincident72">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>WackyWeightBracket-1</Uid>
+</InstancePath>
+<Position>-0.071504622180678878 0.67289979858525895 -0.04715487103546101</Position>
+<Axis>0 1 0</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>20 lb Weight-33</Uid>
+</InstancePath>
+<Position>0.069849999999999968 0.088899999999999979 0</Position>
+<Axis>0 -1 0</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Coincident name="Coincident73">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>20 lb Weight-32</Uid>
+</InstancePath>
+<Position>-0.088899999999999979 -0.088899999999999993 0</Position>
+<Axis>0 0 -1</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>20 lb Weight-33</Uid>
+</InstancePath>
+<Position>-0.088899999999999979 -0.088899999999999993 0.025399999999999978</Position>
+<Axis>0 0 1</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Coincident name="Coincident74">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>WackyWeightBracket-1</Uid>
+</InstancePath>
+<Position>-0.076267122180678881 0.67289979858525895 -0.04715487103546101</Position>
+<Axis>-1 0 0</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>20 lb Weight-34</Uid>
+</InstancePath>
+<Position>0.088899999999999979 0.088899999999999979 0.025399999999999978</Position>
+<Axis>1 0 0</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Coincident name="Coincident75">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>WackyWeightBracket-1</Uid>
+</InstancePath>
+<Position>-0.071504622180678878 0.67289979858525895 -0.04715487103546101</Position>
+<Axis>0 1 0</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>20 lb Weight-34</Uid>
+</InstancePath>
+<Position>0.069849999999999968 0.088899999999999979 0</Position>
+<Axis>0 -1 0</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Coincident name="Coincident76">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>20 lb Weight-33</Uid>
+</InstancePath>
+<Position>-0.088899999999999979 -0.088899999999999993 0</Position>
+<Axis>0 0 -1</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>20 lb Weight-34</Uid>
+</InstancePath>
+<Position>-0.088899999999999979 -0.088899999999999993 0.025399999999999978</Position>
+<Axis>0 0 1</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Coincident name="Coincident77">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>WackyWeightBracket-1</Uid>
+</InstancePath>
+<Position>-0.076267122180678881 0.67289979858525895 -0.04715487103546101</Position>
+<Axis>-1 0 0</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>20 lb Weight-35</Uid>
+</InstancePath>
+<Position>0.088899999999999979 0.088899999999999979 0.025399999999999978</Position>
+<Axis>1 0 0</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Coincident name="Coincident78">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>WackyWeightBracket-1</Uid>
+</InstancePath>
+<Position>-0.071504622180678878 0.67289979858525895 -0.04715487103546101</Position>
+<Axis>0 1 0</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>20 lb Weight-35</Uid>
+</InstancePath>
+<Position>0.069849999999999968 0.088899999999999979 0</Position>
+<Axis>0 -1 0</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Coincident name="Coincident79">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>20 lb Weight-34</Uid>
+</InstancePath>
+<Position>-0.088899999999999979 -0.088899999999999993 0</Position>
+<Axis>0 0 -1</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>20 lb Weight-35</Uid>
+</InstancePath>
+<Position>-0.088899999999999979 -0.088899999999999993 0.025399999999999978</Position>
+<Axis>0 0 1</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Coincident name="Coincident80">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>WackyWeightBracket-1</Uid>
+</InstancePath>
+<Position>-0.076267122180678881 0.67289979858525895 -0.04715487103546101</Position>
+<Axis>-1 0 0</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>20 lb Weight-36</Uid>
+</InstancePath>
+<Position>0.088899999999999979 0.088899999999999979 0.025399999999999978</Position>
+<Axis>1 0 0</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Coincident name="Coincident81">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>WackyWeightBracket-1</Uid>
+</InstancePath>
+<Position>-0.071504622180678878 0.67289979858525895 -0.04715487103546101</Position>
+<Axis>0 1 0</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>20 lb Weight-36</Uid>
+</InstancePath>
+<Position>0.069849999999999968 0.088899999999999979 0</Position>
+<Axis>0 -1 0</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Coincident name="Coincident82">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>20 lb Weight-35</Uid>
+</InstancePath>
+<Position>-0.088899999999999979 -0.088899999999999993 0</Position>
+<Axis>0 0 -1</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>20 lb Weight-36</Uid>
+</InstancePath>
+<Position>-0.088899999999999979 -0.088899999999999993 0.025399999999999978</Position>
+<Axis>0 0 1</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Coincident name="Coincident83">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>WackyWeightBracket-1</Uid>
+</InstancePath>
+<Position>-0.076267122180678881 0.67289979858525895 -0.04715487103546101</Position>
+<Axis>-1 0 0</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>20 lb Weight-37</Uid>
+</InstancePath>
+<Position>0.088899999999999979 0.088899999999999979 0.025399999999999978</Position>
+<Axis>1 0 0</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Coincident name="Coincident84">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>WackyWeightBracket-1</Uid>
+</InstancePath>
+<Position>-0.071504622180678878 0.67289979858525895 -0.04715487103546101</Position>
+<Axis>0 1 0</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>20 lb Weight-37</Uid>
+</InstancePath>
+<Position>0.069849999999999968 0.088899999999999979 0</Position>
+<Axis>0 -1 0</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Coincident name="Coincident85">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>20 lb Weight-36</Uid>
+</InstancePath>
+<Position>-0.088899999999999979 -0.088899999999999993 0</Position>
+<Axis>0 0 -1</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>20 lb Weight-37</Uid>
+</InstancePath>
+<Position>-0.088899999999999979 -0.088899999999999993 0.025399999999999978</Position>
+<Axis>0 0 1</Axis>
+</ConstraintGeometry>
+</Coincident>
+</Constraints>
+</RootAssembly>
+<Assemblies>
+</Assemblies>
+<Parts>
+<Part name="20 lb Weight" uid="20 lb Weight*:*Default" version="344">
+<ModelUnits mass="kilogram" length="inch"/>
+<PartFile name="20 lb Weight.SLDPRT" type="SolidWorks Part"/>
+<MassProperties>
+<Mass>8.9078137902329662</Mass>
+<CenterOfMass>0.0011697296753045954 0.0010607083266275497 0.012699999999999999</CenterOfMass>
+<Inertia>0.024249400704698248 0.024412873914204086 0.047704447094751218 0 0 -0.00084650764949528853</Inertia>
+</MassProperties>
+<GeometryFile name="20 lb Weight_Default_sldprt.STEP" type="STEP"/>
+<VisualProperties>
+<Ambient r="0.42745098039215684" g="0.44705882352941173" b="0.42745098039215684" a="1"/>
+<Diffuse r="0.42745098039215684" g="0.44705882352941173" b="0.42745098039215684" a="1"/>
+<Specular r="0.34196078940933822" g="0.35764706415288589" b="0.34196078940933822" a="1"/>
+<Emissive r="0" g="0" b="0" a="1"/>
+<Shininess>0.10000000149011612</Shininess>
+</VisualProperties>
+</Part>
+<Part name="WackyWeightBracket" uid="WackyWeightBracket*:*Default" version="121">
+<ModelUnits mass="kilogram" length="inch"/>
+<PartFile name="WackyWeightBracket.SLDPRT" type="SolidWorks Part"/>
+<MassProperties>
+<Mass>8.0357808969495768</Mass>
+<CenterOfMass>-0.045192069735533448 0.33981282507104493 0.32874464762390138</CenterOfMass>
+<Inertia>0.48886444671894963 0.21983744517276227 0.2907768703511841 0.0039938849969203298 0.0003399294002563992 0.023731963759363147</Inertia>
+</MassProperties>
+<GeometryFile name="WackyWeightBracket_Default_sldprt.STEP" type="STEP"/>
+<VisualProperties>
+<Ambient r="0.792156862745098" g="0.81960784313725488" b="0.93333333333333335" a="1"/>
+<Diffuse r="0.792156862745098" g="0.81960784313725488" b="0.93333333333333335" a="1"/>
+<Specular r="0.396078431372549" g="0.40980392156862744" b="0.46666666666666667" a="1"/>
+<Emissive r="0" g="0" b="0" a="1"/>
+<Shininess>0.3125</Shininess>
+</VisualProperties>
+</Part>
+</Parts>
+</SimscapeMultibodyImportXML>

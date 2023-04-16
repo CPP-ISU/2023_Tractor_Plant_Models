@@ -1,0 +1,371 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<SimscapeMultibodyImportXML version="2.0" xmlns="urn:mathworks:SimscapeMultibody:import" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<Created by="" on="04/15/23||13:07:23" using="Simscape Multibody Link Version 7.4" from="SolidWorks 30.5.0"/>
+<ModelUnits mass="kilogram" length="inch"/>
+<DataUnits mass="kilogram" length="meter"/>
+<RootAssembly name="Suspension_2" uid="Suspension_2" version="164">
+<AssemblyFile name="Suspension_2.SLDASM" type="SolidWorks Assembly"/>
+<InstanceTree>
+<Instance name="Upper-Cast-Assembly_sim_2-1" uid="Upper-Cast-Assembly_sim_2-1" entityUid="Upper-Cast-Assembly_sim_2*:*Default">
+<Transform>
+<Rotation>-1 5.7819944875580238e-16 -1.2222093770397519e-16 1.8482022483336287e-16 0.50241441981671175 0.86462694311491184 5.6133238339445364e-16 0.86462694311491184 -0.50241441981671175</Rotation>
+<Translation>-6.346848137876269e-16 0.15237849913207993 -0.035099161783739369</Translation>
+</Transform>
+</Instance>
+<Instance name="frame_mount_sim_2-1" uid="frame_mount_sim_2-1" entityUid="frame_mount_sim_2*:*Default">
+<Transform>
+<Rotation>1 0 0 0 1 0 0 0 1</Rotation>
+<Translation>0 0 0</Translation>
+</Transform>
+</Instance>
+<Instance name="Lower_A-Arm_Assembly_sim_3-1" uid="Lower_A-Arm_Assembly_sim_3-1" entityUid="Lower_A-Arm_Assembly_sim_3*:*Default">
+<Transform>
+<Rotation>-1 -1.4040727810251074e-15 -4.0973065462192991e-15 4.19953771256718e-16 0.91010741140675744 -0.41437241667670283 4.310798085982961e-15 -0.41437241667670283 -0.91010741140675744</Rotation>
+<Translation>0 -2.9139774256596535e-15 -0.035062160000000467</Translation>
+</Transform>
+</Instance>
+<Instance name="Sheet_Spindle_left-1" uid="Sheet_Spindle_left-1" entityUid="Sheet_Spindle_left*:*Default">
+<Transform>
+<Rotation>1 4.108469827584015e-13 2.0680848069901586e-12 -2.8574854460885918e-13 0.99819052302915123 -0.060130522488911674 -2.089047098894403e-12 0.060130522488911674 0.99819052302915123</Rotation>
+<Translation>0.010277802683438213 -0.02240876610325826 -0.19601473532497854</Translation>
+</Transform>
+</Instance>
+<Instance name="Cylinder-1" uid="Cylinder-1" entityUid="Cylinder">
+<Transform>
+<Rotation>0 0 -1 -0.14585855810170259 0.98930545385562929 0 0.98930545385562929 0.14585855810170259 0</Rotation>
+<Translation>0 0.14514999732856129 -0.10621176177218368</Translation>
+</Transform>
+<Instance name="Cylinder-1" uid="Cylinder-1" grounded="true" entityUid="Cylinder*:*Default">
+<Transform>
+<Rotation>1 0 0 0 1 0 0 0 1</Rotation>
+<Translation>0 0 0</Translation>
+</Transform>
+</Instance>
+<Instance name="Rod-1" uid="Rod-1" entityUid="Rod*:*Default">
+<Transform>
+<Rotation>-1 3.6082248300317578e-16 0 -3.6082248300317578e-16 -1 0 0 0 1</Rotation>
+<Translation>0 0.055879999999999985 0</Translation>
+</Transform>
+</Instance>
+</Instance>
+</InstanceTree>
+<Constraints>
+<Coincident name="Coincident1">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>Upper-Cast-Assembly_sim_2-1</Uid>
+</InstancePath>
+<Position>0 0 0</Position>
+<Axis>1 0 0</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>frame_mount_sim_2-1</Uid>
+</InstancePath>
+<Position>0 0 0</Position>
+<Axis>1 0 0</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Concentric name="Concentric2">
+<ConstraintGeometry geomType="cylinder">
+<InstancePath>
+<Uid>Upper-Cast-Assembly_sim_2-1</Uid>
+</InstancePath>
+<Position>-0.080962499999999507 4.2795085228211627e-05 0</Position>
+<Axis>-1 5.7047570831626981e-16 0</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="cylinder">
+<InstancePath>
+<Uid>frame_mount_sim_2-1</Uid>
+</InstancePath>
+<Position>0.080772000000000524 0.15239999999999992 -0.035062160000000564</Position>
+<Axis>-1 -1.0179494177406237e-16 0</Axis>
+</ConstraintGeometry>
+</Concentric>
+<UnknownConstraint name="Coincident3">
+<ConstraintGeometry geomType="point">
+<InstancePath>
+<Uid>frame_mount_sim_2-1</Uid>
+</InstancePath>
+<Position>0 0 0</Position>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="point">
+<InstancePath>
+<Uid>Suspension_2</Uid>
+</InstancePath>
+<Position>0 0 0</Position>
+</ConstraintGeometry>
+</UnknownConstraint>
+<Concentric name="Concentric3">
+<ConstraintGeometry geomType="sphere">
+<InstancePath>
+<Uid>Upper-Cast-Assembly_sim_2-1</Uid>
+</InstancePath>
+<Position>0 -0.16600970491477257 -0.0035250000000001391</Position>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="sphere">
+<InstancePath>
+<Uid>Sheet_Spindle_left-1</Uid>
+</InstancePath>
+<Position>-0.010277802683503912 0.089325454493639767 0.013803912294351628</Position>
+</ConstraintGeometry>
+</Concentric>
+<Concentric name="Concentric4">
+<ConstraintGeometry geomType="cylinder">
+<InstancePath>
+<Uid>frame_mount_sim_2-1</Uid>
+</InstancePath>
+<Position>0.24823604236637486 0 -0.035062160000001161</Position>
+<Axis>-1 0 3.2782175923971143e-15</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="cylinder">
+<InstancePath>
+<Uid>Lower_A-Arm_Assembly_sim_3-1</Uid>
+</InstancePath>
+<Position>0.076200000000000184 0 0</Position>
+<Axis>-1 0 -1.0927391974678301e-15</Axis>
+</ConstraintGeometry>
+</Concentric>
+<Coincident name="Coincident5">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>Lower_A-Arm_Assembly_sim_3-1</Uid>
+</InstancePath>
+<Position>0 0 0</Position>
+<Axis>1 0 0</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>Suspension_2</Uid>
+</InstancePath>
+<Position>0 0 0</Position>
+<Axis>1 0 0</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Concentric name="Concentric5">
+<ConstraintGeometry geomType="sphere">
+<InstancePath>
+<Uid>Sheet_Spindle_left-1</Uid>
+</InstancePath>
+<Position>-0.010277802683503964 -0.053825482946079889 -0.01156676120177258</Position>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="sphere">
+<InstancePath>
+<Uid>Lower_A-Arm_Assembly_sim_3-1</Uid>
+</InstancePath>
+<Position>1.0961922298936811e-13 0.0041599999952350447 0.19119850000023406</Position>
+</ConstraintGeometry>
+</Concentric>
+<Coincident name="Coincident6">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>frame_mount_sim_2-1</Uid>
+</InstancePath>
+<Position>0 0 0</Position>
+<Axis>1 0 0</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>Cylinder-1</Uid>
+</InstancePath>
+<Position>0 0 0</Position>
+<Axis>0 0 1</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Concentric name="Concentric6">
+<ConstraintGeometry geomType="cylinder">
+<InstancePath>
+<Uid>Lower_A-Arm_Assembly_sim_3-1</Uid>
+</InstancePath>
+<Position>0.014732000000000021 0.029844999997765138 0.089725500000743641</Position>
+<Axis>-1 0 -5.4397805484676575e-15</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="cylinder">
+<InstancePath>
+<Uid>Cylinder-1</Uid>
+<Uid>Rod-1</Uid>
+</InstancePath>
+<Position>0 0.21272500000000003 -0.013080999999999994</Position>
+<Axis>0 0 0.99999999999999978</Axis>
+</ConstraintGeometry>
+</Concentric>
+<Concentric name="Concentric7">
+<ConstraintGeometry geomType="circle">
+<InstancePath>
+<Uid>Cylinder-1</Uid>
+<Uid>Cylinder-1</Uid>
+</InstancePath>
+<Position>0 0.21272500000000005 -0.013080999999999997</Position>
+<Axis>0 -1.2417490880292114e-16 -1</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="circle">
+<InstancePath>
+<Uid>Suspension_2</Uid>
+</InstancePath>
+<Position>0 0.35560000000000003 -0.075184000000000001</Position>
+<Axis>1 0 0</Axis>
+</ConstraintGeometry>
+</Concentric>
+</Constraints>
+</RootAssembly>
+<Assemblies>
+<Assembly name="Cylinder" uid="Cylinder" version="121">
+<ModelUnits mass="kilogram" length="inch"/>
+<AssemblyFile name="Cylinder.SLDASM" type="SolidWorks Assembly"/>
+<Constraints>
+<Concentric name="Concentric1">
+<ConstraintGeometry geomType="cylinder">
+<InstancePath>
+<Uid>Cylinder-1</Uid>
+</InstancePath>
+<Position>0 0.180975 0</Position>
+<Axis>0 -1 0</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="cylinder">
+<InstancePath>
+<Uid>Rod-1</Uid>
+</InstancePath>
+<Position>0 0.180975 0</Position>
+<Axis>0 -1 0</Axis>
+</ConstraintGeometry>
+</Concentric>
+<Coincident name="Coincident1">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>Cylinder-1</Uid>
+</InstancePath>
+<Position>-0.012699999999999999 0.22542499999999999 0.013081000000000001</Position>
+<Axis>0 -1.6556654507056154e-16 1</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>Rod-1</Uid>
+</InstancePath>
+<Position>-0.012699999999999993 0.22542499999999999 0.013080999999999992</Position>
+<Axis>0 -1.6556654507056161e-16 0.99999999999999978</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Distance name="LimitDistance1">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>Rod-1</Uid>
+</InstancePath>
+<Position>-0.012699999999999993 0.180975 0.010540999999999971</Position>
+<Axis>0 -1 0</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>Cylinder-1</Uid>
+</InstancePath>
+<Position>0 0 0</Position>
+<Axis>0 -1 0</Axis>
+</ConstraintGeometry>
+</Distance>
+</Constraints>
+</Assembly>
+</Assemblies>
+<Parts>
+<Part name="Cylinder" uid="Cylinder*:*Default" version="132">
+<ModelUnits mass="kilogram" length="inch"/>
+<PartFile name="Cylinder.SLDPRT" type="SolidWorks Part"/>
+<MassProperties>
+<Mass>0.1895711821582246</Mass>
+<CenterOfMass>0.00024094864277398093 0.098520719975429757 -7.9241398203656783e-09</CenterOfMass>
+<Inertia>0.0006510541525214257 2.9466472638094649e-05 0.00065158275070829387 -5.7711956879672633e-11 1.1087363497076389e-11 7.6901984915618546e-08</Inertia>
+</MassProperties>
+<GeometryFile name="Cylinder_Default_sldprt.STEP" type="STEP"/>
+<VisualProperties>
+<Ambient r="0.58823529411764708" g="0.58823529411764708" b="0.63137254901960782" a="1"/>
+<Diffuse r="0.4705882352941177" g="0.4705882352941177" b="0.5050980392156863" a="1"/>
+<Specular r="0.20588235294117646" g="0.20588235294117646" b="0.22098039215686271" a="1"/>
+<Emissive r="0" g="0" b="0" a="1"/>
+<Shininess>0.3125</Shininess>
+</VisualProperties>
+</Part>
+<Part name="Lower_A-Arm_Assembly_sim_3" uid="Lower_A-Arm_Assembly_sim_3*:*Default" version="122">
+<ModelUnits mass="kilogram" length="inch"/>
+<PartFile name="Lower_A-Arm_Assembly_sim_3.SLDPRT" type="SolidWorks Part"/>
+<MassProperties>
+<Mass>1.0851466020194476</Mass>
+<CenterOfMass>4.435487676987138e-06 0.00043253944223306398 0.076288533567816924</CenterOfMass>
+<Inertia>0.0037356673755790447 0.0072607971421748668 0.0037531212943316648 -1.2563664155561512e-05 -1.905505450548149e-07 -8.9052296839531184e-08</Inertia>
+</MassProperties>
+<GeometryFile name="Lower_A-Arm_Assembly_sim_3_Default_sldprt.STEP" type="STEP"/>
+<VisualProperties>
+<Ambient r="0.792156862745098" g="0.81960784313725488" b="0.93333333333333335" a="1"/>
+<Diffuse r="0.792156862745098" g="0.81960784313725488" b="0.93333333333333335" a="1"/>
+<Specular r="0.396078431372549" g="0.40980392156862744" b="0.46666666666666667" a="1"/>
+<Emissive r="0" g="0" b="0" a="1"/>
+<Shininess>0.3125</Shininess>
+</VisualProperties>
+</Part>
+<Part name="Rod" uid="Rod*:*Default" version="143">
+<ModelUnits mass="kilogram" length="inch"/>
+<PartFile name="Rod.SLDPRT" type="SolidWorks Part"/>
+<MassProperties>
+<Mass>0.037023535349914302</Mass>
+<CenterOfMass>0 0.13139559119777156 0</CenterOfMass>
+<Inertia>0.00016705464870267478 2.5065909843207063e-06 0.00016663853040317585 0 0 0</Inertia>
+</MassProperties>
+<GeometryFile name="Rod_Default_sldprt.STEP" type="STEP"/>
+<VisualProperties>
+<Ambient r="0.792156862745098" g="0.81960784313725488" b="0.93333333333333335" a="1"/>
+<Diffuse r="0.792156862745098" g="0.81960784313725488" b="0.93333333333333335" a="1"/>
+<Specular r="0.396078431372549" g="0.40980392156862744" b="0.46666666666666667" a="1"/>
+<Emissive r="0" g="0" b="0" a="1"/>
+<Shininess>0.3125</Shininess>
+</VisualProperties>
+</Part>
+<Part name="Sheet_Spindle_left" uid="Sheet_Spindle_left*:*Default" version="120">
+<ModelUnits mass="kilogram" length="inch"/>
+<PartFile name="Sheet_Spindle_left.SLDPRT" type="SolidWorks Part"/>
+<MassProperties>
+<Mass>0.58300557343897763</Mass>
+<CenterOfMass>-0.020862020065444895 0.010879864044243296 -0.025300681899720626</CenterOfMass>
+<Inertia>0.00093932742936575486 0.00067628704570220897 0.00088717684034503395 -0.00024690919456467228 9.9520843240780962e-05 2.5024473205507244e-06</Inertia>
+</MassProperties>
+<GeometryFile name="Sheet_Spindle_left_Default_sldprt.STEP" type="STEP"/>
+<VisualProperties>
+<Ambient r="0.792156862745098" g="0.81960784313725488" b="0.93333333333333335" a="1"/>
+<Diffuse r="0.792156862745098" g="0.81960784313725488" b="0.93333333333333335" a="1"/>
+<Specular r="0.396078431372549" g="0.40980392156862744" b="0.46666666666666667" a="1"/>
+<Emissive r="0" g="0" b="0" a="1"/>
+<Shininess>0.3125</Shininess>
+</VisualProperties>
+</Part>
+<Part name="Upper-Cast-Assembly_sim_2" uid="Upper-Cast-Assembly_sim_2*:*Default" version="114">
+<ModelUnits mass="kilogram" length="inch"/>
+<PartFile name="Upper-Cast-Assembly_sim_2.SLDPRT" type="SolidWorks Part"/>
+<MassProperties>
+<Mass>0.80002954195473996</Mass>
+<CenterOfMass>9.663260865978158e-08 -0.085204774958862917 -0.00021017644462552356</CenterOfMass>
+<Inertia>0.0026811945758478083 0.0041259925784893929 0.0067223285209079631 -1.3586035768365734e-05 2.6380735933115182e-09 7.2000792895133198e-09</Inertia>
+</MassProperties>
+<GeometryFile name="Upper-Cast-Assembly_sim_2_Default_sldprt.STEP" type="STEP"/>
+<VisualProperties>
+<Ambient r="0.792156862745098" g="0.81960784313725488" b="0.93333333333333335" a="1"/>
+<Diffuse r="0.792156862745098" g="0.81960784313725488" b="0.93333333333333335" a="1"/>
+<Specular r="0.396078431372549" g="0.40980392156862744" b="0.46666666666666667" a="1"/>
+<Emissive r="0" g="0" b="0" a="1"/>
+<Shininess>0.3125</Shininess>
+</VisualProperties>
+</Part>
+<Part name="frame_mount_sim_2" uid="frame_mount_sim_2*:*Default" version="111">
+<ModelUnits mass="kilogram" length="inch"/>
+<PartFile name="frame_mount_sim_2.SLDPRT" type="SolidWorks Part"/>
+<MassProperties>
+<Mass>1.1119576988013822</Mass>
+<CenterOfMass>2.6939183639475406e-05 0.08019559463282222 -0.01366019676882098</CenterOfMass>
+<Inertia>0.0039276105341896211 0.0072349353214458904 0.010727816700310653 1.6138623987159496e-05 8.5386272650013663e-07 1.1969038527013834e-07</Inertia>
+</MassProperties>
+<GeometryFile name="frame_mount_sim_2_Default_sldprt.STEP" type="STEP"/>
+<VisualProperties>
+<Ambient r="0.792156862745098" g="0.81960784313725488" b="0.93333333333333335" a="1"/>
+<Diffuse r="0.792156862745098" g="0.81960784313725488" b="0.93333333333333335" a="1"/>
+<Specular r="0.396078431372549" g="0.40980392156862744" b="0.46666666666666667" a="1"/>
+<Emissive r="0" g="0" b="0" a="1"/>
+<Shininess>0.3125</Shininess>
+</VisualProperties>
+</Part>
+</Parts>
+</SimscapeMultibodyImportXML>

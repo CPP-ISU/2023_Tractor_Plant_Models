@@ -1,0 +1,4 @@
+Constrained Instances: 'frame_mount_sim_2-1', 'Suspension_2'
+Constraint Name: Coincident3
+Error Details: Constraint is not supported. The constraint has been exported as unknown constraint.
+---------------------------------------------------------------------------------
